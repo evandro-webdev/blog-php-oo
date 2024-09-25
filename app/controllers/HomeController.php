@@ -2,6 +2,8 @@
 
 namespace app\controllers;
 
+use app\database\Connection;
+
 class HomeController extends Controller
 {
   public function index()

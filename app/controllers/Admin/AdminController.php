@@ -2,10 +2,12 @@
 
 namespace app\controllers\Admin;
 
-class AdminController
+use app\controllers\Controller;
+
+class AdminController extends Controller
 {
   public function index()
   {
-    var_dump('dashboard');
+    $this->view('admin', ["title" => "Painel Administrativo"]);
   }
 }
