@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\database\Connection;
+use app\support\Slugify;
 
 class HomeController extends Controller
 {

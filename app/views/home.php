@@ -1,6 +1,5 @@
 <?php $this->layout('master', ['title' => $title]) ?>
 
-
 <header id="header" class="header">
   <div class="header-container">
     <div class="left-colum">
@@ -382,37 +381,37 @@
 
 <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
 <script>
-AOS.init((duration = 3000));
+  AOS.init((duration = 3000));
 </script>
 
 <script>
-const footerYear = document.querySelector("#footer-year");
+  const footerYear = document.querySelector("#footer-year");
 
-footerYear.innerText = new Date().getFullYear();
+  footerYear.innerText = new Date().getFullYear();
 </script>
 
 <script>
-let lastScrollTop = 0;
-const header = document.getElementById("header");
-const menuBtn = document.getElementById("menu-bar");
+  let lastScrollTop = 0;
+  const header = document.getElementById("header");
+  const menuBtn = document.getElementById("menu-bar");
 
-window.addEventListener("scroll", function() {
-  let scrollTop =
-    window.pageYOffset || document.documentElement.scrollTop;
+  window.addEventListener("scroll", function() {
+    let scrollTop =
+      window.pageYOffset || document.documentElement.scrollTop;
 
-  if (scrollTop > lastScrollTop) {
-    menuBtn.checked = false;
-    header.classList.add("hidden");
-    if (scrollTop > 0) {
-      header.classList.add("header-white-bg");
+    if (scrollTop > lastScrollTop) {
+      menuBtn.checked = false;
+      header.classList.add("hidden");
+      if (scrollTop > 0) {
+        header.classList.add("header-white-bg");
+      }
+    } else {
+      header.classList.remove("hidden");
+      if (scrollTop === 0) {
+        header.classList.remove("header-white-bg");
+      }
     }
-  } else {
-    header.classList.remove("hidden");
-    if (scrollTop === 0) {
-      header.classList.remove("header-white-bg");
-    }
-  }
 
-  lastScrollTop = scrollTop;
-});
+    lastScrollTop = scrollTop;
+  });
 </script>
