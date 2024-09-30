@@ -55,7 +55,26 @@ abstract class Model
     }
   }
 
-  public function update(array $data, string $id) {}
+  public function update(string $id, array $data)
+  {
+    try {
+      $sql = "UPDATE $this->table SET ";
+
+      foreach ($data as $key => $value) {
+        $sql .= "$key = :$key,";
+      }
+
+      $sql = rtrim($sql, ",");
+      $sql .= " WHERE id = :id";
+      $data['id'] = $id;
+
+      $connection = Connection::connect();
+      $prepare = $connection->prepare($sql);
+      return $prepare->execute($data);
+    } catch (PDOException $e) {
+      dd($e->getMessage());
+    }
+  }
 
   public function delete(string $id)
   {

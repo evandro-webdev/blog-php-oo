@@ -3,9 +3,10 @@
 namespace app\controllers\Admin;
 
 use app\controllers\Controller;
-use app\database\models\Post;
 use app\library\Request;
 use app\support\Slugify;
+use app\database\models\Post;
+use app\database\models\Category;
 
 class AdminController extends Controller
 {
@@ -18,7 +19,9 @@ class AdminController extends Controller
 
   public function create()
   {
-    $this->view('admin/blog/create', ["title" => "Publicar novo post"]);
+    $category = new Category;
+    $categories = $category->all();
+    $this->view('admin/blog/create', ["title" => "Publicar novo post", "action" => "/admin/posts", "categories" => $categories]);
   }
 
   public function store()
@@ -31,8 +34,28 @@ class AdminController extends Controller
       header('location: /admin');
     }
   }
-  public function edit() {}
-  public function update() {}
+  public function edit($id)
+  {
+    $post = new Post;
+    $foundPost = $post->findBy('id', $id);
+    $category = new Category;
+    $categories = $category->all();
+
+    $this->view('admin/blog/edit', ["title" => "Editar post", "action" => "/admin/posts/", "post" => $foundPost, "categories" => $categories]);
+  }
+
+  public function update($id)
+  {
+    $data = Request::all();
+    $data['slug'] = Slugify::slugify($data['title']);
+    $post = new Post;
+    $updatedPost = $post->update($id, $data);
+
+    if ($updatedPost) {
+      header('location: /admin');
+    }
+  }
+
   public function delete($id)
   {
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['_method']) && $_POST['_method'] === 'DELETE') {
