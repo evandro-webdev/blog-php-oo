@@ -1,6 +1,7 @@
 <?php
 
 try {
+  $router->add('/', 'GET', 'HomeController:index');
   $router->group(['prefix' => 'admin', 'controller' => 'admin', 'middlewares' => ['auth']], function () {
     $this->add('/', 'GET', 'AdminController:index');
     $this->add('/posts/create', 'GET', 'AdminController:create');
@@ -11,10 +12,9 @@ try {
   });
   $router->group(['prefix' => 'blog', 'controller' => 'blog'], function () {
     $this->add('/', 'GET', 'BlogController:index');
-    $this->add('/post/(:any)', 'GET', 'BlogController:show', ['slug']);
+    $this->add('/(:any)', 'GET', 'BlogController:show', ['slug']);
+    $this->add('/categoria/(:any)', 'GET', 'BlogController:show', ['slug']);
   });
-  $router->add('/', 'GET', 'HomeController:index');
-  $router->add('/product/(:alpha)', 'GET', 'ProductController:show')->options(['prefix' => 'site', 'controller' => 'site', 'middlewares' => []]);
   $router->init();
 } catch (\Exception $e) {
   dd($e->getMessage() . ' ' . $e->getFile() . ' ' . $e->getLine());

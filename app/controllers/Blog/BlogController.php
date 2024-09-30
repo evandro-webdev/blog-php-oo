@@ -2,8 +2,9 @@
 
 namespace app\controllers\Blog;
 
-use app\controllers\Controller;
 use app\database\models\Post;
+use app\controllers\Controller;
+use app\database\models\Category;
 
 class BlogController extends Controller
 {
@@ -11,7 +12,9 @@ class BlogController extends Controller
   {
     $post = new Post;
     $posts = $post->all();
-    $this->view('blog/posts', ['title' => 'Postagens recentes', 'posts' => $posts]);
+    $category = new Category;
+    $categories = $category->all();
+    $this->view('blog/posts', ['title' => 'Postagens recentes', 'posts' => $posts, 'categories' => $categories]);
   }
 
   public function show($slug)

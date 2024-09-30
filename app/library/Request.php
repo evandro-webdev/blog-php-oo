@@ -53,4 +53,13 @@ class Request
 
     return $arr;
   }
+
+  public static function query($name)
+  {
+    if (!isset($_GET[$name])) {
+      throw new Exception("A query string $name não existe");
+    }
+
+    return $_GET[$name];
+  }
 }

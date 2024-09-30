@@ -1,8 +1,23 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap");
+
+body,
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+
+  font-family: "Poppins", sans-serif;
+}
+
 body {
   min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+a {
+  text-decoration: none;
 }
 
 .create-form {
@@ -55,41 +70,82 @@ button {
   cursor: pointer;
 }
 
-.post-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 20px;
+.content {
+  display: flex;
 }
 
-.post {
+/* Sidebar */
+.sidebar {
+  flex: 1;
   padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: #f7f7f7;
+  border-radius: 10px;
 }
 
-.post-title {
-  font-size: 24px;
-  font-weight: bold;
-  color: #1f1f1f;
+.sidebar h2 {
+  font-size: 20px;
+  color: #333;
+  margin-bottom: 15px;
 }
 
-.post-content {
+.sidebar ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.sidebar ul li {
+  margin-bottom: 10px;
+}
+
+.sidebar ul li a {
+  text-decoration: none;
+  color: #366aa1;
   font-size: 16px;
-  line-height: 1.5;
-  margin: 8px 0;
-  color: #2b2b2b;
 }
 
-.post-date {
-  color: #888;
+.sidebar ul li a:hover {
+  color: #0056b3;
+}
+
+/* Post List */
+.post-list {
+  flex: 3;
+  padding: 20px;
+}
+
+.post-card {
+  display: flex;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  background-color: #fff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.post-info {
+  margin-left: 15px;
+}
+
+.post-info .category {
   font-size: 14px;
-  margin-bottom: 16px;
+  color: #888;
 }
 
-.post-link {
-  font-weight: 500;
-  color: #4c77af;
+.post-info .title {
+  font-size: 20px;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.post-info .meta {
+  font-size: 14px;
+  color: #666;
+}
+
+.post-info .meta span {
+  margin-right: 10px;
 }
 
 /* DASHBOARD */
@@ -128,10 +184,6 @@ h1 {
 
 .btn-new-post:hover {
   background-color: #45a049;
-}
-
-main {
-  margin-top: 20px;
 }
 
 h2 {

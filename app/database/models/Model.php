@@ -88,4 +88,18 @@ abstract class Model
       dd($e->getMessage());
     }
   }
+
+  public function count()
+  {
+    try {
+      $sql = "SELECT $this->fields FROM $this->table";
+
+      $connection = Connection::connect();
+      $prepare = $connection->prepare($sql);
+      $prepare->execute();
+      return $prepare->rowCount();
+    } catch (PDOException $e) {
+      dd($e->getMessage());
+    }
+  }
 }

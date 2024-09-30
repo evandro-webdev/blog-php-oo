@@ -1,5 +1,9 @@
 <?php $this->layout('master', ['title' => $title]) ?>
 
+<?php $this->start('main-styles') ?>
+<link rel="stylesheet" href="/css/main.css" />
+<?php $this->stop() ?>
+
 <header id="header" class="header">
   <div class="header-container">
     <div class="left-colum">
