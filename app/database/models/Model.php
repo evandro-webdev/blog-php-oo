@@ -5,25 +5,31 @@ namespace app\database\models;
 use PDO;
 use PDOException;
 use app\database\Connection;
+use app\database\Filters;
 
 abstract class Model
 {
   protected string $table;
   private string $fields = '*';
+  private ?Filters $filters = null;
 
   public function setFields(string $fields)
   {
     $this->fields = $fields;
   }
 
+  public function setFilters(Filters $filters)
+  {
+    $this->filters = $filters;
+  }
+
   public function all()
   {
     try {
-      $sql = "SELECT $this->fields FROM $this->table";
-
+      $sql = "SELECT $this->fields FROM $this->table {$this->filters?->dump()}";
       $connection = Connection::connect();
       $prepare = $connection->prepare($sql);
-      $prepare->execute();
+      $prepare->execute($this->filters ? $this->filters->getBind() : []);
       return $prepare->fetchAll(PDO::FETCH_CLASS);
     } catch (PDOException $e) {
       dd($e->getMessage());
