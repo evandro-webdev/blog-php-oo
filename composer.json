@@ -5,7 +5,8 @@
       "app\\": "app/"
     },
     "files":[
-      "app/helpers/formatDate.php"
+      "app/helpers/formatDate.php",
+      "app/helpers/flash.php"
     ]
   },
   "authors": [

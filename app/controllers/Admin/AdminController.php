@@ -7,6 +7,7 @@ use app\library\Request;
 use app\support\Slugify;
 use app\database\models\Post;
 use app\database\models\Category;
+use app\support\Flash;
 use app\support\Validation;
 
 class AdminController extends Controller
@@ -27,8 +28,6 @@ class AdminController extends Controller
 
   public function store()
   {
-    $data = Request::all();
-    $data['slug'] = Slugify::slugify($data['title']);
 
     $validation = new Validation;
     $validated = $validation->validate([
@@ -41,8 +40,12 @@ class AdminController extends Controller
       header('location: /admin/posts/create');
     }
 
+    $validated['slug'] = Slugify::slugify($validated['title']);
+
+    Flash::set('post-created', 'O post foi criado com sucesso');
     $post = new Post;
     $post = $post->create($validated);
+    header('location: /admin');
   }
 
   public function edit($id)
