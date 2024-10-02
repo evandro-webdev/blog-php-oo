@@ -7,6 +7,7 @@ use app\library\Request;
 use app\support\Slugify;
 use app\database\models\Post;
 use app\database\models\Category;
+use app\support\Validation;
 
 class AdminController extends Controller
 {
@@ -28,12 +29,22 @@ class AdminController extends Controller
   {
     $data = Request::all();
     $data['slug'] = Slugify::slugify($data['title']);
-    $post = new Post;
-    $post = $post->create($data);
-    if ($post) {
-      header('location: /admin');
+
+    $validation = new Validation;
+    $validated = $validation->validate([
+      "title" => "required|maxLen:255",
+      "content" => "required",
+      "categoryId" => "required"
+    ]);
+
+    if (!$validated) {
+      header('location: /admin/posts/create');
     }
+
+    $post = new Post;
+    $post = $post->create($validated);
   }
+
   public function edit($id)
   {
     $post = new Post;

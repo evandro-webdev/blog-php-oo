@@ -109,6 +109,8 @@ button {
 
 /* Post List */
 .post-list {
+  max-height: 580px;
+  overflow-y: scroll;
   flex: 3;
   padding: 20px;
 }
@@ -144,19 +146,17 @@ button {
   color: #666;
 }
 
-.post-info .meta span {
-  margin-right: 10px;
-}
-
 /* DASHBOARD */
 
 .container {
   max-width: 900px;
+  overflow-y: hidden;
   margin: 0 auto;
   background-color: #fff;
   border-radius: 5px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   padding: 20px;
+  flex-grow: 1;
 }
 
 header {

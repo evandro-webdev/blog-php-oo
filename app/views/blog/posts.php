@@ -15,25 +15,26 @@ $this->layout('master', ['title' => $title]); ?>
     <aside class="sidebar">
       <h2>Categorias</h2>
       <ul>
+        <li><a href="/blog">Todos</a></li>
         <?php foreach ($categories as $category) { ?>
-          <li><a href="/blog/categoria/<?php echo $category->slug ?>"><?php echo $category->title ?></a></li>
+        <li><a href="/blog/categoria/<?php echo $category->slug ?>"><?php echo $category->title ?></a></li>
         <?php } ?>
       </ul>
     </aside>
 
     <main class="post-list">
       <?php foreach ($posts as $post) { ?>
-        <div class="post-card">
-          <div class="post-info">
-            <span class="category"><?php echo "Categoria" ?></span>
-            <a href="/blog/<?php echo $post->slug ?>">
-              <h3 class="title"><?php echo $post->title ?></h3>
-            </a>
-            <div class="meta">
-              <span>Por Dr. João</span> | <span><?php echo formatDate($post->created_at) ?></span>
-            </div>
+      <div class="post-card">
+        <div class="post-info">
+          <span class="category">Categoria</span>
+          <a href="/blog/<?php echo $post->slug ?>">
+            <h3 class="title"><?php echo $post->post_title ?></h3>
+          </a>
+          <div class="meta">
+            <span>Por Dr. João</span> | <span><?php echo formatDate($post->created_at) ?></span>
           </div>
         </div>
+      </div>
       <?php } ?>
     </main>
   </div>

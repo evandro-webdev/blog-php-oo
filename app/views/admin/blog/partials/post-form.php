@@ -7,8 +7,8 @@
 
   <div class="form-group">
     <label for="content">Conteúdo:</label>
-    <textarea id="content" name="content" rows="5" placeholder="Conteúdo do post"
-      required><?php echo $post->content ?? '' ?></textarea>
+    <textarea id="content" name="content" rows="5"
+      placeholder="Conteúdo do post"><?php echo $post->content ?? '' ?></textarea>
   </div>
 
   <div class="form-group">
@@ -16,9 +16,9 @@
     <select id="category" name="categoryId">
       <option value="">Selecione uma categoria</option>
       <?php foreach ($categories as $category) { ?>
-        <option <?php echo isset($post->categoryId) && $post->categoryId == $category->id ? "selected" : "" ?>
-          value="<?php echo $category->id ?>">
-          <?php echo $category->title ?></option>
+      <option <?php echo isset($post->categoryId) && $post->categoryId == $category->id ? "selected" : "" ?>
+        value="<?php echo $category->id ?>">
+        <?php echo $category->title ?></option>
       <?php } ?>
     </select>
   </div>

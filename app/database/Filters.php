@@ -25,7 +25,7 @@ class Filters
 
     $fieldBind = str_contains($field, '.') ? str_replace('.', '', $field) : $field;
     $this->filters['where'][] = "$field $operator :$fieldBind $logic";
-    $this->binds[$fieldBind] = trim($value);
+    $this->binds[$fieldBind] = trim($value, "'");
   }
 
   public function join(string $foreignTable, string $joinTable1, string $operator, string $joinTable2, string $joinType = 'INNER JOIN')
@@ -38,10 +38,22 @@ class Filters
     return $this->binds;
   }
 
+  public function limit(int $limit)
+  {
+    $this->filters['limit'][] = " LIMIT $limit";
+  }
+
+  public function orderBy(string $field, string $order = 'ASC')
+  {
+    $this->filters['order'][] = " ORDER BY $field $order";
+  }
+
   public function dump()
   {
     $filter = !empty($this->filters['join']) ? implode('', $this->filters['join']) : '';
     $filter .= !empty($this->filters['where']) ? ' WHERE ' . implode('', $this->filters['where']) : '';
+    $filter .= $this->filters['order'] ?? '';
+    $filter .= $this->filters['limit'] ?? '';
 
     return $filter;
   }

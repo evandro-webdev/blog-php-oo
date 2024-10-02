@@ -13,7 +13,7 @@ try {
   $router->group(['prefix' => 'blog', 'controller' => 'blog'], function () {
     $this->add('/', 'GET', 'BlogController:index');
     $this->add('/(:any)', 'GET', 'BlogController:show', ['slug']);
-    $this->add('/categoria/(:any)', 'GET', 'BlogController:getByCategory', ['slug']);
+    $this->add('/categoria/(:any)', 'GET', 'BlogController:postsByCategory', ['slug']);
   });
   $router->init();
 } catch (\Exception $e) {
