@@ -13,7 +13,7 @@
 </head>
 
 <body>
-  <!-- <?php echo $this->insert('./partials/header') ?> -->
+  <?php echo $this->insert('./partials/header') ?>
   <?php echo $this->section('content') ?>
   <!-- <?php echo $this->insert('./partials/footer') ?> -->
 </body>

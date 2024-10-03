@@ -3,10 +3,9 @@
 namespace app\controllers\Admin;
 
 use app\controllers\Controller;
-use app\library\Request;
-use app\support\Slugify;
 use app\database\models\Post;
 use app\database\models\Category;
+use app\support\Slugify;
 use app\support\Flash;
 use app\support\Validation;
 
@@ -28,7 +27,6 @@ class AdminController extends Controller
 
   public function store()
   {
-
     $validation = new Validation;
     $validated = $validation->validate([
       "title" => "required|maxLen:255",
@@ -42,9 +40,9 @@ class AdminController extends Controller
 
     $validated['slug'] = Slugify::slugify($validated['title']);
 
-    Flash::set('post-created', 'O post foi criado com sucesso');
     $post = new Post;
-    $post = $post->create($validated);
+    $post->create($validated);
+    Flash::set('post-created', 'O post foi criado com sucesso');
     header('location: /admin');
   }
 
@@ -60,14 +58,23 @@ class AdminController extends Controller
 
   public function update($id)
   {
-    $data = Request::all();
-    $data['slug'] = Slugify::slugify($data['title']);
-    $post = new Post;
-    $updatedPost = $post->update($id, $data);
+    $validation = new Validation;
+    $validated = $validation->validate([
+      "title" => "required|maxLen:255",
+      "content" => "required",
+      "categoryId" => "required"
+    ]);
 
-    if ($updatedPost) {
-      header('location: /admin');
+    if (!$validated) {
+      header('location: /admin/posts/create');
     }
+
+    $validated['slug'] = Slugify::slugify($validated['title']);
+
+    $post = new Post;
+    $post->update($id, $validated);
+    Flash::set('post-created', 'O post foi atualizado com sucesso');
+    header('location: /admin');
   }
 
   public function delete($id)
@@ -76,6 +83,7 @@ class AdminController extends Controller
       $post = new Post;
       $deletedPost = $post->delete($id);
       if ($deletedPost) {
+        Flash::set('post-deleted', 'O post foi deletado com sucesso');
         header('location: /admin');
       }
     }
