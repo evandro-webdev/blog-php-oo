@@ -11,7 +11,6 @@ trait Validations
   public function required($field)
   {
     $data = Request::input($field);
-
     if (empty($data)) {
       Flash::set($field, 'O campo acima é obrigatório.');
       return null;

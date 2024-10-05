@@ -3,7 +3,7 @@
 try {
   $router->add('/', 'GET', 'HomeController:index');
 
-  $router->group(['prefix' => 'admin', 'controller' => 'admin', 'middlewares' => ['auth']], function () {
+  $router->group(['prefix' => 'admin', 'controller' => 'admin', 'middlewares' => ['admin']], function () {
     $this->add('/', 'GET', 'AdminController:index');
     $this->add('/posts/create', 'GET', 'AdminController:create');
     $this->add('/posts', 'POST', 'AdminController:store');
@@ -20,8 +20,10 @@ try {
 
   $router->group(['prefix' => 'auth', 'controller' => 'auth'], function () {
     $this->add('/login', 'GET', 'AuthController:loginForm');
+    $this->add('/login', 'POST', 'AuthController:login');
     $this->add('/register', 'GET', 'AuthController:registerForm');
     $this->add('/register', 'POST', 'AuthController:register');
+    $this->add('/logout', 'POST', 'AuthController:logout');
   });
 
   $router->init();

@@ -2,9 +2,9 @@
 
 namespace app\enums;
 
-use app\middlewares\Auth;
+use app\middlewares\Admin;
 
 enum RouteMiddlewares: string
 {
-  case auth = Auth::class;
+  case admin = Admin::class;
 }

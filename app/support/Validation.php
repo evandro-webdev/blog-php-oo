@@ -60,6 +60,7 @@ class Validation
         break;
       }
     }
+    // dd($inputValidation);
 
     return $inputValidation[$field];
   }
