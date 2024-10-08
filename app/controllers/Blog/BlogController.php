@@ -11,18 +11,22 @@ class BlogController extends Controller
 {
   public function index()
   {
+    $filter = new Filters;
+    $filter->join('categories', 'posts.categoryId', '=', 'categories.id');
+
     $post = new Post;
-    $post->setFields("title as post_title, slug, created_at");
-    $posts = $post->all();
-    $category = new Category;
-    $categories = $category->all();
+    $posts = $post->setFields("posts.title as post_title, posts.slug, posts.created_at, categories.title as category_title")
+      ->setFilters($filter)
+      ->all();
+
+    $categories = (new Category)->all();
+
     $this->view('blog/posts', ['title' => 'Postagens recentes', 'posts' => $posts, 'categories' => $categories]);
   }
 
   public function show($slug)
   {
-    $post = new Post;
-    $foundPost = $post->findBy('slug', $slug);
+    $foundPost = (new Post)->findBy('slug', $slug);
     $this->view('blog/post', ['title' => 'Post', 'post' => $foundPost]);
   }
 
@@ -30,11 +34,11 @@ class BlogController extends Controller
   {
     $filter = $this->filterCategory($slug);
     $post = new Post;
-    $post->setFields("posts.slug, posts.title as post_title, posts.created_at, categories.title as category_title");
-    $post->setFilters($filter);
-    $posts = $post->all();
-    $category = new Category;
-    $categories = $category->all();
+    $posts = $post->setFields("posts.slug, posts.title as post_title, posts.created_at, categories.title as category_title")
+      ->setFilters($filter)
+      ->all();
+
+    $categories = (new Category)->all();
 
     $this->view('blog/posts', ['title' => 'Postagens recentes', 'posts' => $posts, 'categories' => $categories]);
   }

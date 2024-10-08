@@ -35,6 +35,7 @@ unset($_SESSION['user_data']);
     <input type="password" id="confirmPassword" name="confirmPassword"
       value="<?php echo $user->confirmPassword ?? '' ?>" placeholder="Confirme sua senha">
     <?php echo flash('confirmPassword', 'msg msg-failed mt') ?>
+    <?php echo flash('register-error', 'msg msg-failed mt') ?>
   </div>
 
   <button type="submit">Registrar</button>

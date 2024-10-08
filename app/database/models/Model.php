@@ -16,11 +16,13 @@ abstract class Model
   public function setFields(string $fields)
   {
     $this->fields = $fields;
+    return $this;
   }
 
   public function setFilters(Filters $filters)
   {
     $this->filters = $filters;
+    return $this;
   }
 
   public function all()

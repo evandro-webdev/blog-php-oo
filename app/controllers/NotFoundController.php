@@ -2,10 +2,10 @@
 
 namespace app\controllers;
 
-class NotFoundController
+class NotFoundController extends Controller
 {
   public function index()
   {
-    var_dump('Não encontrado');
+    $this->view('errors/notfound', ['title' => 'Página não encontrada']);
   }
 }

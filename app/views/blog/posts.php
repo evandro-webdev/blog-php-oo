@@ -6,6 +6,9 @@ $this->layout('master', ['title' => $title]); ?>
 <link rel="stylesheet" href="/css/temporary-styles.css" />
 <?php $this->stop() ?>
 
+<?php echo flash('user-created', 'flash-message') ?>
+<?php echo flash('login-success', 'flash-message') ?>
+
 <div class="container">
   <header>
     <h1>Blog de Odontologia</h1>
@@ -26,7 +29,7 @@ $this->layout('master', ['title' => $title]); ?>
       <?php foreach ($posts as $post) { ?>
       <div class="post-card">
         <div class="post-info">
-          <span class="category">Categoria</span>
+          <span class="category"><?php echo $post->category_title ?></span>
           <a href="/blog/<?php echo $post->slug ?>">
             <h3 class="title"><?php echo $post->post_title ?></h3>
           </a>

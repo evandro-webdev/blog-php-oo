@@ -15,7 +15,18 @@
 <body>
   <?php echo $this->insert('./partials/header') ?>
   <?php echo $this->section('content') ?>
-  <!-- <?php echo $this->insert('./partials/footer') ?> -->
+  <?php echo $this->insert('./partials/footer') ?>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      setTimeout(function() {
+        var flashMessage = document.querySelector('.flash-message');
+        if (flashMessage) {
+          flashMessage.classList.add('hide');
+        }
+      }, 5000);
+    });
+  </script>
 </body>
 
 </html>

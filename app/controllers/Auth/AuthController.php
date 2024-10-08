@@ -25,30 +25,24 @@ class AuthController extends Controller
     ]);
 
     if (!$validated) {
-      $_SESSION['user_data'] = Request::all();
-      header('location: /auth/login');
-      return;
+      return $this->redirectBackWithData('/auth/login');
     }
 
-    $user = new User;
-    $userFound = $user->findBy('email', $validated['email']);
+    $user = (new User)->findBy('email', $validated['email']);
 
-    if (!$userFound) {
-      $_SESSION['user_data'] = Request::all();
-      Flash::set('login-error', 'Esse email não está cadastrado em nosso site.');
-      header('location: /auth/login');
-      return;
+    if (!$user || !password_verify($validated['password'], $user->password)) {
+      Flash::set('login-error', 'Email ou senha incorretos.');
+      return $this->redirectBackWithData('/auth/login');
     }
 
-    if ($validated['password'] !== $userFound->password) {
-      Flash::set('login-error', 'Senha incorreta');
-      header('location: /auth/login');
-      return;
+    Auth::login($user);
+    Flash::set('login-success', "Bem vindo, $user->name!");
+
+    if ($user->is_admin) {
+      return header('location: /admin');
     }
 
-    Auth::login($userFound);
-    header('location: /blog');
-    return;
+    return header('location: /blog');
   }
 
   public function registerForm()
@@ -62,28 +56,40 @@ class AuthController extends Controller
     $validated = $validation->validate([
       'name' => 'required',
       'email' => 'required|email|unique:' . User::class,
-      'password' => 'required|maxLen:8|minLen:4',
+      'password' => 'required|maxLen:16|minLen:6',
       'confirmPassword' => 'required|matches:password'
     ]);
 
     if (!$validated) {
-      $_SESSION['user_data'] = Request::all();
-      header('location: /auth/register');
-      return;
+      return $this->redirectBackWithData('/auth/register');
     }
 
     unset($validated['confirmPassword']);
+    $validated['password'] = password_hash($validated['password'], PASSWORD_DEFAULT);
+
     $user = new User;
     $user->create($validated);
+    $createdUser = $user->findBy('email', $validated['email']);
+
+    if (!$createdUser) {
+      Flash::set('register-error', 'Ocorreu um erro ao criar sua conta. Tente novamente.');
+      return $this->redirectBackWithData('/auth/register');
+    }
+
+    Auth::login($createdUser);
     Flash::set('user-created', 'Conta criada com sucesso');
-    header('location: /blog');
-    return;
+    return header('location: /blog');
   }
 
   public function logout()
   {
     Auth::logout();
-    header('location: /blog');
-    return;
+    return header('location: /blog');
+  }
+
+  private function redirectBackWithData($url)
+  {
+    $_SESSION['user_data'] = Request::all();
+    return header("location: $url");
   }
 }

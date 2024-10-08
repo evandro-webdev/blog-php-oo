@@ -18,8 +18,10 @@ unset($_SESSION['user_data']);
 
   <div class="form-group">
     <label for="password">Senha:</label>
-    <input type="password" id="password" name="password" placeholder="Digite sua senha">
+    <input type="password" id="password" name="password" value="<?php echo $user->password ?? '' ?>"
+      placeholder="Digite sua senha">
     <?php echo flash('password', 'msg msg-failed mt') ?>
+    <?php echo flash('login-error', 'msg msg-failed mt mb') ?>
   </div>
 
   <button type="submit">Entrar</button>

@@ -13,7 +13,6 @@ class Auth
 
   public static function isAdmin()
   {
-    // dd($_SESSION['auth']);
     return isset($_SESSION['auth']) && $_SESSION['auth']->is_admin;
   }
 
