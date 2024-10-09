@@ -16,6 +16,7 @@ try {
     $this->add('/', 'GET', 'BlogController:index');
     $this->add('/(:any)', 'GET', 'BlogController:show', ['slug']);
     $this->add('/categoria/(:any)', 'GET', 'BlogController:postsByCategory', ['slug']);
+    $this->add('/comment', 'POST', 'CommentController:create');
   });
 
   $router->group(['prefix' => 'auth', 'controller' => 'auth'], function () {

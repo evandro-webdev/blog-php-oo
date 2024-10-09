@@ -39,7 +39,7 @@ abstract class Model
   }
 
   public function findBy(string $field, string $value)
-  {
+  { // ARRUMARRRRRR
     $sql = "SELECT $this->fields FROM $this->table WHERE $field = :$field";
 
     $connection = Connection::connect();

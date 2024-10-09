@@ -30,7 +30,7 @@ class Filters
 
   public function join(string $foreignTable, string $joinTable1, string $operator, string $joinTable2, string $joinType = 'INNER JOIN')
   {
-    $this->filters['join'][] = "$joinType $foreignTable ON $joinTable1 $operator $joinTable2";
+    $this->filters['join'][] = " $joinType $foreignTable ON $joinTable1 $operator $joinTable2 ";
   }
 
   public function getBind()
@@ -40,12 +40,12 @@ class Filters
 
   public function limit(int $limit)
   {
-    $this->filters['limit'][] = " LIMIT $limit";
+    $this->filters['limit'] = " LIMIT $limit";
   }
 
   public function orderBy(string $field, string $order = 'ASC')
   {
-    $this->filters['order'][] = " ORDER BY $field $order";
+    $this->filters['order'] = " ORDER BY $field $order ";
   }
 
   public function dump()
