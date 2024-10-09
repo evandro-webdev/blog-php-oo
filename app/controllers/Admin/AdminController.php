@@ -39,9 +39,9 @@ class AdminController extends Controller
     }
 
     $validated['slug'] = Slugify::slugify($validated['title']);
+    $validated['userId'] = $_SESSION['auth']->id;
 
-    $post = new Post;
-    $post->create($validated);
+    (new Post)->create($validated);
     Flash::set('post-created', 'O post foi criado com sucesso');
     header('location: /admin');
   }

@@ -26,8 +26,14 @@ class BlogController extends Controller
 
   public function show($slug)
   {
-    $foundPost = (new Post)->findBy('slug', $slug);
-    $this->view('blog/post', ['title' => 'Post', 'post' => $foundPost]);
+    $filter = new Filters;
+    $filter->join('categories', 'posts.categoryId', '=', 'categories.id');
+    $filter->where('posts.slug', '=', $slug);
+    $foundPost = (new Post)->setFields("posts.title, posts.slug, content, posts.created_at, categories.title as category_title")
+      ->setFilters($filter)
+      ->all();
+
+    $this->view('blog/post', ['title' => 'Post', 'post' => $foundPost[0]]);
   }
 
   public function postsByCategory($slug)

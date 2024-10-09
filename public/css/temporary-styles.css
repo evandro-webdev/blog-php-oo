@@ -20,8 +20,9 @@ a {
 }
 
 .blog-header {
-  background-color: #4c77af;
   padding: 20px 7%;
+  margin-bottom: 0;
+  background-color: #4c77af;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -111,7 +112,7 @@ a {
 .sidebar {
   flex: 1;
   padding: 20px;
-  background-color: #f7f7f7;
+  background-color: #f8f8f8;
   border-radius: 10px;
 }
 
@@ -177,12 +178,14 @@ a {
 
 .container {
   max-width: 900px;
+  width: 100%;
+  padding: 20px;
   margin: 60px auto;
-  overflow-y: hidden;
   border-radius: 5px;
   border: 1px solid #e2e2e2;
+
   background-color: #fff;
-  padding: 20px;
+  overflow-y: hidden;
   flex-grow: 1;
 }
 
@@ -268,11 +271,14 @@ h2 {
   background-color: #d32f2f;
 }
 
+.form-container {
+  flex-shrink: 0;
+  flex-grow: 1;
+}
+
 .form {
   max-width: 600px;
-  min-height: 300px;
-  flex: 1;
-  margin: 0 auto;
+  margin: auto;
   padding: 20px;
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -415,6 +421,62 @@ button {
 .post-not-found-link {
   color: #007bff;
   text-decoration: none;
+}
+
+.single-post {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  flex-grow: 1;
+}
+
+.post-header {
+  margin-bottom: 20px;
+}
+
+.post-category {
+  font-size: 0.9rem;
+  color: #0073e6;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.post-title {
+  font-size: 2rem;
+  margin: 10px 0;
+  color: #333;
+}
+
+.post-meta {
+  font-size: 0.9rem;
+  color: #777;
+}
+
+.post-content {
+  font-size: 1.2rem;
+  line-height: 1.8;
+  color: #444;
+}
+
+.post-footer {
+  margin-top: 30px;
+  background: none;
+}
+
+.share-links {
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.share-links a {
+  color: #0073e6;
+  text-decoration: none;
+}
+
+.share-links a:hover {
+  text-decoration: underline;
 }
 
 footer {
