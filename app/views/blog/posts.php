@@ -31,7 +31,7 @@ $this->layout('master', ['title' => $title]); ?>
         <div class="post-info">
           <span class="category"><?php echo $post->category_title ?></span>
           <a href="/blog/<?php echo $post->slug ?>">
-            <h3 class="title"><?php echo $post->post_title ?></h3>
+            <h3 class="title"><?php echo $post->title ?></h3>
           </a>
           <div class="meta">
             <span>Por <?php echo $post->author ?></span> | <span><?php echo formatDate($post->created_at) ?></span>

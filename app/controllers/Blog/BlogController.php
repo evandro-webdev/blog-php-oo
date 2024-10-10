@@ -10,30 +10,17 @@ use app\database\models\Comment;
 
 class BlogController extends Controller
 {
-  public function index()
+  // ADICIONAR NUMERO DE COMENTÁRIOS NO CARD
+  public function index($slug = null)
   {
     $filter = $this->baseFilter()->orderBy('created_at', 'DESC');
 
-    $posts = (new Post)
-      ->setFields("posts.title as post_title, posts.slug, posts.created_at, categories.title as category_title, users.name as author")
-      ->setFilters($filter)
-      ->all();
-
-    $categories = (new Category)->all();
-
-    $this->view('blog/posts', [
-      'title' => 'Postagens recentes',
-      'posts' => $posts,
-      'categories' => $categories
-    ]);
-  }
-
-  public function postsByCategory($slug)
-  {
-    $filter = $this->baseFilter()->where('categories.slug', '=', $slug);
+    if ($slug) {
+      $filter->where('categories.slug', '=', $slug);
+    }
 
     $posts = (new Post)
-      ->setFields("posts.title as post_title, posts.slug, posts.created_at, categories.title as category_title, users.name as author")
+      ->setFields("posts.title, posts.slug, posts.created_at, categories.title as category_title, users.name as author")
       ->setFilters($filter)
       ->all();
 
