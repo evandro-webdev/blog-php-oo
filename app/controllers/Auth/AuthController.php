@@ -18,8 +18,7 @@ class AuthController extends Controller
 
   public function login()
   {
-    $validation = new Validation;
-    $validated = $validation->validate([
+    $validated = (new Validation)->validate([
       'email' => 'required|email',
       'password' => 'required'
     ]);
@@ -52,8 +51,7 @@ class AuthController extends Controller
 
   public function register()
   {
-    $validation = new Validation;
-    $validated = $validation->validate([
+    $validated = (new Validation)->validate([
       'name' => 'required',
       'email' => 'required|email|unique:' . User::class,
       'password' => 'required|maxLen:16|minLen:6',

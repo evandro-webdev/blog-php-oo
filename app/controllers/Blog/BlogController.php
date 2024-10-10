@@ -33,7 +33,7 @@ class BlogController extends Controller
     $filter = $this->baseFilter()->where('categories.slug', '=', $slug);
 
     $posts = (new Post)
-      ->setFields("posts.slug, posts.title as post_title, posts.created_at, categories.title as category_title, users.name as author")
+      ->setFields("posts.title as post_title, posts.slug, posts.created_at, categories.title as category_title, users.name as author")
       ->setFilters($filter)
       ->all();
 

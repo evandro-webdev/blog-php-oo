@@ -13,29 +13,35 @@ class AdminController extends Controller
 {
   public function index()
   {
-    $post = new Post;
-    $posts = $post->all();
-    $this->view('admin/blog/dashboard', ["title" => "Painel Administrativo", "posts" => $posts]);
+    $posts = (new Post)->all();
+
+    $this->view('admin/blog/dashboard', [
+      "title" => "Painel Administrativo",
+      "posts" => $posts
+    ]);
   }
 
   public function create()
   {
-    $category = new Category;
-    $categories = $category->all();
-    $this->view('admin/blog/create', ["title" => "Publicar novo post", "action" => "/admin/posts", "categories" => $categories]);
+    $categories = (new Category)->all();
+
+    $this->view('admin/blog/create', [
+      "title" => "Publicar novo post",
+      "action" => "/admin/posts",
+      "categories" => $categories
+    ]);
   }
 
   public function store()
   {
-    $validation = new Validation;
-    $validated = $validation->validate([
+    $validated = (new Validation)->validate([
       "title" => "required|maxLen:255",
       "content" => "required",
       "categoryId" => "required"
     ]);
 
     if (!$validated) {
-      header('location: /admin/posts/create');
+      return header('location: /admin/posts/create');
     }
 
     $validated['slug'] = Slugify::slugify($validated['title']);
@@ -43,23 +49,25 @@ class AdminController extends Controller
 
     (new Post)->create($validated);
     Flash::set('post-created', 'O post foi criado com sucesso');
-    header('location: /admin');
+    return header('location: /admin');
   }
 
   public function edit($id)
   {
-    $post = new Post;
-    $foundPost = $post->findBy('id', $id);
-    $category = new Category;
-    $categories = $category->all();
+    $foundPost = (new Post)->findBy('id', $id);
+    $categories = (new Category)->all();
 
-    $this->view('admin/blog/edit', ["title" => "Editar post", "action" => "/admin/posts/", "post" => $foundPost, "categories" => $categories]);
+    $this->view('admin/blog/edit', [
+      "title" => "Editar post",
+      "action" => "/admin/posts/",
+      "post" => $foundPost,
+      "categories" => $categories
+    ]);
   }
 
   public function update($id)
   {
-    $validation = new Validation;
-    $validated = $validation->validate([
+    $validated = (new Validation)->validate([
       "title" => "required|maxLen:255",
       "content" => "required",
       "categoryId" => "required"
@@ -71,8 +79,7 @@ class AdminController extends Controller
 
     $validated['slug'] = Slugify::slugify($validated['title']);
 
-    $post = new Post;
-    $post->update($id, $validated);
+    (new Post)->update($id, $validated);
     Flash::set('post-created', 'O post foi atualizado com sucesso');
     header('location: /admin');
   }
