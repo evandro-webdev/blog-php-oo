@@ -12,22 +12,20 @@ class CommentController extends Controller
 {
   public function create()
   {
-    $validation = new Validation;
-    $validated = $validation->validate([
+    $validated = (new Validation)->validate([
       'content' => 'required'
     ]);
 
     if (!$validated) {
       Flash::set('comment-error', 'Erro ao enviar o comentário. Tente novamente.');
-      return header('location: /post/' . $_POST['postId']);
+      return header('Location: ' . $_SERVER['HTTP_REFERER']);
     }
 
     $validated['postId'] = Request::input('postId');
-    $validated['userId'] = Request::input('userId');
+    $validated['userId'] = Request::input('userId'); // fix
 
-    $comment = new Comment;
-    $comment->create($validated);
+    (new Comment)->create($validated);
     Flash::set('comment-success', 'Comentário enviado com sucesso.');
-    return header('location: /post/' . $_POST['postId']);
+    return header('Location: ' . $_SERVER['HTTP_REFERER']);
   }
 }

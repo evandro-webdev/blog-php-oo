@@ -491,8 +491,8 @@ button {
   margin-bottom: 30px;
 }
 
-.comment-item {
-  margin-bottom: 15px;
+.comment-item + .comment-item {
+  margin-top: 20px;
 }
 
 .comment-header {

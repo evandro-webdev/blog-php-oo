@@ -2,14 +2,19 @@
 
 namespace app\database;
 
+use InvalidArgumentException;
+
 class Filters
 {
   private array $filters = [];
   private array $binds = [];
+  private array $validOperators = ['=', '!=', '>', '<', '>=', '<=', 'IN', 'NOT IN', 'LIKE'];
 
   public function where(string $field, string $operator, mixed $value, string $logic = '')
   {
-    $formatter = '';
+    if (!in_array(strtoupper($operator), $this->validOperators)) {
+      throw new InvalidArgumentException("Operador inválido: $operator");
+    }
 
     if (is_array($value)) {
       $formatter = "('" . implode("','", $value) . "')";
@@ -26,16 +31,20 @@ class Filters
     $fieldBind = str_contains($field, '.') ? str_replace('.', '', $field) : $field;
     $this->filters['where'][] = "$field $operator :$fieldBind $logic";
     $this->binds[$fieldBind] = trim($value, "'");
+
+    return $this;
   }
 
   public function join(string $foreignTable, string $joinTable1, string $operator, string $joinTable2, string $joinType = 'INNER JOIN')
   {
     $this->filters['join'][] = " $joinType $foreignTable ON $joinTable1 $operator $joinTable2 ";
+    return $this;
   }
 
-  public function getBind()
+  public function orderBy(string $field, string $order = 'ASC')
   {
-    return $this->binds;
+    $this->filters['order'] = " ORDER BY $field $order ";
+    return $this;
   }
 
   public function limit(int $limit)
@@ -43,9 +52,9 @@ class Filters
     $this->filters['limit'] = " LIMIT $limit";
   }
 
-  public function orderBy(string $field, string $order = 'ASC')
+  public function getBind()
   {
-    $this->filters['order'] = " ORDER BY $field $order ";
+    return $this->binds;
   }
 
   public function dump()
