@@ -63,13 +63,16 @@ $this->layout('master', ['title' => $title]); ?>
     <?php } ?>
 
     <div class="comment-form-container">
+      <?php if ($isAuth) { ?>
       <h3>Deixe um comentário</h3>
       <form action="/blog/comment" method="POST">
         <input type="hidden" name="postId" value="<?php echo $post->id; ?>">
-        <input type="hidden" name="userId" value="<?php echo $_SESSION['auth']->id; ?>">
         <textarea name="content" rows="4" placeholder="Escreva seu comentário aqui..." required></textarea>
         <button type="submit">Comentar</button>
       </form>
+      <?php } else { ?>
+      <p>Você precisa <a href="/auth/login">fazer login</a> para comentar.</p>
+      <?php } ?>
     </div>
   </section>
 

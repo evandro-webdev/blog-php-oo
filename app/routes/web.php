@@ -19,7 +19,7 @@ try {
     $this->add('/comment', 'POST', 'CommentController:create');
   });
 
-  $router->group(['prefix' => 'auth', 'controller' => 'auth'], function () {
+  $router->group(['prefix' => 'auth', 'controller' => 'auth', 'middlewares' => ['guest']], function () {
     $this->add('/login', 'GET', 'AuthController:loginForm');
     $this->add('/login', 'POST', 'AuthController:login');
     $this->add('/register', 'GET', 'AuthController:registerForm');

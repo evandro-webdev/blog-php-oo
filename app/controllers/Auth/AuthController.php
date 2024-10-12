@@ -18,12 +18,18 @@ class AuthController extends Controller
 
   public function login()
   {
+    if (Auth::isBlocked()) {
+      Flash::set('too-many-attempts', 'Muitas tentativas de acesso, tente novamente mais tarde.');
+      return false;
+    }
+
     $validated = (new Validation)->validate([
       'email' => 'required|email',
       'password' => 'required'
     ]);
 
     if (!$validated) {
+      Auth::trackLoginAttempts();
       return $this->redirectBackWithData('/auth/login');
     }
 

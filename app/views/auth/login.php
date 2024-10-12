@@ -8,7 +8,11 @@ unset($_SESSION['user_data']);
 <link rel="stylesheet" href="/css/temporary-styles.css" />
 <?php $this->stop() ?>
 
+<?php echo flash('info', 'flash-message') ?>
+<?php echo flash('too-many-attempts', 'flash-message') ?>
+
 <div class="form-container">
+
   <form method="POST" class="form">
     <div class="form-group">
       <label for="email">E-mail:</label>

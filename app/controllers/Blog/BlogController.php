@@ -2,11 +2,12 @@
 
 namespace app\controllers\Blog;
 
+use app\auth\Auth;
+use app\database\Filters;
 use app\database\models\Post;
 use app\controllers\Controller;
-use app\database\Filters;
-use app\database\models\Category;
 use app\database\models\Comment;
+use app\database\models\Category;
 
 class BlogController extends Controller
 {
@@ -47,10 +48,13 @@ class BlogController extends Controller
       ->setFilters($filter)
       ->all();
 
+    $isAuth = Auth::isAuth();
+
     $this->view('blog/post', [
       'title' => 'Post',
       'post' => $foundPost[0],
-      'comments' => $comments
+      'comments' => $comments,
+      'isAuth' => $isAuth
     ]);
   }
 
