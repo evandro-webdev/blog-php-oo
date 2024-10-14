@@ -20,7 +20,7 @@ class AuthController extends Controller
   {
     if (Auth::isBlocked()) {
       Flash::set('too-many-attempts', 'Muitas tentativas de acesso, tente novamente mais tarde.');
-      return false;
+      return header('location: /auth/login');
     }
 
     $validated = (new Validation)->validate([
@@ -29,13 +29,13 @@ class AuthController extends Controller
     ]);
 
     if (!$validated) {
-      Auth::trackLoginAttempts();
       return $this->redirectBackWithData('/auth/login');
     }
 
     $user = (new User)->findBy('email', $validated['email']);
 
     if (!$user || !password_verify($validated['password'], $user->password)) {
+      Auth::trackLoginAttempts();
       Flash::set('login-error', 'Email ou senha incorretos.');
       return $this->redirectBackWithData('/auth/login');
     }

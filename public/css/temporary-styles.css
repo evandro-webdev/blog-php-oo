@@ -274,14 +274,18 @@ h2 {
 .form-container {
   flex-shrink: 0;
   flex-grow: 1;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .form {
   max-width: 600px;
-  margin: auto;
   padding: 20px;
   border: 1px solid #ccc;
   border-radius: 5px;
+  flex-grow: 1;
 }
 
 .form-group {

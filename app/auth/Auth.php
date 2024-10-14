@@ -68,8 +68,8 @@ class Auth
 
     $_SESSION['login_attempts']++;
 
-    if (self::loginAttempts() > 5) {
-      $_SESSION['blocked_until'] = time() + (15 * 60);
+    if (self::loginAttempts() >= 5) {
+      $_SESSION['blocked_until'] = time() + 60;
     }
   }
 
@@ -80,12 +80,20 @@ class Auth
 
   public static function isBlocked()
   {
-    return isset($_SESSION['blocked_until']) && time() < $_SESSION['blocked_until'];
+    if (isset($_SESSION['blocked_until'])) {
+      if (time() < $_SESSION['blocked_until']) {
+        return true;
+      } else {
+        self::resetLoginAttempts();
+      }
+    }
+
+    return false;
   }
 
   private static function resetLoginAttempts()
   {
-    $_SESSION['loginAttempts'] = 0;
+    $_SESSION['login_attempts'] = 0;
     unset($_SESSION['blocked_until']);
   }
 }
