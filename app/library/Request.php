@@ -56,10 +56,8 @@ class Request
 
   public static function query($name)
   {
-    if (!isset($_GET[$name])) {
-      throw new Exception("A query string $name não existe");
+    if (isset($_GET[$name])) {
+      return $_GET[$name];
     }
-
-    return $_GET[$name];
   }
 }

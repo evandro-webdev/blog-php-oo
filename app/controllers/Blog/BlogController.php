@@ -8,6 +8,7 @@ use app\database\models\Post;
 use app\controllers\Controller;
 use app\database\models\Comment;
 use app\database\models\Category;
+use app\library\Request;
 
 class BlogController extends Controller
 {
@@ -20,6 +21,11 @@ class BlogController extends Controller
       $filter->where('categories.slug', '=', $slug);
     }
 
+    $search = Request::query('search') ?? null;
+    if ($search) {
+      $filter->where('posts.title', 'LIKE', "%$search%");
+    }
+
     $posts = (new Post)
       ->setFields("posts.title, posts.slug, posts.created_at, categories.title as category_title, users.name as author")
       ->setFilters($filter)
@@ -27,20 +33,27 @@ class BlogController extends Controller
 
     $categories = (new Category)->all();
 
+    $mostViewed = $this->getMostViewed();
+
     $this->view('blog/posts', [
       'title' => 'Postagens recentes',
       'posts' => $posts,
-      'categories' => $categories
+      'categories' => $categories,
+      'mostViewed' => $mostViewed
     ]);
   }
 
   public function show($slug)
   {
     $filter = $this->baseFilter()->where('posts.slug', '=', $slug);
-    $foundPost = (new Post)
+
+    $post = new Post;
+    $foundPost = $post
       ->setFields("posts.id, posts.title, posts.slug, content, posts.created_at, categories.title as category_title, users.name as author")
       ->setFilters($filter)
       ->all();
+
+    $post->incrementViews($foundPost[0]->id);
 
     $filter = $this->commentFilter($foundPost[0]->id);
     $comments = (new Comment)
@@ -49,7 +62,6 @@ class BlogController extends Controller
       ->all();
 
     $isAuth = Auth::isAuth();
-
     $this->view('blog/post', [
       'title' => 'Post',
       'post' => $foundPost[0],
@@ -74,5 +86,17 @@ class BlogController extends Controller
       ->orderBy('created_at', 'DESC');
 
     return $filter;
+  }
+
+  private function getMostViewed($limit = 5)
+  {
+    $filter = new Filters;
+    $filter->orderBy('views', 'DESC')
+      ->limit($limit);
+
+    return (new Post)
+      ->setFields("title, slug")
+      ->setFilters($filter)
+      ->all();
   }
 }

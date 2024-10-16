@@ -1,4 +1,7 @@
-<?php $this->layout('master', ['title' => $title]); ?>
+<?php $this->layout('master', ['title' => $title]);
+$post = (object) ($_SESSION['post_data'] ?? $post);
+unset($_SESSION['post_data']);
+?>
 
 <?php $this->start('temporary-styles') ?>
 <link rel="stylesheet" href="/css/temporary-styles.css" />

@@ -13,10 +13,10 @@
     <?php } ?>
   </nav>
 
-  <div class="search-bar">
-    <input type="text" placeholder="Buscar...">
+  <form action="/blog" method="GET" class="search-bar">
+    <input type="text" name="search" placeholder="Buscar...">
     <button>Buscar</button>
-  </div>
+  </form>
 
   <div class="auth-buttons">
     <?php if (!isset($_SESSION['auth'])) { ?>

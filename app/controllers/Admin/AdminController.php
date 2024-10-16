@@ -2,12 +2,13 @@
 
 namespace app\controllers\Admin;
 
-use app\controllers\Controller;
-use app\database\models\Post;
-use app\database\models\Category;
-use app\support\Slugify;
 use app\support\Flash;
+use app\library\Request;
+use app\support\Slugify;
 use app\support\Validation;
+use app\database\models\Post;
+use app\controllers\Controller;
+use app\database\models\Category;
 
 class AdminController extends Controller
 {
@@ -41,7 +42,7 @@ class AdminController extends Controller
     ]);
 
     if (!$validated) {
-      return header('location: /admin/posts/create');
+      $this->redirectBackWithData('/admin/posts/create');
     }
 
     $validated['slug'] = Slugify::slugify($validated['title']);
@@ -74,7 +75,7 @@ class AdminController extends Controller
     ]);
 
     if (!$validated) {
-      header('location: /admin/posts/create');
+      $this->redirectBackWithData('/admin/posts/edit/' . $id);
     }
 
     $validated['slug'] = Slugify::slugify($validated['title']);
@@ -94,5 +95,11 @@ class AdminController extends Controller
         header('location: /admin');
       }
     }
+  }
+
+  private function redirectBackWithData($url)
+  {
+    $_SESSION['post_data'] = Request::all();
+    return header("location: $url");
   }
 }
