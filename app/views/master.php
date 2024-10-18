@@ -18,15 +18,17 @@
   <?php echo $this->insert('./partials/footer') ?>
 
   <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      setTimeout(function() {
-        var flashMessage = document.querySelector('.flash-message');
-        if (flashMessage) {
-          flashMessage.classList.add('hide');
-        }
-      }, 5000);
-    });
+  document.addEventListener('DOMContentLoaded', function() {
+    setTimeout(function() {
+      var flashMessage = document.querySelector('.flash-message');
+      if (flashMessage) {
+        flashMessage.classList.add('hide');
+      }
+    }, 5000);
+  });
   </script>
+
+  <?php echo $this->section('slides') ?>
 </body>
 
 </html>

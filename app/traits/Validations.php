@@ -92,4 +92,24 @@ trait Validations
 
     return strip_tags($data);
   }
+
+  public function image($field)
+  {
+    $image = $_FILES[$field];
+
+    $allowedTypes = ['image/jpeg', 'image/jpg'];
+    $maxFileSize = 2 * 1024 * 1024;
+
+    if ($image['size'] > $maxFileSize) {
+      return null;
+      // throw new Exception("Arquivo excede o tamanho de 2MB");
+    }
+
+    if (!in_array($image['type'], $allowedTypes)) {
+      return null;
+      // throw new Exception("Tipo de arquivo não permitido");
+    }
+
+    return $image;
+  }
 }

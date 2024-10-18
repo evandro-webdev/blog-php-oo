@@ -2,6 +2,7 @@
 
 namespace app\controllers\Admin;
 
+use Exception;
 use app\support\Flash;
 use app\library\Request;
 use app\support\Slugify;
@@ -38,7 +39,8 @@ class AdminController extends Controller
     $validated = (new Validation)->validate([
       "title" => "required|maxLen:255",
       "content" => "required",
-      "categoryId" => "required"
+      "categoryId" => "required",
+      "postImage" => 'image'
     ]);
 
     if (!$validated) {
@@ -47,6 +49,9 @@ class AdminController extends Controller
 
     $validated['slug'] = Slugify::slugify($validated['title']);
     $validated['userId'] = $_SESSION['auth']->id;
+
+    $validated['imagePath'] = $this->uploadImage($validated['postImage']);
+    unset($validated['postImage']);
 
     (new Post)->create($validated);
     Flash::set('post-created', 'O post foi criado com sucesso');
@@ -101,5 +106,17 @@ class AdminController extends Controller
   {
     $_SESSION['post_data'] = Request::all();
     return header("location: $url");
+  }
+
+  private function uploadImage($image)
+  {
+    $imageName = uniqid() . '-' . basename($image['name']);
+    $uploadDir = BASE_PATH . '/public/img/posts/';
+
+    if (move_uploaded_file($image['tmp_name'], $uploadDir . $imageName)) {
+      return '/public/img/posts/' . $imageName;
+    } else {
+      throw new Exception("Erro ao fazer upload.");
+    }
   }
 }

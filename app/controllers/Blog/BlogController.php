@@ -3,12 +3,12 @@
 namespace app\controllers\Blog;
 
 use app\auth\Auth;
+use app\library\Request;
 use app\database\Filters;
 use app\database\models\Post;
 use app\controllers\Controller;
 use app\database\models\Comment;
 use app\database\models\Category;
-use app\library\Request;
 
 class BlogController extends Controller
 {
@@ -49,7 +49,7 @@ class BlogController extends Controller
 
     $post = new Post;
     $foundPost = $post
-      ->setFields("posts.id, posts.title, posts.slug, content, posts.created_at, categories.title as category_title, users.name as author")
+      ->setFields("posts.id, posts.title, posts.slug, content, imagePath, posts.created_at, categories.title as category_title, users.name as author")
       ->setFilters($filter)
       ->all();
 
@@ -95,7 +95,7 @@ class BlogController extends Controller
       ->limit($limit);
 
     return (new Post)
-      ->setFields("title, slug")
+      ->setFields("title, slug, created_at")
       ->setFilters($filter)
       ->all();
   }
