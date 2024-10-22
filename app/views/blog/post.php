@@ -14,9 +14,6 @@ $this->layout('master', ['title' => $title]); ?>
   </div>
 <?php } else { ?>
 
-  <img src="./public/img/posts/67117633bc0eb-Captura de Tela (3).jpg">
-
-
   <div class="container">
     <article class="single-post">
       <header class="post-header">

@@ -12,7 +12,6 @@ use app\database\models\Category;
 
 class BlogController extends Controller
 {
-  // ADICIONAR NUMERO DE COMENTÁRIOS NO CARD
   public function index($slug = null)
   {
     $filter = $this->baseFilter()->orderBy('created_at', 'DESC');
@@ -27,7 +26,7 @@ class BlogController extends Controller
     }
 
     $posts = (new Post)
-      ->setFields("posts.title, posts.slug, posts.created_at, categories.title as category_title, users.name as author")
+      ->setFields("posts.title, posts.slug, posts.created_at, imagePath, categories.title as category_title, users.name as author")
       ->setFilters($filter)
       ->all();
 
@@ -91,11 +90,12 @@ class BlogController extends Controller
   private function getMostViewed($limit = 5)
   {
     $filter = new Filters;
-    $filter->orderBy('views', 'DESC')
+    $filter->join('categories', 'posts.categoryId', '=', 'categories.id')
+      ->orderBy('views', 'DESC')
       ->limit($limit);
 
     return (new Post)
-      ->setFields("title, slug, created_at")
+      ->setFields("posts.title, posts.slug, imagePath, created_at, categories.title as categoryTitle")
       ->setFilters($filter)
       ->all();
   }

@@ -93,21 +93,35 @@ trait Validations
     return strip_tags($data);
   }
 
-  public function image($field)
+  public function maxSize($field, $maxFileSize)
   {
     $image = $_FILES[$field];
+    $maxSizeMB = (int) $maxFileSize * 1024 * 1024;
 
-    $allowedTypes = ['image/jpeg', 'image/jpg'];
-    $maxFileSize = 2 * 1024 * 1024;
-
-    if ($image['size'] > $maxFileSize) {
-      return null;
-      // throw new Exception("Arquivo excede o tamanho de 2MB");
+    if (!$image || empty($image['name'])) {
+      return true;
     }
 
-    if (!in_array($image['type'], $allowedTypes)) {
+    if ($image['size'] > $maxSizeMB) {
+      Flash::set($field, "Arquivo excede o tamanho de 2MB");
       return null;
-      // throw new Exception("Tipo de arquivo não permitido");
+    }
+
+    return $image;
+  }
+
+  public function allowedTypes($field, $allowedTypes)
+  {
+    $image = $_FILES[$field];;
+    $types = str_contains($allowedTypes, ',') ? explode(',', $allowedTypes) : $allowedTypes;
+
+    if (!$image || empty($image['name'])) {
+      return true;
+    }
+
+    if (!in_array($image['type'], $types)) {
+      Flash::set($field, "Tipo de arquivo não permitido");
+      return null;
     }
 
     return $image;

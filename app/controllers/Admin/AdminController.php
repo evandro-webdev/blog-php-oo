@@ -2,6 +2,7 @@
 
 namespace app\controllers\Admin;
 
+use app\auth\Auth;
 use Exception;
 use app\support\Flash;
 use app\library\Request;
@@ -40,7 +41,7 @@ class AdminController extends Controller
       "title" => "required|maxLen:255",
       "content" => "required",
       "categoryId" => "required",
-      "postImage" => 'image'
+      "postImage" => 'maxSize:2|allowedTypes:image/jpeg,image/jpg'
     ]);
 
     if (!$validated) {
@@ -48,7 +49,7 @@ class AdminController extends Controller
     }
 
     $validated['slug'] = Slugify::slugify($validated['title']);
-    $validated['userId'] = $_SESSION['auth']->id;
+    $validated['userId'] = Auth::getUser()->id;
 
     $validated['imagePath'] = $this->uploadImage($validated['postImage']);
     unset($validated['postImage']);
@@ -73,19 +74,38 @@ class AdminController extends Controller
 
   public function update($id)
   {
+    $post = new Post;
     $validated = (new Validation)->validate([
       "title" => "required|maxLen:255",
       "content" => "required",
-      "categoryId" => "required"
+      "categoryId" => "required",
+      "postImage" => 'maxSize:2|allowedTypes:image/jpeg,image/jpg'
     ]);
 
     if (!$validated) {
       $this->redirectBackWithData('/admin/posts/edit/' . $id);
     }
 
+    if (isset($validated['postImage'])) {
+      $foundPost = $post->setFields('id, imagePath')->findBy('id', $id);
+
+      if ($foundPost && $foundPost->imagePath) {
+
+        $filePath = BASE_PATH . "/public{$foundPost->imagePath}";
+        if (file_exists($filePath)) {
+          unlink($filePath);
+        } else {
+          echo "Arquivo não encontrado: $filePath";
+        }
+      }
+
+      $validated['imagePath'] = $this->uploadImage($validated['postImage']);
+      unset($validated['postImage']);
+    }
+
     $validated['slug'] = Slugify::slugify($validated['title']);
 
-    (new Post)->update($id, $validated);
+    $post->update($id, $validated);
     Flash::set('post-created', 'O post foi atualizado com sucesso');
     header('location: /admin');
   }
@@ -108,13 +128,13 @@ class AdminController extends Controller
     return header("location: $url");
   }
 
-  private function uploadImage($image)
+  private function uploadImage($image, $postId = null)
   {
     $imageName = uniqid() . '-' . basename($image['name']);
     $uploadDir = BASE_PATH . '/public/img/posts/';
 
     if (move_uploaded_file($image['tmp_name'], $uploadDir . $imageName)) {
-      return '/public/img/posts/' . $imageName;
+      return '/img/posts/' . $imageName;
     } else {
       throw new Exception("Erro ao fazer upload.");
     }

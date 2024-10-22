@@ -11,10 +11,12 @@ $this->layout('master', ['title' => $title]); ?>
 
 <div class="slides-container">
   <?php foreach ($mostViewed as $post) { ?>
-  <div class="slide" id="slide-1">
-    <h2><?php echo $post->title ?></h2>
-    <p>Categoria: Tecnologia</p>
-    <p><?php echo formatDate($post->created_at) ?></p>
+  <div class="slide" id="slide-1" style="background-image: url('<?php echo $post->imagePath ?? '' ?>')">
+    <div class="slide-content">
+      <h2><?php echo $post->title ?></h2>
+      <p><?php echo $post->categoryTitle ?></p>
+      <p><?php echo formatDate($post->created_at) ?></p>
+    </div>
   </div>
   <?php } ?>
 

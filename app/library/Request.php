@@ -60,4 +60,11 @@ class Request
       return $_GET[$name];
     }
   }
+
+  public static function file($name)
+  {
+    if (isset($_FILES[$name])) {
+      return $_FILES[$name];
+    }
+  }
 }
