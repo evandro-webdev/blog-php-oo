@@ -8,15 +8,16 @@ use app\support\Flash;
 
 trait Validations
 {
-  public function required($field)
+  public function required($field, $inputType = 'text')
   {
-    $data = Request::input($field);
+    $data = $inputType == 'file' ? Request::file($field) : Request::input($field);
+    //resolver
     if (empty($data)) {
       Flash::set($field, 'O campo acima é obrigatório.');
       return null;
     }
 
-    return strip_tags($data);
+    return $data;
   }
 
   public function maxLen($field, $param)
@@ -99,7 +100,7 @@ trait Validations
     $maxSizeMB = (int) $maxFileSize * 1024 * 1024;
 
     if (!$image || empty($image['name'])) {
-      return true;
+      return '';
     }
 
     if ($image['size'] > $maxSizeMB) {
@@ -116,7 +117,7 @@ trait Validations
     $types = str_contains($allowedTypes, ',') ? explode(',', $allowedTypes) : $allowedTypes;
 
     if (!$image || empty($image['name'])) {
-      return true;
+      return '';
     }
 
     if (!in_array($image['type'], $types)) {

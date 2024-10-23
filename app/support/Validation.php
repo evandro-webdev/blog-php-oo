@@ -21,7 +21,7 @@ class Validation
         [$validationType, $param] = $this->getParam($validationType, $param);
 
         $this->validationExist($validationType);
-        $inputValidation[$field] = $this->$validationType($field, $param);
+        $inputValidation[$field] = $this->callValidation($validationType, $field, $param);
       } else {
         $validations = explode('|', $validationType);
         $param = '';
@@ -54,7 +54,7 @@ class Validation
       [$validationType, $param] = $this->getParam($validationType, $param);
 
       $this->validationExist($validationType);
-      $inputValidation[$field] = $this->$validationType($field, $param);
+      $inputValidation[$field] = $this->callValidation($validationType, $field, $param);
 
       if ($inputValidation[$field] == null) {
         break;
@@ -62,6 +62,13 @@ class Validation
     }
 
     return $inputValidation[$field];
+  }
+
+  private function callValidation($validationType, $field, $param)
+  {
+    return $param != '' ?
+      $this->$validationType($field, $param) :
+      $this->$validationType($field);
   }
 
   private function returnValidation($inputValidation)

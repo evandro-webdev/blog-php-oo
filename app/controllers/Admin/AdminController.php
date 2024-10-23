@@ -41,7 +41,7 @@ class AdminController extends Controller
       "title" => "required|maxLen:255",
       "content" => "required",
       "categoryId" => "required",
-      "postImage" => 'maxSize:2|allowedTypes:image/jpeg,image/jpg'
+      "postImage" => 'required:file|maxSize:2|allowedTypes:image/jpeg,image/jpg'
     ]);
 
     if (!$validated) {
@@ -74,7 +74,6 @@ class AdminController extends Controller
 
   public function update($id)
   {
-    $post = new Post;
     $validated = (new Validation)->validate([
       "title" => "required|maxLen:255",
       "content" => "required",
@@ -83,29 +82,17 @@ class AdminController extends Controller
     ]);
 
     if (!$validated) {
-      $this->redirectBackWithData('/admin/posts/edit/' . $id);
+      $this->redirectBackWithData("/admin/posts/edit/$id");
     }
 
-    if (isset($validated['postImage'])) {
-      $foundPost = $post->setFields('id, imagePath')->findBy('id', $id);
-
-      if ($foundPost && $foundPost->imagePath) {
-
-        $filePath = BASE_PATH . "/public{$foundPost->imagePath}";
-        if (file_exists($filePath)) {
-          unlink($filePath);
-        } else {
-          echo "Arquivo não encontrado: $filePath";
-        }
-      }
-
-      $validated['imagePath'] = $this->uploadImage($validated['postImage']);
-      unset($validated['postImage']);
+    if (!empty($validated['postImage'])) {
+      $validated = $this->handleImageUpdate($id, $validated);
     }
 
     $validated['slug'] = Slugify::slugify($validated['title']);
+    unset($validated['postImage']);
 
-    $post->update($id, $validated);
+    (new Post)->update($id, $validated);
     Flash::set('post-created', 'O post foi atualizado com sucesso');
     header('location: /admin');
   }
@@ -128,7 +115,19 @@ class AdminController extends Controller
     return header("location: $url");
   }
 
-  private function uploadImage($image, $postId = null)
+  private function handleImageUpdate($id, $validated)
+  {
+    $foundPost = (new Post)->setFields('id, imagePath')->findBy('id', $id);
+
+    if ($foundPost && $foundPost->imagePath) {
+      $this->deleteOldImage($foundPost->imagePath);
+    }
+
+    $validated['imagePath'] = $this->uploadImage($validated['postImage']);
+    return $validated;
+  }
+
+  private function uploadImage($image)
   {
     $imageName = uniqid() . '-' . basename($image['name']);
     $uploadDir = BASE_PATH . '/public/img/posts/';
@@ -137,6 +136,16 @@ class AdminController extends Controller
       return '/img/posts/' . $imageName;
     } else {
       throw new Exception("Erro ao fazer upload.");
+    }
+  }
+
+  private function deleteOldImage($imagePath)
+  {
+    $filePath = BASE_PATH . "/public{$imagePath}";
+    if (file_exists($filePath)) {
+      unlink($filePath);
+    } else {
+      echo "Arquivo não encontrado: $filePath";
     }
   }
 }
