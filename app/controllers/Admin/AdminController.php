@@ -2,15 +2,16 @@
 
 namespace app\controllers\Admin;
 
-use app\auth\Auth;
 use Exception;
-use app\support\Flash;
+use app\auth\Auth;
 use app\library\Request;
+use app\support\Flash;
 use app\support\Slugify;
 use app\support\Validation;
-use app\database\models\Post;
 use app\controllers\Controller;
+use app\database\models\Post;
 use app\database\models\Category;
+use app\library\ImageManager;
 
 class AdminController extends Controller
 {
@@ -51,7 +52,8 @@ class AdminController extends Controller
     $validated['slug'] = Slugify::slugify($validated['title']);
     $validated['userId'] = Auth::getUser()->id;
 
-    $validated['imagePath'] = $this->uploadImage($validated['postImage']);
+    $imageManager = new ImageManager();
+    $validated['imagePath'] = $imageManager->upload($validated['postImage']);
     unset($validated['postImage']);
 
     (new Post)->create($validated);
@@ -117,35 +119,14 @@ class AdminController extends Controller
 
   private function handleImageUpdate($id, $validated)
   {
+    $imageManager = new ImageManager();
     $foundPost = (new Post)->setFields('id, imagePath')->findBy('id', $id);
 
     if ($foundPost && $foundPost->imagePath) {
-      $this->deleteOldImage($foundPost->imagePath);
+      $imageManager->delete($foundPost->imagePath);
     }
 
-    $validated['imagePath'] = $this->uploadImage($validated['postImage']);
+    $validated['imagePath'] = $imageManager->upload($validated['postImage']);
     return $validated;
-  }
-
-  private function uploadImage($image)
-  {
-    $imageName = uniqid() . '-' . basename($image['name']);
-    $uploadDir = BASE_PATH . '/public/img/posts/';
-
-    if (move_uploaded_file($image['tmp_name'], $uploadDir . $imageName)) {
-      return '/img/posts/' . $imageName;
-    } else {
-      throw new Exception("Erro ao fazer upload.");
-    }
-  }
-
-  private function deleteOldImage($imagePath)
-  {
-    $filePath = BASE_PATH . "/public{$imagePath}";
-    if (file_exists($filePath)) {
-      unlink($filePath);
-    } else {
-      echo "Arquivo não encontrado: $filePath";
-    }
   }
 }

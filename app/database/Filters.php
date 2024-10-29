@@ -29,7 +29,7 @@ class Filters
     $value = strip_tags($formatter);
 
     $fieldBind = str_contains($field, '.') ? str_replace('.', '', $field) : $field;
-    $this->filters['where'][] = "$field $operator :$fieldBind $logic";
+    $this->filters['where'][] = "$field $operator :$fieldBind $logic ";
     $this->binds[$fieldBind] = trim($value, "'");
 
     return $this;

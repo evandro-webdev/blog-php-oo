@@ -11,8 +11,8 @@ trait Validations
   public function required($field, $inputType = 'text')
   {
     $data = $inputType == 'file' ? Request::file($field) : Request::input($field);
-    //resolver
-    if (empty($data)) {
+
+    if (($inputType == 'file' && $data['error'] === UPLOAD_ERR_NO_FILE) || empty($data)) {
       Flash::set($field, 'O campo acima é obrigatório.');
       return null;
     }

@@ -48,11 +48,12 @@ class BlogController extends Controller
 
     $post = new Post;
     $foundPost = $post
-      ->setFields("posts.id, posts.title, posts.slug, content, imagePath, posts.created_at, categories.title as category_title, users.name as author")
+      ->setFields("posts.id, posts.title, posts.slug, categoryId, content, imagePath, posts.created_at, categories.title as category_title, users.name as author")
       ->setFilters($filter)
       ->all();
 
     $post->incrementViews($foundPost[0]->id);
+    $relatedPosts = $this->getRelatedPosts($foundPost[0]->id, $foundPost[0]->categoryId);
 
     $filter = $this->commentFilter($foundPost[0]->id);
     $comments = (new Comment)
@@ -64,6 +65,7 @@ class BlogController extends Controller
     $this->view('blog/post', [
       'title' => 'Post',
       'post' => $foundPost[0],
+      'relatedPosts' => $relatedPosts,
       'comments' => $comments,
       'isAuth' => $isAuth
     ]);
@@ -92,6 +94,21 @@ class BlogController extends Controller
     $filter = new Filters;
     $filter->join('categories', 'posts.categoryId', '=', 'categories.id')
       ->orderBy('views', 'DESC')
+      ->limit($limit);
+
+    return (new Post)
+      ->setFields("posts.title, posts.slug, imagePath, created_at, categories.title as categoryTitle")
+      ->setFilters($filter)
+      ->all();
+  }
+
+  private function getRelatedPosts($postId, $categoryId, $limit = 5)
+  {
+    $filter = new Filters;
+    $filter->join('categories', 'posts.categoryId', '=', 'categories.id')
+      ->where('categoryId', '=', $categoryId, 'AND')
+      ->where('posts.id', '!=', $postId)
+      ->orderBy('created_at', 'DESC')
       ->limit($limit);
 
     return (new Post)
