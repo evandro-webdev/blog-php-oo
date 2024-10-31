@@ -3,6 +3,7 @@
 namespace app\middlewares;
 
 use app\auth\Auth;
+use app\library\Redirect;
 use app\interfaces\MiddlewareInterface;
 
 class Guest implements MiddlewareInterface
@@ -11,9 +12,9 @@ class Guest implements MiddlewareInterface
   {
     if (Auth::isAuth()) {
       if (Auth::isAdmin()) {
-        return header('location: /admin');
+        Redirect::to('/admin');
       } else {
-        return header('location: /blog');
+        Redirect::to('/blog');
       }
     }
   }

@@ -2,9 +2,10 @@
 
 namespace app\middlewares;
 
-use app\interfaces\MiddlewareInterface;
-use app\auth\Auth as Auth;
 use app\support\Flash;
+use app\library\Redirect;
+use app\auth\Auth as Auth;
+use app\interfaces\MiddlewareInterface;
 
 class Admin implements MiddlewareInterface
 {
@@ -13,11 +14,11 @@ class Admin implements MiddlewareInterface
     if (Auth::isExpired()) {
       Auth::logout();
       Flash::set('info', 'Sua sessão expirou. Por favor, faça login novamente.');
-      return header('location: /auth/login');
+      Redirect::to('/auth/login');
     }
 
     if (!Auth::isAdmin()) {
-      return header('location: /blog');
+      Redirect::to('/blog');
     }
   }
 }

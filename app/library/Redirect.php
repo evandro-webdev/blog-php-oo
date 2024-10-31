@@ -16,19 +16,19 @@ class Redirect
     }
   }
 
+  public static function backWithData()
+  {
+    $_SESSION['old_data'] = Request::all();
+    self::back();
+  }
+
   private static function registerFirstRedirect(Route $route)
   {
     $_SESSION['redirect'] = [
       'actual' => $route->getRouteUriInstance()->getUri(),
       'previous' => '',
-      'request' => $route->getRouteUriInstance()->currentRequest()
+      'request' => $route->request
     ];
-  }
-
-  private static function canChangeRedirect(Route $route)
-  {
-    return $route->getRouteUriInstance()->getUri() != $_SESSION['redirect']['actual'] && $route->getRouteUriInstance()->currentRequest() == $_SESSION['redirect']['request'] ||
-      $route->getRouteUriInstance()->getUri() == $_SESSION['redirect']['actual'] && $route->getRouteUriInstance()->currentRequest() != $_SESSION['redirect']['request'];
   }
 
   private static function registerRedirect(Route $route)
@@ -37,7 +37,7 @@ class Redirect
       $_SESSION['redirect'] = [
         'actual' => $route->getRouteUriInstance()->getUri(),
         'previous' => $_SESSION['redirect']['actual'],
-        'request' => $route->getRouteUriInstance()->currentRequest()
+        'request' => $route->request
       ];
     }
   }
@@ -47,5 +47,13 @@ class Redirect
     !isset($_SESSION['redirect']) ?
       self::registerFirstRedirect($route) :
       self::registerRedirect($route);
+  }
+
+  private static function canChangeRedirect(Route $route)
+  {
+    return $route->getRouteUriInstance()->getUri() != $_SESSION['redirect']['actual'] &&
+      $route->request == $_SESSION['redirect']['request'] ||
+      $route->getRouteUriInstance()->getUri() == $_SESSION['redirect']['actual'] &&
+      $route->request != $_SESSION['redirect']['request'];
   }
 }

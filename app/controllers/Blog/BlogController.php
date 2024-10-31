@@ -9,7 +9,6 @@ use app\database\models\Post;
 use app\controllers\Controller;
 use app\database\models\Comment;
 use app\database\models\Category;
-use app\library\Redirect;
 
 class BlogController extends Controller
 {
@@ -70,6 +69,7 @@ class BlogController extends Controller
       'comments' => $comments,
       'isAuth' => $isAuth
     ]);
+    // dd($_SESSION['redirect']);
   }
 
   private function baseFilter()

@@ -47,7 +47,7 @@ class AdminController extends Controller
     ]);
 
     if (!$validated) {
-      $this->redirectBackWithData('/admin/posts/create');
+      return Redirect::backWithData();
     }
 
     $validated['slug'] = Slugify::slugify($validated['title']);
@@ -59,7 +59,7 @@ class AdminController extends Controller
 
     (new Post)->create($validated);
     Flash::set('post-created', 'O post foi criado com sucesso');
-    return header('location: /admin');
+    return Redirect::to('/admin');
   }
 
   public function edit($id)
@@ -85,7 +85,7 @@ class AdminController extends Controller
     ]);
 
     if (!$validated) {
-      $this->redirectBackWithData("/admin/posts/edit/$id");
+      return Redirect::backWithData();
     }
 
     if (!empty($validated['postImage'])) {
@@ -97,7 +97,7 @@ class AdminController extends Controller
 
     (new Post)->update($id, $validated);
     Flash::set('post-created', 'O post foi atualizado com sucesso');
-    header('location: /admin');
+    return Redirect::to('/admin');
   }
 
   public function delete($id)
@@ -107,15 +107,9 @@ class AdminController extends Controller
       $deletedPost = $post->delete($id);
       if ($deletedPost) {
         Flash::set('post-deleted', 'O post foi deletado com sucesso');
-        header('location: /admin');
+        return Redirect::to('/admin');
       }
     }
-  }
-
-  private function redirectBackWithData($url)
-  {
-    $_SESSION['post_data'] = Request::all();
-    return header("location: $url");
   }
 
   private function handleImageUpdate($id, $validated)

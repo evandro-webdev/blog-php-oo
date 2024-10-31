@@ -1,6 +1,6 @@
 <?php $this->layout('master', ['title' => $title]);
-$post = (object) ($_SESSION['post_data'] ?? '');
-unset($_SESSION['post_data']);
+$post = (object) ($_SESSION['old_data'] ?? '');
+unset($_SESSION['old_data']);
 ?>
 
 <?php $this->start('temporary-styles') ?>

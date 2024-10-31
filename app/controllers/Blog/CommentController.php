@@ -7,6 +7,7 @@ use app\support\Flash;
 use app\support\Validation;
 use app\controllers\Controller;
 use app\database\models\Comment;
+use app\library\Redirect;
 use app\library\Request;
 
 class CommentController extends Controller
@@ -21,7 +22,7 @@ class CommentController extends Controller
 
     if (!$validated) {
       Flash::set('comment-error', 'Erro ao enviar o comentário. Tente novamente.');
-      return header('Location: ' . $_SERVER['HTTP_REFERER']);
+      return Redirect::back();
     }
 
     $validated['postId'] = Request::input('postId');
@@ -29,6 +30,6 @@ class CommentController extends Controller
 
     (new Comment)->create($validated);
     Flash::set('comment-success', 'Comentário enviado com sucesso.');
-    return header('Location: ' . $_SERVER['HTTP_REFERER']);
+    return Redirect::back();
   }
 }

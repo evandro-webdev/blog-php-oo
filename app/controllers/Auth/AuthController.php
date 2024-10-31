@@ -3,8 +3,9 @@
 namespace app\controllers\Auth;
 
 use app\auth\Auth;
-use app\library\Request;
 use app\support\Flash;
+use app\library\Request;
+use app\library\Redirect;
 use app\support\Validation;
 use app\database\models\User;
 use app\controllers\Controller;
@@ -20,7 +21,7 @@ class AuthController extends Controller
   {
     if (Auth::isBlocked()) {
       Flash::set('too-many-attempts', 'Muitas tentativas de acesso, tente novamente mais tarde.');
-      return header('location: /auth/login');
+      return Redirect::to('/auth/login');
     }
 
     $validated = (new Validation)->validate([
@@ -29,7 +30,7 @@ class AuthController extends Controller
     ]);
 
     if (!$validated) {
-      return $this->redirectBackWithData('/auth/login');
+      return Redirect::backWithData();
     }
 
     $user = (new User)->findBy('email', $validated['email']);
@@ -37,17 +38,17 @@ class AuthController extends Controller
     if (!$user || !password_verify($validated['password'], $user->password)) {
       Auth::trackLoginAttempts();
       Flash::set('login-error', 'Email ou senha incorretos.');
-      return $this->redirectBackWithData('/auth/login');
+      return Redirect::backWithData();
     }
 
     Auth::login($user);
     Flash::set('login-success', "Bem vindo, $user->name!");
 
     if ($user->is_admin) {
-      return header('location: /admin');
+      return Redirect::to('/admin');
     }
 
-    return header('location: /blog');
+    return Redirect::to('/blog');
   }
 
   public function registerForm()
@@ -65,7 +66,7 @@ class AuthController extends Controller
     ]);
 
     if (!$validated) {
-      return $this->redirectBackWithData('/auth/register');
+      return Redirect::backWithData();
     }
 
     unset($validated['confirmPassword']);
@@ -77,23 +78,17 @@ class AuthController extends Controller
 
     if (!$createdUser) {
       Flash::set('register-error', 'Ocorreu um erro ao criar sua conta. Tente novamente.');
-      return $this->redirectBackWithData('/auth/register');
+      return Redirect::backWithData();
     }
 
     Auth::login($createdUser);
     Flash::set('user-created', 'Conta criada com sucesso');
-    return header('location: /blog');
+    return Redirect::to('/blog');
   }
 
   public function logout()
   {
     Auth::logout();
-    return header('location: /blog');
-  }
-
-  private function redirectBackWithData($url)
-  {
-    $_SESSION['user_data'] = Request::all();
-    return header("location: $url");
+    return Redirect::to('/blog');
   }
 }
