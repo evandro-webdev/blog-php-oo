@@ -47,7 +47,7 @@ class AdminController extends Controller
     ]);
 
     if (!$validated) {
-      return Redirect::backWithData();
+      Redirect::backWithData();
     }
 
     $validated['slug'] = Slugify::slugify($validated['title']);

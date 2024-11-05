@@ -14,8 +14,6 @@ class CommentController extends Controller
 {
   public function create()
   {
-    Auth::refreshSession();
-
     $validated = (new Validation)->validate([
       'content' => 'required'
     ]);

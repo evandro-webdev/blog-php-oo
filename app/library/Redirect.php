@@ -6,7 +6,7 @@ class Redirect
 {
   public static function to(string $to)
   {
-    return header("location: $to");
+    return header("Location: $to");
   }
 
   public static function back()
@@ -19,7 +19,10 @@ class Redirect
   public static function backWithData()
   {
     $_SESSION['old_data'] = Request::all();
-    self::back();
+    // self::back();
+    if (isset($_SESSION['redirect'])) {
+      return self::to($_SESSION['redirect']['previous']);
+    }
   }
 
   private static function registerFirstRedirect(Route $route)
@@ -33,27 +36,17 @@ class Redirect
 
   private static function registerRedirect(Route $route)
   {
-    if (self::canChangeRedirect($route)) {
-      $_SESSION['redirect'] = [
-        'actual' => $route->getRouteUriInstance()->getUri(),
-        'previous' => $_SESSION['redirect']['actual'],
-        'request' => $route->request
-      ];
-    }
+    $_SESSION['redirect'] = [
+      'actual' => $route->getRouteUriInstance()->getUri(),
+      'previous' => $_SESSION['redirect']['actual'],
+      'request' => $route->request
+    ];
   }
 
   public static function register(Route $route)
   {
-    !isset($_SESSION['redirect']) ?
+    (!isset($_SESSION['redirect'])) ?
       self::registerFirstRedirect($route) :
       self::registerRedirect($route);
-  }
-
-  private static function canChangeRedirect(Route $route)
-  {
-    return $route->getRouteUriInstance()->getUri() != $_SESSION['redirect']['actual'] &&
-      $route->request == $_SESSION['redirect']['request'] ||
-      $route->getRouteUriInstance()->getUri() == $_SESSION['redirect']['actual'] &&
-      $route->request != $_SESSION['redirect']['request'];
   }
 }

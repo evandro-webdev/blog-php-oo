@@ -69,7 +69,6 @@ class BlogController extends Controller
       'comments' => $comments,
       'isAuth' => $isAuth
     ]);
-    // dd($_SESSION['redirect']);
   }
 
   private function baseFilter()

@@ -4,7 +4,6 @@ namespace app\controllers\Auth;
 
 use app\auth\Auth;
 use app\support\Flash;
-use app\library\Request;
 use app\library\Redirect;
 use app\support\Validation;
 use app\database\models\User;
