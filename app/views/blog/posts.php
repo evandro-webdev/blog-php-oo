@@ -47,6 +47,7 @@ $this->layout('master', ['title' => $title]); ?>
       <?php } ?>
       <?php foreach ($posts as $post) { ?>
       <div class="post-card">
+        <img src="<?php echo $post->imagePath ?>">
         <div class="post-info">
           <span class="category"><?php echo $post->category_title ?></span>
           <a href="/blog/<?php echo $post->slug ?>">

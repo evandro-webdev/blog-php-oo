@@ -2,9 +2,7 @@
 
 namespace app\controllers\Admin;
 
-use Exception;
 use app\auth\Auth;
-use app\library\Request;
 use app\support\Flash;
 use app\support\Slugify;
 use app\support\Validation;

@@ -19,10 +19,7 @@ class Redirect
   public static function backWithData()
   {
     $_SESSION['old_data'] = Request::all();
-    // self::back();
-    if (isset($_SESSION['redirect'])) {
-      return self::to($_SESSION['redirect']['previous']);
-    }
+    self::back();
   }
 
   private static function registerFirstRedirect(Route $route)

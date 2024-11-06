@@ -150,11 +150,25 @@ a {
 }
 
 .post-card {
-  padding: 15px;
   border: 1px solid #ddd;
   border-radius: 5px;
   margin-bottom: 20px;
   background-color: #fff;
+  overflow: hidden;
+
+  display: flex;
+  align-items: center;
+}
+
+.post-card img {
+  width: 30%;
+  height: 160px;
+  object-fit: cover;
+}
+
+.post-info {
+  width: 70%;
+  padding: 15px;
 }
 
 .post-info .category {
@@ -349,7 +363,6 @@ select {
   margin-top: 10px;
   border-radius: 5px;
   object-fit: cover;
-  /* display: none; */
 }
 
 button {
@@ -555,6 +568,7 @@ button {
 .related-title {
   font-size: 1.2em;
   margin: 8px 0;
+  color: #333;
 }
 
 .related-read-more {
