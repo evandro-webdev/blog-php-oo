@@ -8,3 +8,7 @@ unset($_SESSION['old_data']);
 <?php $this->stop() ?>
 
 <?php echo $this->insert('/admin/blog/partials/post-form', ["action" => $action, "categories" => $categories, 'post' => $post]) ?>
+
+<?php $this->start('previewImage') ?>
+<script src="/js/previewImage.js"></script>
+<?php $this->stop() ?>

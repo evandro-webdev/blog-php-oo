@@ -20,7 +20,7 @@ class CommentController extends Controller
 
     if (!$validated) {
       Flash::set('comment-error', 'Erro ao enviar o comentário. Tente novamente.');
-      return Redirect::back();
+      Redirect::back();
     }
 
     $validated['postId'] = Request::input('postId');
@@ -28,6 +28,6 @@ class CommentController extends Controller
 
     (new Comment)->create($validated);
     Flash::set('comment-success', 'Comentário enviado com sucesso.');
-    return Redirect::back();
+    Redirect::back();
   }
 }

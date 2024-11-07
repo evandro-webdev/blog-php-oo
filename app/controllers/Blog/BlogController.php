@@ -76,7 +76,7 @@ class BlogController extends Controller
     $filter = new Filters;
     $filter->join('categories', 'posts.categoryId', '=', 'categories.id')
       ->join('users', 'posts.userId', '=', 'users.id');
-    return  $filter;
+    return $filter;
   }
 
   private function commentFilter($id)

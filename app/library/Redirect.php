@@ -6,13 +6,14 @@ class Redirect
 {
   public static function to(string $to)
   {
-    return header("Location: $to");
+    header("Location: $to");
+    exit();
   }
 
   public static function back()
   {
     if (isset($_SESSION['redirect'])) {
-      return self::to($_SESSION['redirect']['previous']);
+      self::to($_SESSION['redirect']['previous']);
     }
   }
 

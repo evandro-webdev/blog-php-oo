@@ -20,7 +20,7 @@ class AuthController extends Controller
   {
     if (Auth::isBlocked()) {
       Flash::set('too-many-attempts', 'Muitas tentativas de acesso, tente novamente mais tarde.');
-      return Redirect::to('/auth/login');
+      Redirect::to('/auth/login');
     }
 
     $validated = (new Validation)->validate([
@@ -29,7 +29,7 @@ class AuthController extends Controller
     ]);
 
     if (!$validated) {
-      return Redirect::backWithData();
+      Redirect::backWithData();
     }
 
     $user = (new User)->findBy('email', $validated['email']);
@@ -37,17 +37,17 @@ class AuthController extends Controller
     if (!$user || !password_verify($validated['password'], $user->password)) {
       Auth::trackLoginAttempts();
       Flash::set('login-error', 'Email ou senha incorretos.');
-      return Redirect::backWithData();
+      Redirect::backWithData();
     }
 
     Auth::login($user);
     Flash::set('login-success', "Bem vindo, $user->name!");
 
     if ($user->is_admin) {
-      return Redirect::to('/admin');
+      Redirect::to('/admin');
     }
 
-    return Redirect::to('/blog');
+    Redirect::to('/blog');
   }
 
   public function registerForm()
@@ -65,7 +65,7 @@ class AuthController extends Controller
     ]);
 
     if (!$validated) {
-      return Redirect::backWithData();
+      Redirect::backWithData();
     }
 
     unset($validated['confirmPassword']);
@@ -77,17 +77,17 @@ class AuthController extends Controller
 
     if (!$createdUser) {
       Flash::set('register-error', 'Ocorreu um erro ao criar sua conta. Tente novamente.');
-      return Redirect::backWithData();
+      Redirect::backWithData();
     }
 
     Auth::login($createdUser);
     Flash::set('user-created', 'Conta criada com sucesso');
-    return Redirect::to('/blog');
+    Redirect::to('/blog');
   }
 
   public function logout()
   {
     Auth::logout();
-    return Redirect::to('/blog');
+    Redirect::to('/blog');
   }
 }

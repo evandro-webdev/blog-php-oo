@@ -2,8 +2,6 @@
 
 namespace app\auth;
 
-use app\support\Flash;
-
 class Auth
 {
   public static function login($user)
