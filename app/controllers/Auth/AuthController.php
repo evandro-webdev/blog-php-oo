@@ -40,6 +40,7 @@ class AuthController extends Controller
       Redirect::backWithData();
     }
 
+    unset($user->password, $user->email);
     Auth::login($user);
     Flash::set('login-success', "Bem vindo, $user->name!");
 

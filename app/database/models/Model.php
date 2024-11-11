@@ -6,12 +6,14 @@ use PDO;
 use PDOException;
 use app\database\Connection;
 use app\database\Filters;
+use app\database\Pagination;
 
 abstract class Model
 {
   protected string $table;
   private string $fields = '*';
   private ?Filters $filters = null;
+  private string $pagination = '';
 
   public function setFields(string $fields)
   {
@@ -25,10 +27,17 @@ abstract class Model
     return $this;
   }
 
+  public function setPagination(Pagination $pagination)
+  {
+    $pagination->setTotalItems($this->count());
+    $this->pagination = $pagination->dump();
+    return $this;
+  }
+
   public function all()
   {
     try {
-      $sql = "SELECT $this->fields FROM $this->table {$this->filters?->dump()}";
+      $sql = "SELECT $this->fields FROM $this->table {$this->filters?->dump()} $this->pagination";
       $connection = Connection::connect();
       $prepare = $connection->prepare($sql);
       $prepare->execute($this->filters ? $this->filters->getBind() : []);

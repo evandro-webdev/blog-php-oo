@@ -1,7 +1,8 @@
 <?php
 $this->layout('master', ['title' => $title]);
-$user = (object) ($_SESSION['user_data'] ?? '');
-unset($_SESSION['user_data']);
+$user = (object) ($_SESSION['old_data'] ?? '');
+unset($_SESSION['old_data']);
+
 ?>
 
 <?php $this->start('temporary-styles') ?>

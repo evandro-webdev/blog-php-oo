@@ -9,6 +9,7 @@ use app\database\models\Post;
 use app\controllers\Controller;
 use app\database\models\Comment;
 use app\database\models\Category;
+use app\database\Pagination;
 
 class BlogController extends Controller
 {
@@ -25,9 +26,12 @@ class BlogController extends Controller
       $filter->where('posts.title', 'LIKE', "%$search%");
     }
 
+    $pagination = new Pagination;
+
     $posts = (new Post)
       ->setFields("posts.title, posts.slug, posts.created_at, imagePath, categories.title as category_title, users.name as author")
       ->setFilters($filter)
+      ->setPagination($pagination)
       ->all();
 
     $categories = (new Category)->all();
@@ -38,7 +42,8 @@ class BlogController extends Controller
       'title' => 'Postagens recentes',
       'posts' => $posts,
       'categories' => $categories,
-      'mostViewed' => $mostViewed
+      'mostViewed' => $mostViewed,
+      'pagination' => $pagination
     ]);
   }
 
@@ -48,7 +53,8 @@ class BlogController extends Controller
 
     $post = new Post;
     $foundPost = $post
-      ->setFields("posts.id, posts.title, posts.slug, categoryId, content, imagePath, posts.created_at, categories.title as category_title, users.name as author")
+      ->setFields("posts.id, posts.title, posts.slug, categoryId, content, imagePath, posts.created_at, 
+        categories.slug as categorySlug, categories.title as category_title, users.name as author")
       ->setFilters($filter)
       ->all();
 
