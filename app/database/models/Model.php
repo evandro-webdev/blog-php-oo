@@ -109,7 +109,7 @@ abstract class Model
   public function count()
   {
     try {
-      $sql = "SELECT $this->fields FROM $this->table";
+      $sql = "SELECT $this->fields FROM $this->table {$this->filters?->dump()}";
 
       $connection = Connection::connect();
       $prepare = $connection->prepare($sql);
