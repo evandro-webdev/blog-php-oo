@@ -15,7 +15,7 @@ class BlogController extends Controller
 {
   public function index($slug = null)
   {
-    $filter = $this->baseFilter()->orderBy('created_at', 'DESC');
+    $filter = $this->baseFilter()->orderBy('posts.created_at', 'DESC');
 
     if ($slug) {
       $filter->where('categories.slug', '=', $slug);

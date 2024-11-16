@@ -110,10 +110,9 @@ abstract class Model
   {
     try {
       $sql = "SELECT $this->fields FROM $this->table {$this->filters?->dump()}";
-
       $connection = Connection::connect();
       $prepare = $connection->prepare($sql);
-      $prepare->execute();
+      $prepare->execute($this->filters ? $this->filters->getBind() : []);
       return $prepare->rowCount();
     } catch (PDOException $e) {
       dd($e->getMessage());
