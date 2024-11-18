@@ -18,6 +18,7 @@ try {
     $this->add('?search=(:any)', 'GET', 'BlogController:index', ['search']);
     $this->add('/(:any)', 'GET', 'BlogController:show', ['slug']);
     $this->add('/comment', 'POST', 'CommentController:create');
+    $this->add('/comment/delete/(:numeric)', 'POST', 'CommentController:delete', ['id']);
   });
 
   $router->group(['prefix' => 'auth', 'controller' => 'auth', 'middlewares' => ['guest']], function () {
@@ -25,7 +26,7 @@ try {
     $this->add('/login', 'POST', 'AuthController:login');
     $this->add('/register', 'GET', 'AuthController:registerForm');
     $this->add('/register', 'POST', 'AuthController:register');
-    $this->add('/logout', 'POST', 'AuthController:logout');
+    $this->add('/logout', 'POST', 'AuthController:logout')->middleware([]);
   });
 
   $router->init();
