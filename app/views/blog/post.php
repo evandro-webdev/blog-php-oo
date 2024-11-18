@@ -1,5 +1,7 @@
 <?php
 
+use app\auth\Auth;
+
 $this->layout('master', ['title' => $title]); ?>
 
 <?php $this->start('temporary-styles') ?>
@@ -65,6 +67,7 @@ $this->layout('master', ['title' => $title]); ?>
       <h2 class="comments-title">Comentários</h2>
 
       <?php echo flash('comment-success', 'msg msg-success mb') ?>
+      <?php echo flash('comment-deleted', 'msg msg-success mb') ?>
 
       <?php if (count($comments) > 0) { ?>
         <ul class="comments-list">
@@ -73,6 +76,12 @@ $this->layout('master', ['title' => $title]); ?>
               <div class="comment-header">
                 <span class="comment-author"><?php echo $comment->name; ?></span>
                 <span class="comment-date"><?php echo formatDate($comment->created_at); ?></span>
+                <?php if (Auth::isAuth() && $comment->userId == Auth::getUser()->id) { ?>
+                  <form action="/blog/comment/delete/<?php echo $comment->id ?>" method="POST">
+                    <input type="hidden" name="_method" value="DELETE">
+                    <button type="submit">Excluir</button>
+                  </form>
+                <?php } ?>
               </div>
               <div class="comment-content">
                 <?php echo $comment->content; ?>

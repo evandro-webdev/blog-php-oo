@@ -63,7 +63,7 @@ class BlogController extends Controller
 
     $filter = $this->commentFilter($foundPost[0]->id);
     $comments = (new Comment)
-      ->setFields("content, comments.created_at, name")
+      ->setFields("comments.id, content, comments.created_at, name, userId")
       ->setFilters($filter)
       ->all();
 

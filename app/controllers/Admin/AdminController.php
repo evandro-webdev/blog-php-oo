@@ -101,8 +101,7 @@ class AdminController extends Controller
   public function delete($id)
   {
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['_method']) && $_POST['_method'] === 'DELETE') {
-      $post = new Post;
-      $deletedPost = $post->delete($id);
+      $deletedPost = (new Post)->delete($id);
       if ($deletedPost) {
         Flash::set('post-deleted', 'O post foi deletado com sucesso');
         Redirect::to('/admin');

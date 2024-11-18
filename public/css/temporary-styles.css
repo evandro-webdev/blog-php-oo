@@ -661,10 +661,18 @@ button {
   margin-top: 20px;
 }
 
+.comment-item button{
+  all: unset;
+  color: red;
+}
+
 .comment-header {
   font-size: 14px;
   color: #888;
   margin-bottom: 5px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
 }
 
 .comment-content {
