@@ -9,6 +9,7 @@ use app\database\models\Post;
 use app\controllers\Controller;
 use app\database\models\Comment;
 use app\database\models\Category;
+use app\database\models\User;
 use app\database\Pagination;
 
 class BlogController extends Controller
@@ -29,7 +30,8 @@ class BlogController extends Controller
     $pagination = new Pagination;
 
     $posts = (new Post)
-      ->setFields("posts.title, posts.slug, posts.created_at, imagePath, categories.title as category_title, users.name as author")
+      ->setFields("posts.id, posts.title, posts.slug, posts.created_at, imagePath, categories.title as category_title, 
+        users.name as author, COUNT(comments.id) as comment_count")
       ->setFilters($filter)
       ->setPagination($pagination)
       ->all();
@@ -53,7 +55,7 @@ class BlogController extends Controller
 
     $post = new Post;
     $foundPost = $post
-      ->setFields("posts.id, posts.title, posts.slug, categoryId, content, imagePath, posts.created_at, 
+      ->setFields("posts.id, posts.title, posts.slug, categoryId, posts.content, imagePath, posts.created_at, 
         categories.slug as categorySlug, categories.title as category_title, users.name as author")
       ->setFilters($filter)
       ->all();
@@ -77,11 +79,22 @@ class BlogController extends Controller
     ]);
   }
 
+  public function profile()
+  {
+    $userId = Auth::getUser()->id;
+    $user = (new User)->findBy('id', $userId);
+    $filters = (new Filters)->where('userId', '=', $userId);
+    $postsByUser = (new Post)->setFilters($filters)->all();
+    $this->view('blog/profile', ['title' => 'Perfil', 'user' => $user, 'postsByUser' => $postsByUser]);
+  }
+
   private function baseFilter()
   {
     $filter = new Filters;
     $filter->join('categories', 'posts.categoryId', '=', 'categories.id')
-      ->join('users', 'posts.userId', '=', 'users.id');
+      ->join('users', 'posts.userId', '=', 'users.id')
+      ->join('comments', 'posts.id', '=', 'comments.postId', 'LEFT JOIN')
+      ->groupBy('posts.id');
     return $filter;
   }
 

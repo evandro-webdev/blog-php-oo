@@ -41,6 +41,12 @@ class Filters
     return $this;
   }
 
+  public function groupBy($field)
+  {
+    $this->filters['groupBy'] = " GROUP BY $field";
+    return $this;
+  }
+
   public function orderBy(string $field, string $order = 'ASC')
   {
     $this->filters['order'] = " ORDER BY $field $order ";
@@ -61,6 +67,7 @@ class Filters
   {
     $filter = !empty($this->filters['join']) ? implode('', $this->filters['join']) : '';
     $filter .= !empty($this->filters['where']) ? ' WHERE ' . implode('', $this->filters['where']) : '';
+    $filter .= $this->filters['groupBy'] ?? '';
     $filter .= $this->filters['order'] ?? '';
     $filter .= $this->filters['limit'] ?? '';
 

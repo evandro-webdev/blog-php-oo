@@ -23,6 +23,7 @@
     <a href="/auth/login" class="login-btn">Login</a>
     <a href="/auth/register" class="register-btn">Registro</a>
     <?php } else { ?>
+    <a href="/blog/perfil"><img src="../img/icons/profile.svg" alt=""> Perfil</a>
     <form action="/auth/logout" method="POST">
       <button>Sair</button>
     </form>

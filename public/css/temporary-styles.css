@@ -94,6 +94,10 @@ a {
   text-decoration: none;
   color: white;
   background-color: #0056b3;
+
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .auth-buttons a:hover {
@@ -106,6 +110,10 @@ a {
 
 .auth-buttons .login-btn:hover {
   background-color: #0b7dda;
+}
+
+.auth-buttons img{
+  width: 20px;
 }
 
 /* Sidebar */
@@ -160,7 +168,7 @@ a {
   align-items: center;
 }
 
-.post-card img {
+.post-card > img {
   width: 30%;
   height: 160px;
   object-fit: cover;
@@ -186,6 +194,19 @@ a {
 .post-info .meta {
   font-size: 14px;
   color: #666;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.comment-count{
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.comment-count img{
+  width: 20px;
 }
 
 .pagination {
@@ -663,6 +684,7 @@ button {
 
 .comment-item button{
   all: unset;
+  cursor: pointer;
   color: red;
 }
 
@@ -782,6 +804,95 @@ button {
 .next {
   right: 10px;
 }
+
+.user-profile {
+  padding: 20px;
+  max-width: 600px;
+  margin: 20px auto;
+  font-family: Arial, sans-serif;
+  /* background-color: #f9f9f9; */
+}
+
+.profile-title {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.profile-info{
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.profile-details {
+  font-size: 16px;
+  color: #555;
+  line-height: 1.6;
+}
+
+.profile-details p {
+  margin: 10px 0;
+}
+
+.profile-actions {
+  margin-top: 20px;
+}
+
+.btn-edit {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.btn-edit:hover {
+  background-color: #0056b3;
+}
+
+.user-posts {
+  margin-top: 30px;
+}
+
+.posts-title {
+  font-size: 20px;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.posts-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.post-item {
+  margin-bottom: 15px;
+  font-size: 16px;
+  color: #555;
+}
+
+.post-link {
+  text-decoration: none;
+  color: #007bff;
+  font-weight: bold;
+}
+
+.post-link:hover {
+  color: #0056b3;
+  text-decoration: underline;
+}
+
+.post-date {
+  display: block;
+  font-size: 14px;
+  color: #777;
+  margin-top: 5px;
+}
+
 
 footer {
   background-color: #001f3f; /* Azul bem escuro */

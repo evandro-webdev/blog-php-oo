@@ -56,7 +56,11 @@ $this->layout('master', ['title' => $title]); ?>
               <h3 class="title"><?php echo $post->title ?></h3>
             </a>
             <div class="meta">
-              <span>Por <?php echo $post->author ?></span> | <span><?php echo formatDate($post->created_at) ?></span>
+              <div>
+                <span>Por <?php echo $post->author ?></span> | <span><?php echo formatDate($post->created_at) ?></span>
+              </div>
+              <span class="comment-count"><img src="../img/icons/comment.svg"
+                  alt=""><?php echo $post->comment_count ?></span>
             </div>
           </div>
         </div>
