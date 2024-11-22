@@ -57,7 +57,7 @@ $this->layout('master', ['title' => $title]); ?>
               <span class="related-date"><?php echo formatDate($relatedPost->created_at); ?></span>
             </div>
             <h3 class="related-title"><?php echo $relatedPost->title; ?></h3>
-            <a href="/blog/<?php echo $relatedPost->slug; ?>" class="related-read-more">Ler mais</a>
+            <a href="/blog/post/<?php echo $relatedPost->slug; ?>" class="related-read-more">Ler mais</a>
           </div>
         </div>
       <?php } ?>

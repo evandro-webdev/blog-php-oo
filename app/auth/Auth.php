@@ -41,7 +41,7 @@ class Auth
     return self::isAuth() ? $_SESSION['auth'] : null;
   }
 
-  public static function isExpired($timeout = 1800 * 2)
+  public static function isExpired($timeout = 18000 * 2)
   {
     if (isset($_SESSION['last_activity'])) {
       $inactive = time() - $_SESSION['last_activity'];

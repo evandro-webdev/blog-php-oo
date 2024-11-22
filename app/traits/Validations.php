@@ -127,4 +127,15 @@ trait Validations
 
     return $image;
   }
+
+  public function optional($field)
+  {
+    $data = Request::input($field);
+
+    if (empty($data)) {
+      return '';
+    }
+
+    return $data;
+  }
 }

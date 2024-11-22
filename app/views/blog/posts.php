@@ -13,7 +13,7 @@ $this->layout('master', ['title' => $title]); ?>
   <?php foreach ($mostViewed as $post) { ?>
     <div class="slide" id="slide-1" style="background-image: url('<?php echo $post->imagePath ?? '' ?>')">
       <div class="slide-content">
-        <a href="/blog/<?php echo $post->slug ?>">
+        <a href="/blog/post/<?php echo $post->slug ?>">
           <h2><?php echo $post->title ?></h2>
         </a>
         <p><?php echo $post->categoryTitle ?></p>
@@ -52,7 +52,7 @@ $this->layout('master', ['title' => $title]); ?>
           <img src="<?php echo $post->imagePath ?>">
           <div class="post-info">
             <span class="category"><?php echo $post->category_title ?></span>
-            <a href="/blog/<?php echo $post->slug ?>">
+            <a href="/blog/post/<?php echo $post->slug ?>">
               <h3 class="title"><?php echo $post->title ?></h3>
             </a>
             <div class="meta">

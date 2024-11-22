@@ -33,7 +33,7 @@
   </main>
 </div>
 
-<div class="backdrop-container" id="confirmation-modal">
+<div class="backdrop-container modal" id="confirmation-modal">
   <div class="confirmation-modal">
     <h3>Tem certeza que deseja deletar essa postagem?</h3>
     <div class="actions">

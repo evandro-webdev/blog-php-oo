@@ -15,9 +15,10 @@ try {
   $router->group(['prefix' => 'blog', 'controller' => 'blog'], function () {
     $this->add('/', 'GET', 'BlogController:index');
     $this->add('/perfil', 'GET', 'BlogController:profile');
+    $this->add('/editar-perfil', 'POST', 'BlogController:updateProfile');
     $this->add('/categoria/(:any)', 'GET', 'BlogController:index', ['slug']);
     $this->add('?search=(:any)', 'GET', 'BlogController:index', ['search']);
-    $this->add('/(:any)', 'GET', 'BlogController:show', ['slug']);
+    $this->add('/post/(:any)', 'GET', 'BlogController:show', ['slug']);
     $this->add('/comment', 'POST', 'CommentController:create');
     $this->add('/comment/delete/(:numeric)', 'POST', 'CommentController:delete', ['id']);
   });
