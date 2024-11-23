@@ -3,14 +3,10 @@
 namespace app\controllers\Blog;
 
 use app\auth\Auth;
-use app\support\Flash;
 use app\library\Request;
 use app\database\Filters;
-use app\library\Redirect;
-use app\support\Validation;
 use app\database\Pagination;
 use app\database\models\Post;
-use app\database\models\User;
 use app\controllers\Controller;
 use app\database\models\Comment;
 use app\database\models\Category;
@@ -80,32 +76,6 @@ class BlogController extends Controller
       'comments' => $comments,
       'isAuth' => $isAuth
     ]);
-  }
-
-  public function profile()
-  {
-    $userId = Auth::getUser()->id;
-    $user = (new User)->findBy('id', $userId);
-    $filters = (new Filters)->where('userId', '=', $userId);
-    $postsByUser = (new Post)->setFilters($filters)->all();
-    $this->view('blog/profile', ['title' => 'Perfil', 'user' => $user, 'postsByUser' => $postsByUser]);
-  }
-
-  public function updateProfile()
-  {
-    $validated = (new Validation)->validate([
-      'name' => 'required',
-      'last_name' => 'optional'
-    ]);
-
-    if (!$validated) {
-      Redirect::backWithData();
-    }
-
-    $userId = Auth::getUser()->id;
-    (new User)->update($userId, $validated);
-    Flash::set('profile-updated', 'Seu perfil foi atualizado com sucesso');
-    Redirect::to('/blog/perfil');
   }
 
   private function baseFilter()

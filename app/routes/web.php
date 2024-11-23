@@ -14,8 +14,9 @@ try {
 
   $router->group(['prefix' => 'blog', 'controller' => 'blog'], function () {
     $this->add('/', 'GET', 'BlogController:index');
-    $this->add('/perfil', 'GET', 'BlogController:profile');
-    $this->add('/editar-perfil', 'POST', 'BlogController:updateProfile');
+    $this->add('/perfil', 'GET', 'UserController:profile');
+    $this->add('/atualizar-perfil', 'POST', 'UserController:updateProfile');
+    $this->add('/atualizar-foto', 'POST', 'UserController:updateProfilePic');
     $this->add('/categoria/(:any)', 'GET', 'BlogController:index', ['slug']);
     $this->add('?search=(:any)', 'GET', 'BlogController:index', ['search']);
     $this->add('/post/(:any)', 'GET', 'BlogController:show', ['slug']);

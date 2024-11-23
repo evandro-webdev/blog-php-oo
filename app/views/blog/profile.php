@@ -13,7 +13,15 @@ $userForm = (object) ($_SESSION['old_data'] ?? $user);
       <?php echo flash('profile-updated', 'msg msg-success mb') ?>
       <h1 class="profile-title">Perfil de Usuário</h1>
       <div class="profile-info">
-        <img src="../img/icons/profile-pic.svg" alt="" class="profile-pic">
+        <div class="profile-pic-container">
+          <img src="<?php echo $user->profile_pic ?? '../img/icons/profile-pic.svg' ?>" alt="foto de perfil" class="profile-pic">
+
+          <form action="/blog/atualizar-foto" method="POST" id="profile-pic-form" enctype="multipart/form-data">
+            <input type="file" id="profile-pic" name="profile_pic" class="profile-pic-input" onchange="submitForm()">
+            <label for="profile-pic" class="profile-pic-label"><img src="../img/icons/camera.svg"> Trocar</label>
+          </form>
+
+        </div>
         <div class="profile-details">
           <p><strong>Nome:</strong> <?php echo $user->name . " " . $user->last_name ?? '' ?></p>
           <p><strong>Email:</strong> <?php echo $user->email ?></p>
@@ -25,7 +33,7 @@ $userForm = (object) ($_SESSION['old_data'] ?? $user);
       <button class="btn-edit" id="toggle-form" type="submit">Editar Informações</button>
     </div>
 
-    <form action="/blog/editar-perfil" method="POST" class="user-edit-form" id="user-edit-form">
+    <form action="/blog/atualizar-perfil" method="POST" class="user-edit-form" id="user-edit-form">
       <div class="form-group">
         <label for="name">Nome:</label>
         <input
@@ -54,7 +62,7 @@ $userForm = (object) ($_SESSION['old_data'] ?? $user);
 
   <?php if (count($postsByUser) > 0) { ?>
     <div class="user-posts">
-      <h2 class="posts-title">Posts Cadastrados</h2>
+      <h2 class="posts-title">Seus posts Cadastrados</h2>
       <ul class="posts-list">
         <?php foreach ($postsByUser as $post) { ?>
           <li class="post-item">
@@ -80,4 +88,8 @@ $userForm = (object) ($_SESSION['old_data'] ?? $user);
   toggleForm.addEventListener('click', e => {
     userEditForm.classList.toggle('active');
   })
+
+  function submitForm() {
+    document.querySelector('#profile-pic-form').submit();
+  }
 </script>

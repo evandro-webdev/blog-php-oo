@@ -815,6 +815,53 @@ button {
   flex-grow: 1;
 }
 
+.profile-pic-container{
+  width: 100px;
+  height: 100px;
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.profile-pic{
+  width: 100%;
+}
+
+.profile-pic-input{
+  display: none;
+}
+
+.profile-pic-container form{
+  width: 100%;
+  height: 100%;
+  display: none;
+  position: absolute;
+  left: 0;
+  top: 0;
+  background-color: #313131;
+}
+
+.profile-pic-container:hover > form{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.profile-pic-label{
+  margin: 0;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  color: #FFF;
+}
+
+.profile-pic-label img{
+  width: 24px;
+}
+
 .profile-title {
   font-size: 24px;
   color: #333;

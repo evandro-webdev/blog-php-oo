@@ -7,10 +7,12 @@ use Exception;
 class ImageManager
 {
   protected string $uploadDir;
+  protected string $folder;
 
-  public function __construct(string $uploadDir = '/public/img/posts/')
+  public function __construct(string $uploadDir = '/public/img/posts/', string $folder)
   {
     $this->uploadDir = BASE_PATH . $uploadDir;
+    $this->folder = $folder;
   }
 
   public function upload(array $image): string
@@ -19,7 +21,7 @@ class ImageManager
     $imagePath = $this->uploadDir . $imageName;
 
     if (move_uploaded_file($image['tmp_name'], $imagePath)) {
-      return '/img/posts/' . $imageName;
+      return "/img/$this->folder/" . $imageName;
     }
 
     throw new Exception('Erro ao fazer o upload de imagem');
