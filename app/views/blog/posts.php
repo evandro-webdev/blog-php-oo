@@ -9,7 +9,7 @@ $this->layout('master', ['title' => $title]); ?>
 <?php echo flash('user-created', 'flash-message') ?>
 <?php echo flash('login-success', 'flash-message') ?>
 
-<div class="slides-container">
+<div class="slides-container <?php echo (isset($_GET['search'])) ? 'disabled' : ''  ?>">
   <?php foreach ($mostViewed as $post) { ?>
     <div class="slide" id="slide-1" style="background-image: url('<?php echo $post->imagePath ?? '' ?>')">
       <div class="slide-content">
@@ -27,9 +27,6 @@ $this->layout('master', ['title' => $title]); ?>
 </div>
 
 <div class="container">
-  <header>
-    <h1>Blog de Odontologia</h1>
-  </header>
 
   <div class="content">
     <aside class="sidebar">
@@ -59,7 +56,7 @@ $this->layout('master', ['title' => $title]); ?>
               <div>
                 <span>Por <?php echo $post->author ?></span> | <span><?php echo formatDate($post->created_at) ?></span>
               </div>
-              <span class="comment-count"><img src="../img/icons/comment.svg"
+              <span class="comment-count"><img src="/img/icons/comment.svg"
                   alt=""><?php echo $post->comment_count ?></span>
             </div>
           </div>

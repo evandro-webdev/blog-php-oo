@@ -4,18 +4,25 @@ namespace app\controllers\Blog;
 
 use app\auth\Auth;
 use app\library\Request;
-use app\database\Filters;
+use app\controllers\Controller;
 use app\database\Pagination;
 use app\database\models\Post;
-use app\controllers\Controller;
 use app\database\models\Comment;
 use app\database\models\Category;
+use app\Services\PostFilterService;
 
 class BlogController extends Controller
 {
+  private $postFilterService;
+
+  public function __construct()
+  {
+    $this->postFilterService = new PostFilterService();
+  }
+
   public function index($slug = null)
   {
-    $filter = $this->baseFilter()->orderBy('posts.created_at', 'DESC');
+    $filter = $this->postFilterService->baseFilter()->orderBy('posts.created_at', 'DESC');
 
     if ($slug) {
       $filter->where('categories.slug', '=', $slug);
@@ -37,7 +44,7 @@ class BlogController extends Controller
 
     $categories = (new Category)->all();
 
-    $mostViewed = $this->getMostViewed();
+    $mostViewed = $this->postFilterService->getMostViewed();
 
     $this->view('blog/posts', [
       'title' => 'Postagens recentes',
@@ -50,7 +57,7 @@ class BlogController extends Controller
 
   public function show($slug)
   {
-    $filter = $this->baseFilter()->where('posts.slug', '=', $slug);
+    $filter = $this->postFilterService->baseFilter()->where('posts.slug', '=', $slug);
 
     $post = new Post;
     $foundPost = $post
@@ -60,69 +67,20 @@ class BlogController extends Controller
       ->all();
 
     $post->incrementViews($foundPost[0]->id);
-    $relatedPosts = $this->getRelatedPosts($foundPost[0]->id, $foundPost[0]->categoryId);
+    $relatedPosts = $this->postFilterService->getRelatedPosts($foundPost[0]->id, $foundPost[0]->categoryId);
 
-    $filter = $this->commentFilter($foundPost[0]->id);
+    $filter = $this->postFilterService->commentFilter($foundPost[0]->id);
     $comments = (new Comment)
       ->setFields("comments.id, content, comments.created_at, name, userId")
       ->setFilters($filter)
       ->all();
 
-    $isAuth = Auth::isAuth();
     $this->view('blog/post', [
       'title' => 'Post',
       'post' => $foundPost[0],
       'relatedPosts' => $relatedPosts,
       'comments' => $comments,
-      'isAuth' => $isAuth
+      'isAuth' => Auth::isAuth()
     ]);
-  }
-
-  private function baseFilter()
-  {
-    $filter = new Filters;
-    $filter->join('categories', 'posts.categoryId', '=', 'categories.id')
-      ->join('users', 'posts.userId', '=', 'users.id')
-      ->join('comments', 'posts.id', '=', 'comments.postId', 'LEFT JOIN')
-      ->groupBy('posts.id');
-    return $filter;
-  }
-
-  private function commentFilter($id)
-  {
-    $filter = new Filters;
-    $filter->join('users', 'comments.userId', '=', 'users.id')
-      ->where('postId', '=', $id)
-      ->orderBy('created_at', 'DESC');
-
-    return $filter;
-  }
-
-  private function getMostViewed($limit = 5)
-  {
-    $filter = new Filters;
-    $filter->join('categories', 'posts.categoryId', '=', 'categories.id')
-      ->orderBy('views', 'DESC')
-      ->limit($limit);
-
-    return (new Post)
-      ->setFields("posts.title, posts.slug, imagePath, created_at, categories.title as categoryTitle")
-      ->setFilters($filter)
-      ->all();
-  }
-
-  private function getRelatedPosts($postId, $categoryId, $limit = 5)
-  {
-    $filter = new Filters;
-    $filter->join('categories', 'posts.categoryId', '=', 'categories.id')
-      ->where('categoryId', '=', $categoryId, 'AND')
-      ->where('posts.id', '!=', $postId)
-      ->orderBy('created_at', 'DESC')
-      ->limit($limit);
-
-    return (new Post)
-      ->setFields("posts.title, posts.slug, imagePath, created_at, categories.title as categoryTitle")
-      ->setFilters($filter)
-      ->all();
   }
 }
