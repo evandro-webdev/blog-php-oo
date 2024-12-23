@@ -1,0 +1,158 @@
+.header {
+  padding: 20px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 2000;
+
+  transition: transform 0.3s ease;
+}
+
+.header-white-bg {
+  background: var(--clr-white);
+}
+
+.hidden {
+  transform: translateY(-100%);
+}
+
+.header .container {
+  max-width: 75em;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header .left-colum {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header .logo {
+  display: inline-flex;
+}
+
+.menu-label {
+  cursor: pointer;
+}
+
+.navbar {
+  border-bottom: 1px solid #d4d4d4;
+  text-align: right;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+
+  background: var(--clr-white)fff;
+
+  transform: translateX(135%);
+  transition: transform 500ms ease-in-out;
+  z-index: -2000;
+}
+
+#menu-bar {
+  display: none;
+}
+
+.navbar ul {
+  list-style: none;
+}
+
+.navbar ul li a {
+  padding: 20px;
+  font-size: 16px;
+
+  color: #323761;
+
+  display: block;
+}
+
+.navbar ul li a:hover {
+  background: #f8f8f8;
+}
+
+.navbar ul li ul {
+  width: 200px;
+  position: absolute;
+  left: 0;
+
+  background: #fdfdfd;
+
+  display: none;
+}
+
+#menu-bar:checked ~ .navbar {
+  transform: translateX(0%);
+  opacity: 1;
+}
+
+.navbar ul li:focus-within > ul,
+.navbar ul li:hover > ul {
+  display: initial;
+}
+
+.navbar ul li ul {
+  position: relative;
+  width: 100%;
+}
+
+.navbar ul li ul li {
+  width: 100%;
+  border-top: 1px solid #f3f3f3;
+}
+
+.header .container > a {
+  display: none;
+}
+
+@media (width >= 75em) {
+  .header .left-colum {
+    width: 100%;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .header .menu-label {
+    display: none;
+  }
+
+  .header .navbar {
+    display: initial;
+    all: unset;
+  }
+
+  .navbar ul {
+    display: flex;
+    gap: 30px;
+  }
+
+  .header .navbar ul li {
+    position: relative;
+    float: left;
+  }
+
+  .header .navbar ul li ul {
+    position: absolute;
+  }
+
+  .navbar ul li a {
+    padding: 0;
+    font-size: 20px;
+  }
+
+  .navbar ul li:last-child {
+    display: none;
+  }
+
+  .header .container > a {
+    display: block;
+    white-space: nowrap;
+  }
+}

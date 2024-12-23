@@ -14,9 +14,6 @@ try {
 
   $router->group(['prefix' => 'blog', 'controller' => 'blog'], function () {
     $this->add('/', 'GET', 'BlogController:index');
-    $this->add('/perfil', 'GET', 'UserController:profile');
-    $this->add('/atualizar-perfil', 'POST', 'UserController:updateProfile');
-    $this->add('/atualizar-foto', 'POST', 'UserController:updateProfilePic');
     $this->add('/categoria/(:any)', 'GET', 'BlogController:index', ['slug']);
     $this->add('?search=(:any)', 'GET', 'BlogController:index', ['search']);
     $this->add('/post/(:any)', 'GET', 'BlogController:show', ['slug']);
@@ -24,12 +21,18 @@ try {
     $this->add('/comment/delete/(:numeric)', 'POST', 'CommentController:delete', ['id']);
   });
 
+  $router->group(['prefix' => 'blog', 'controller' => 'blog', 'middlewares' => ['auth']], function () {
+    $this->add('/perfil', 'GET', 'UserController:profile');
+    $this->add('/atualizar-perfil', 'POST', 'UserController:updateProfile');
+    $this->add('/atualizar-foto', 'POST', 'UserController:updateProfilePic');
+  });
+
   $router->group(['prefix' => 'auth', 'controller' => 'auth', 'middlewares' => ['guest']], function () {
     $this->add('/login', 'GET', 'AuthController:loginForm');
     $this->add('/login', 'POST', 'AuthController:login');
     $this->add('/register', 'GET', 'AuthController:registerForm');
     $this->add('/register', 'POST', 'AuthController:register');
-    $this->add('/logout', 'POST', 'AuthController:logout')->middleware([]);
+    $this->add('/logout', 'POST', 'AuthController:logout')->middleware(['auth']);
   });
 
   $router->init();

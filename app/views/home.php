@@ -5,7 +5,7 @@
 <?php $this->stop() ?>
 
 <header id="header" class="header">
-  <div class="header-container">
+  <div class="container">
     <div class="left-colum">
       <a href="index.html" class="logo">
         <img src="img/logo.svg" alt="logo da odontosmile" />
@@ -22,40 +22,41 @@
           <li><a href="#">Sobre nós</a></li>
           <li><a href="#">Depoimentos</a></li>
           <li><a href="#">Serviços</a></li>
-          <li class="mobile-contact-btn"><a href="#contato">Contato</a></li>
+          <li><a href="#contato">Contato</a></li>
         </ul>
       </nav>
     </div>
 
-    <a href="#" class="cta desktop-contact-btn">Entre em contato</a>
+    <a href="#" class="button desktop__button">Entre em contato</a>
   </div>
 </header>
 
-<section class="hero-section" id="inicio">
-  <div class="hero-container">
-    <div class="hero-content">
-      <h1 class="hero-title">
+<section class="hero" id="inicio">
+  <div class="container">
+    <div class="hero__text">
+      <h1>
         Seu <span>sorriso perfeito</span> começa aqui!
       </h1>
-      <p class="hero-desc">
+      <p>
         Venha fazer seu agendamento na clínica odontológica mais
         especializada da região, atendimento fácil e rápido, clique abaixo
       </p>
 
-      <div class="cta-group">
-        <a href="" class="cta">Agende agora</a>
-        <a href="" class="cta-outline">Ver depoimentos</a>
+      <div class="button-group">
+        <a href="" class="button">Agende agora</a>
+        <a href="" class="button outline">Ver depoimentos</a>
       </div>
     </div>
 
-    <img class="hero-img-mobile" src="./img/hero-mobile.png" alt="paciente feliz no consultório odontológico" />
-
-    <img class="hero-img-desktop" src="./img/hero-desktop.png" alt="paciente feliz no consultório odontológico"
-      class="hero-img" />
+    <picture>
+      <source media="(min-width: 75em)" srcset="./img/hero-desktop.webp" width="1015" height="706" />
+      <source media="(min-width: 50.625em)" srcset="./img/hero-tablet.webp" width="418" height="553" />
+      <img src="./img/hero-mobile.webp" width="360" height="335" alt="paciente feliz no consultório odontológico">
+    </picture>
   </div>
 </section>
 
-<section class="about-section">
+<section class="home-blog">
   <div class="container">
     <div class="about-information">
       <div class="heading">
@@ -72,7 +73,7 @@
       </p>
     </div>
 
-    <img src="./img/about.jpg" alt="mulher dentista sorrindo com paciente criança" />
+    <img src="./img/about.webp" width="470" height="313" alt="mulher dentista sorrindo com paciente criança" />
   </div>
 </section>
 
@@ -110,7 +111,7 @@
         </div>
       </div>
     </div>
-    <img src="./img/benefits.jpg" alt="paciente mulher conversando com a dentista" />
+    <img src="./img/benefits.webp" width="555" height="732" alt="paciente mulher conversando com a dentista" />
   </div>
 </section>
 
@@ -168,7 +169,7 @@
       <h2>Vai fazer uma consulta?</h2>
       <p>Faça seu agendamento ou tire suas dúvidas</p>
     </div>
-    <a href="#" class="cta">Entre em contato</a>
+    <a href="#" class="button">Entre em contato</a>
   </div>
 </div>
 
@@ -181,64 +182,43 @@
 
     <div class="services">
       <div class="service-card">
-        <img src="./img/icons/prevention.svg" alt="ícone de agendamento
-            odontológico" />
-        <div class="service-info">
-          <h4>Limpeza e Prevenção</h4>
-          <p>
-            Mantenha seu sorriso saudável com cuidados preventivos regulares
-          </p>
-        </div>
+        <img src="./img/icons/prevention.svg" alt="ícone de agendamento odontológico" />
+        <h4>Limpeza e Prevenção</h4>
+        <p>Mantenha seu sorriso saudável com cuidados preventivos regulares</p>
       </div>
 
       <div class="service-card">
         <img src="./img/icons/canal.svg" alt="ícone de tratamento de canal" />
-        <div class="service-info">
-          <h4>Tratamento de Canal</h4>
-          <p>Solucionamos problemas dentais com precisão e eficiência</p>
-        </div>
+        <h4>Tratamento de Canal</h4>
+        <p>Solucionamos problemas dentais com precisão e eficiência</p>
       </div>
 
       <div class="service-card">
         <img src="./img/icons/implant.svg" alt="ícone de implante dental" />
-        <div class="service-info">
-          <h4>Implantes Dentários</h4>
-          <p>Recupere sua confiança com sorrisos completos e naturais</p>
-        </div>
+        <h4>Implantes Dentários</h4>
+        <p>Recupere sua confiança com sorrisos completos e naturais</p>
       </div>
 
       <div class="service-card">
         <img src="./img/icons/braces.svg" alt="ícone de aparelho ortodôntico" />
-        <div class="service-info">
-          <h4>Ortodontia</h4>
-          <p>
-            Alinhe seu sorriso com tratamentos ortodônticos modernos e
-            discretos
-          </p>
-        </div>
+        <h4>Ortodontia</h4>
+        <p>Alinhe seu sorriso com tratamentos ortodônticos modernos e discretos</p>
       </div>
 
       <div class="service-card">
         <img src="./img/icons/tooth-whitening.svg" alt="ícone de clareamento dental" />
-        <div class="service-info">
-          <h4>Clareamento Dental</h4>
-          <p>
-            Sorria com confiança através do clareamento dental seguro e
-            eficaz
-          </p>
-        </div>
+        <h4>Clareamento Dental</h4>
+        <p>Sorria com confiança através do clareamento dental seguro e eficaz</p>
       </div>
 
       <div class="service-card">
         <img src="./img/icons/restauration.svg" alt="ícone de restaurações estéticas" />
-        <div class="service-info">
-          <h4>Restaurações Estéticas</h4>
-          <p>Restaure a beleza natural do seu sorriso com perfeição</p>
-        </div>
+        <h4>Restaurações Estéticas</h4>
+        <p>Restaure a beleza natural do seu sorriso com perfeição</p>
       </div>
     </div>
 
-    <a href="#" class="cta-outline">Saber mais</a>
+    <a href="#" class="button outline">Saber mais</a>
   </div>
 </section>
 
@@ -322,7 +302,7 @@
         <input type="email" placeholder="Email" />
         <input type="tel" placeholder="Telefone" />
         <textarea placeholder="Mensagem"></textarea>
-        <button class="cta">Enviar</button>
+        <button class="button">Enviar</button>
       </form>
       <img src="./img/map.jpg" alt="mapa da localização da Odontosmile" />
     </div>

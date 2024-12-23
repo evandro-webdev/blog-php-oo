@@ -1,0 +1,55 @@
+:root {
+  --clr-white: #fff;
+  --clr-blue-100: #F6FAFC;
+  --clr-blue-500: #0a98e8;
+  --clr-blue-900: #323761;
+  --clr-gray-400: #969696;
+}
+
+*, *::before, *::after{
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body{
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  color: var(--clr-blue-900);
+}
+
+ul{
+  padding: 0;
+}
+
+ul li {
+  list-style: none;
+}
+
+a,
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+a {
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+h1, h2, h3{
+  font-weight: 700;
+}
+
+h3{
+  font-weight: 600;
+  color: var(--clr-blue-500);
+}

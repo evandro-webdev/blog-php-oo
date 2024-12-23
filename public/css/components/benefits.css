@@ -1,0 +1,66 @@
+.benefits-section {
+  padding: 90px 20px 48px;
+}
+
+.benefits-section .container {
+  display: grid;
+  gap: 30px;
+}
+
+.benefits-information .heading {
+  margin-bottom: 32px;
+}
+
+.benefits-information + img {
+  width: 100%;
+  height: 25rem;
+  object-fit: cover;
+  object-position: center;
+}
+
+.benefits {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.benefit-topic {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  gap: 20px;
+}
+
+.benefit-topic img {
+  width: 3rem;
+}
+
+.benefit-topic p {
+  color: var(--clr-blue-900);
+}
+
+.benefits-information + img {
+  border-radius: 20px;
+}
+
+@media (width >= 50.625em) {
+  .benefits-section {
+    padding: 80px 20px 60px;
+  }
+
+  .benefits-section .container {
+    max-width: 60.625em;
+    grid-template-columns: 2fr 1.5fr;
+    align-items: center;
+  }
+
+  .benefits-information + img {
+    height: auto;
+  }
+}
+
+@media (width >= 75em) {
+  .benefits-section {
+    padding: 100px 20px 80px;
+  }
+}

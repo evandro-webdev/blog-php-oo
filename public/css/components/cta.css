@@ -1,0 +1,63 @@
+.cta-section {
+  padding: 48px 20px;
+  text-align: center;
+  color: var(--clr-white);
+  background: var(--clr-blue-900);
+}
+
+.cta-section h2 {
+  font-size: 32px;
+  color: var(--clr-white);
+}
+
+.cta-section p {
+  font-size: 18px;
+  margin: 8px 0 16px;
+}
+
+@media (width >= 50.625em) {
+  .cta-section {
+    padding: 60px 20px;
+  }
+
+  .cta-section .container {
+    max-width: 60.625em;
+    text-align: left;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .cta-section p {
+    font-size: 20px;
+    margin-bottom: 0;
+  }
+}
+
+@media (width >= 75em) {
+  .cta-section {
+    position: relative;
+  }
+
+  .cta-section::before {
+    width: 100%;
+    height: 100%;
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+
+    background-image: url("../img/wave.svg");
+    background-repeat: no-repeat;
+    background-size: 100%;
+  }
+
+  .cta-section .container {
+    position: relative;
+    z-index: 100;
+  }
+
+  .cta-section h2 {
+    font-size: 48px;
+  }
+}

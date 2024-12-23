@@ -1,6 +1,6 @@
 <?php
 
-namespace app\Services;
+namespace app\services;
 
 use app\database\Filters;
 use app\database\models\Post;

@@ -12,7 +12,7 @@
 
 <body>
   <?php
-  echo $this->insert('./partials/header');
+  // echo $this->insert('./partials/header');
   echo $this->section('content');
   echo $this->insert('./partials/footer');
 

@@ -9,7 +9,7 @@ use app\database\Pagination;
 use app\database\models\Post;
 use app\database\models\Comment;
 use app\database\models\Category;
-use app\Services\PostFilterService;
+use app\services\PostFilterService;
 
 class BlogController extends Controller
 {
@@ -36,7 +36,8 @@ class BlogController extends Controller
     $pagination = new Pagination;
 
     $posts = (new Post)
-      ->setFields("posts.id, posts.title, posts.slug, posts.created_at, imagePath, categories.title as category_title, 
+      ->setFields("posts.id, posts.title, posts.slug, posts.created_at, imagePath, 
+        categories.title as category_title, 
         users.name as author, COUNT(comments.id) as comment_count")
       ->setFilters($filter)
       ->setPagination($pagination)
