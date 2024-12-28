@@ -1,0 +1,156 @@
+.blog-section{
+  margin-top: 78px;
+  padding: 48px 20px;
+  background: var(--clr-blue-100);
+}
+
+.blog-section .heading{
+  margin-bottom: 40px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.blog-section h2{
+  font-size: 26px;
+}
+
+.post-search{
+  width: 100%;
+}
+
+.post-search .form-group{
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--clr-white);
+
+  position: relative;
+}
+
+.post-search input{
+  width: 100%;
+  height: 3.25rem;
+  padding: 6px 52px 6px 20px;
+  border-radius: 10px;
+  border: none;
+}
+
+.post-search button{
+  padding: 10px;
+  border: none;
+  border-radius: 10px;
+  background: var(--clr-blue-500);
+  position: absolute;
+  right: 6px;
+  top: 6px;
+}
+
+.blog-posts{
+  display: grid;
+  gap: 60px;
+}
+
+.most-acessed{
+  margin-top: 60px;
+}
+
+.post-list{
+  display: grid;
+  row-gap: 40px;
+}
+
+.post-card{
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--clr-white);
+}
+
+.post-card__image{
+  width: 100%;
+}
+
+.post-card__content{
+  padding: 15px 10px;
+}
+
+.post-card__meta{
+  font-size: 12px;
+  color: var(--clr-blue-900);
+
+  display: flex;
+  gap: 10px;
+}
+
+.post-card__title{
+  margin-block: 10px;
+  color: var(--clr-blue-900);
+
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  line-clamp: 2;
+  -webkit-line-clamp: 2;
+}
+
+.post-card__footer{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.post-card__link{
+  font-weight: 500;
+  color: var(--clr-blue-500);
+}
+
+.post-card__comments{
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.post-card__comments span{
+  font-size: 12px;
+}
+
+.recommended-posts > h3{
+  margin-bottom: 32px;
+}
+
+.recommended-posts .post-card__title{
+  margin-bottom: 0;
+}
+
+.popular-categories{
+  margin-top: 30px;
+  padding: 20px;
+  border-radius: 10px;
+  background: var(--clr-white);
+}
+
+.popular-categories a{
+  color: var(--clr-blue-900);
+}
+
+.categories-list{
+  margin-top: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+@media (width >= 50.625em) {
+  .blog-section {
+    padding: 60px 20px;
+  }
+
+  .blog-section .container{
+    max-width: 60.625em;
+  }
+}
+
+@media (width >= 75em) {
+  .blog-section {
+    padding: 80px 20px;
+  }
+}

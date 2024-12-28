@@ -32,10 +32,6 @@
   align-items: center;
 }
 
-.header .logo {
-  display: inline-flex;
-}
-
 .menu-label {
   cursor: pointer;
 }

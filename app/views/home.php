@@ -1,36 +1,5 @@
 <?php $this->layout('master', ['title' => $title]) ?>
 
-<?php $this->start('main-styles') ?>
-<link rel="stylesheet" href="/css/main.css" />
-<?php $this->stop() ?>
-
-<header id="header" class="header">
-  <div class="container">
-    <div class="left-colum">
-      <a href="index.html" class="logo">
-        <img src="img/logo.svg" alt="logo da odontosmile" />
-      </a>
-
-      <input type="checkbox" id="menu-bar" />
-      <label for="menu-bar" class="menu-label">
-        <img src="img/icons/menu.svg" alt="menu de navegacao" />
-      </label>
-
-      <nav class="navbar">
-        <ul>
-          <li><a href="#">Início</a></li>
-          <li><a href="#">Sobre nós</a></li>
-          <li><a href="#">Depoimentos</a></li>
-          <li><a href="#">Serviços</a></li>
-          <li><a href="#contato">Contato</a></li>
-        </ul>
-      </nav>
-    </div>
-
-    <a href="#" class="button desktop__button">Entre em contato</a>
-  </div>
-</header>
-
 <section class="hero" id="inicio">
   <div class="container">
     <div class="hero__text">
@@ -56,7 +25,7 @@
   </div>
 </section>
 
-<section class="home-blog">
+<section class="about-section">
   <div class="container">
     <div class="about-information">
       <div class="heading">
@@ -86,27 +55,27 @@
       </div>
       <div class="benefits">
         <div class="benefit-topic">
-          <img src="./img/icons/enviroment.svg" alt="ícone de ambiente agradável" />
+          <img src="./img/icons/enviroment.svg" width="50" height="50" alt="ícone de ambiente agradável" />
           <p>
             Ambiente acolhedor e amigável para que você se sinta em casa
           </p>
         </div>
         <div class="benefit-topic">
-          <img src="./img/icons/wellness.svg" alt="ícone bem estar" />
+          <img src="./img/icons/wellness.svg" width="50" height="50" alt="ícone bem estar" />
           <p>
             Prioridade no conforto e bem-estar do paciente durante todo o
             tratamento
           </p>
         </div>
         <div class="benefit-topic">
-          <img src="./img/icons/schedule.svg" alt="ícone de fácil agendamento" />
+          <img src="./img/icons/schedule.svg" width="50" height="50" alt="ícone de fácil agendamento" />
           <p>
             Agendamento online simplificado, economize tempo com apenas
             alguns cliques
           </p>
         </div>
         <div class="benefit-topic">
-          <img src="./img/icons/economy.svg" alt="ícone de economia" />
+          <img src="./img/icons/economy.svg" width="50" height="50" alt="ícone de economia" />
           <p>Opções de pagamento flexíveis e acessíveis para todos</p>
         </div>
       </div>
@@ -118,7 +87,7 @@
 <section class="feedback-section">
   <div class="container">
     <div class="heading">
-      <img src="./img/icons/quote.svg" alt="ícone de aspas" />
+      <img src="./img/icons/quote.svg" width="50" height="50" alt="ícone de aspas" />
       <h3>Depoimentos</h3>
       <h2>O impacto positivo dos nossos cuidados</h2>
     </div>
@@ -126,7 +95,7 @@
     <div class="feedbacks">
       <div class="feedback-card">
         <div class="feedback-head">
-          <img src="./img/patient01.png" alt="foto do paciente João Pedro" />
+          <img src="./img/patient01.png" width="50" height="50" alt="foto do paciente João Pedro" />
           <h4>João Pedro</h4>
         </div>
         <p>
@@ -138,7 +107,7 @@
 
       <div class="feedback-card">
         <div class="feedback-head">
-          <img src="./img/patient02.png" alt="foto do paciente Leonardo Henrique" />
+          <img src="./img/patient02.png" width="50" height="50" alt="foto do paciente Leonardo Henrique" />
           <h4>Leonardo Henrique</h4>
         </div>
         <p>
@@ -150,7 +119,7 @@
 
       <div class="feedback-card">
         <div class="feedback-head">
-          <img src="./img/patient03.png" alt="foto da paciente Márcia Assunção" />
+          <img src="./img/patient03.png" width="50" height="50" alt="foto da paciente Márcia Assunção" />
           <h4>Márcia Assunção</h4>
         </div>
         <p>
@@ -182,37 +151,37 @@
 
     <div class="services">
       <div class="service-card">
-        <img src="./img/icons/prevention.svg" alt="ícone de agendamento odontológico" />
+        <img src="./img/icons/prevention.svg" width="60" height="60" alt="ícone de agendamento odontológico" />
         <h4>Limpeza e Prevenção</h4>
         <p>Mantenha seu sorriso saudável com cuidados preventivos regulares</p>
       </div>
 
       <div class="service-card">
-        <img src="./img/icons/canal.svg" alt="ícone de tratamento de canal" />
+        <img src="./img/icons/canal.svg" width="60" height="60" alt="ícone de tratamento de canal" />
         <h4>Tratamento de Canal</h4>
         <p>Solucionamos problemas dentais com precisão e eficiência</p>
       </div>
 
       <div class="service-card">
-        <img src="./img/icons/implant.svg" alt="ícone de implante dental" />
+        <img src="./img/icons/implant.svg" width="60" height="60" alt="ícone de implante dental" />
         <h4>Implantes Dentários</h4>
         <p>Recupere sua confiança com sorrisos completos e naturais</p>
       </div>
 
       <div class="service-card">
-        <img src="./img/icons/braces.svg" alt="ícone de aparelho ortodôntico" />
+        <img src="./img/icons/braces.svg" width="60" height="60" alt="ícone de aparelho ortodôntico" />
         <h4>Ortodontia</h4>
         <p>Alinhe seu sorriso com tratamentos ortodônticos modernos e discretos</p>
       </div>
 
       <div class="service-card">
-        <img src="./img/icons/tooth-whitening.svg" alt="ícone de clareamento dental" />
+        <img src="./img/icons/tooth-whitening.svg" width="60" height="60" alt="ícone de clareamento dental" />
         <h4>Clareamento Dental</h4>
         <p>Sorria com confiança através do clareamento dental seguro e eficaz</p>
       </div>
 
       <div class="service-card">
-        <img src="./img/icons/restauration.svg" alt="ícone de restaurações estéticas" />
+        <img src="./img/icons/restauration.svg" width="60" height="60" alt="ícone de restaurações estéticas" />
         <h4>Restaurações Estéticas</h4>
         <p>Restaure a beleza natural do seu sorriso com perfeição</p>
       </div>
@@ -222,70 +191,68 @@
   </div>
 </section>
 
-<section class="blog-section">
+<section class="home-blog">
   <div class="container">
     <div class="heading">
       <h3>Blog</h3>
       <h2>Não perca nossas postagens recentes</h2>
     </div>
 
-    <div class="inner-container">
-      <div class="blog-posts">
-        <div class="post-card">
-          <img src="./img/post01.jpg" alt="mulher com a mão no lado da boca com dor" />
-          <div class="post-content">
-            <div class="post-head">
-              <span>02, agosto 2023</span>
-              <hr />
-              <span>Extração do Siso</span>
-            </div>
-            <h3 title="Tudo o que você precisa saber sobre o dente do siso: Mitos e verdades" class="post-tile">
-              Tudo o que você precisa saber sobre o dente do siso: Mitos e
-              verdades
-            </h3>
-            <a href="#">Ler mais</a>
+    <div class="blog-posts">
+      <div class="post-card">
+        <img src="./img/post01.jpg" width="405" height="240" alt="mulher com a mão no lado da boca com dor" />
+        <div class="post-content">
+          <div class="post-head">
+            <span>02, agosto 2023</span>
+            <hr />
+            <span>Extração do Siso</span>
           </div>
-        </div>
-
-        <div class="post-card">
-          <img src="./img/post02.jpg" alt="mulher feliz com sorriso bonito" />
-          <div class="post-content">
-            <div class="post-head">
-              <span>02, agosto 2023</span>
-              <hr />
-              <span>Extração do Siso</span>
-            </div>
-            <h3 title="Um sorriso saudável é um sorriso feliz: Dicas de cuidados odontológicos" class="post-tile">
-              Um sorriso saudável é um sorriso feliz: Dicas de cuidados
-              odontológicos
-            </h3>
-            <a href="#">Ler mais</a>
-          </div>
-        </div>
-
-        <div class="post-card">
-          <img src="./img/post03.jpg" alt="crinça sendo atendida no consultório" />
-          <div class="post-content">
-            <div class="post-head">
-              <span>02, agosto 2023</span>
-              <hr />
-              <span>Extração do Siso</span>
-            </div>
-            <h3 title="Odontologia para crianças: Como tornar a visita ao dentista divertida e sem medo"
-              class="post-tile">
-              Odontologia para crianças: Como tornar a visita ao dentista
-              divertida e sem medo
-            </h3>
-            <a href="#">Ler mais</a>
-          </div>
+          <h3 title="Tudo o que você precisa saber sobre o dente do siso: Mitos e verdades" class="post-tile">
+            Tudo o que você precisa saber sobre o dente do siso: Mitos e
+            verdades
+          </h3>
+          <a href="#">Ler mais</a>
         </div>
       </div>
 
-      <a href="#" class="see-more">
-        <span>Ver todos</span>
-        <img src="./img/icons/arrow.svg" alt="seta pra direita" />
-      </a>
+      <div class="post-card">
+        <img src="./img/post02.jpg" width="405" height="240" alt="mulher feliz com sorriso bonito" />
+        <div class="post-content">
+          <div class="post-head">
+            <span>02, agosto 2023</span>
+            <hr />
+            <span>Extração do Siso</span>
+          </div>
+          <h3 title="Um sorriso saudável é um sorriso feliz: Dicas de cuidados odontológicos" class="post-tile">
+            Um sorriso saudável é um sorriso feliz: Dicas de cuidados
+            odontológicos
+          </h3>
+          <a href="#">Ler mais</a>
+        </div>
+      </div>
+
+      <div class="post-card">
+        <img src="./img/post03.jpg" width="405" height="240" alt="crinça sendo atendida no consultório" />
+        <div class="post-content">
+          <div class="post-head">
+            <span>02, agosto 2023</span>
+            <hr />
+            <span>Extração do Siso</span>
+          </div>
+          <h3 title="Odontologia para crianças: Como tornar a visita ao dentista divertida e sem medo"
+            class="post-tile">
+            Odontologia para crianças: Como tornar a visita ao dentista
+            divertida e sem medo
+          </h3>
+          <a href="#">Ler mais</a>
+        </div>
+      </div>
     </div>
+
+    <a href="#" class="see-more">
+      <span>Ver todos</span>
+      <img src="./img/icons/arrow.svg" alt="seta pra direita" />
+    </a>
   </div>
 </section>
 
@@ -296,7 +263,7 @@
       <h2>Faça seu agendamento ou tire suas dúvidas</h2>
     </div>
 
-    <div class="contact-methods">
+    <div class="contact-container">
       <form class="form">
         <input type="text" placeholder="Nome completo" />
         <input type="email" placeholder="Email" />
@@ -321,58 +288,9 @@
   </div>
 </section>
 
-<footer class="footer">
-  <div class="footer-links">
-    <div class="nav-col">
-      <a href="#inicio" class="logo-footer"><img src="img/logo.svg" alt="logo da empresa" /></a>
-      <ul class="social-links">
-        <li>
-          <a href="#"><img src="img/icons/facebook.svg" alt="icone do Facebook" /></a>
-        </li>
-        <li>
-          <a href="#"><img src="img/icons/instagram.svg" alt="icone do Instagram" /></a>
-        </li>
-      </ul>
-    </div>
-
-    <div class="footer-nav">
-      <div class="nav-col">
-        <h3>Navegação</h3>
-        <ul>
-          <li><a href="#inicio">Início</a></li>
-          <li><a href="#">Sobre nós</a></li>
-          <li><a href="#">Depoimentos</a></li>
-          <li><a href="#">Serviços</a></li>
-        </ul>
-      </div>
-
-      <div class="nav-col">
-        <h3>Contato</h3>
-        <ul>
-          <li><a href="#">3579-5275</a></li>
-          <li><a href="#">Rua Santa Clara, 376, Sorocaba</a></li>
-        </ul>
-      </div>
-    </div>
-  </div>
-
-  <p class="copyright">Odontosmile <span id="footer-year"></span>.</p>
-</footer>
-
 <a target="_blank" href="#" class="whatsapp-link">
   <img src="img/icons/whatsapp-white.svg" alt="icone do whatsapp" />
 </a>
-
-<script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-<script>
-  AOS.init((duration = 3000));
-</script>
-
-<script>
-  const footerYear = document.querySelector("#footer-year");
-
-  footerYear.innerText = new Date().getFullYear();
-</script>
 
 <script>
   let lastScrollTop = 0;

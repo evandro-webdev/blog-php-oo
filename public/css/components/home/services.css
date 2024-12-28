@@ -27,10 +27,6 @@
   color: var(--clr-blue-900);
 }
 
-.service-card img {
-  width: 3.75rem;
-}
-
 @media (width >= 50.625em) {
   .services-section {
     padding: 60px 20px;

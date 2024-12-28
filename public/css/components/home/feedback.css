@@ -2,11 +2,6 @@
   padding: 48px 20px;
 }
 
-.feedback-section .heading img {
-  width: 52px;
-  margin-bottom: 10px;
-}
-
 .feedbacks {
   margin-top: 40px;
   display: grid;
@@ -32,10 +27,6 @@
 
 .feedback-card p {
   color: var(--clr-blue-900);
-}
-
-.feedback-card img {
-  width: 3rem;
 }
 
 @media (width >= 50.625em) {

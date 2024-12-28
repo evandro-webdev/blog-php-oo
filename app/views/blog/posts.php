@@ -2,14 +2,10 @@
 
 $this->layout('master', ['title' => $title]); ?>
 
-<?php $this->start('temporary-styles') ?>
-<link rel="stylesheet" href="/css/temporary-styles.css" />
-<?php $this->stop() ?>
-
 <?php echo flash('user-created', 'flash-message') ?>
 <?php echo flash('login-success', 'flash-message') ?>
 
-<div class="slides-container <?php echo (isset($_GET['search'])) ? 'disabled' : ''  ?>">
+<!-- <div class="slides-container <?php echo (isset($_GET['search'])) ? 'disabled' : ''  ?>">
   <?php foreach ($mostViewed as $post) { ?>
     <div class="slide" id="slide-1" style="background-image: url('<?php echo $post->imagePath ?? '' ?>')">
       <div class="slide-content">
@@ -24,7 +20,202 @@ $this->layout('master', ['title' => $title]); ?>
 
   <button class="prev" onclick="moveSlides(-1)">&#10094;</button>
   <button class="next" onclick="moveSlides(1)">&#10095;</button>
-</div>
+</div> -->
+
+<section class="blog-section">
+  <div class="container">
+    <div class="heading">
+      <h2>Postagens recentes</h2>
+      <form action="" class="post-search">
+        <div class="form-group">
+          <input type="search" placeholder="Procurar post">
+          <button type="submit"><img src="/img/icons/search.svg" alt=""></button>
+        </div>
+      </form>
+    </div>
+
+    <div class="blog-posts">
+      <div class="main-posts">
+        <div class="post-list">
+          <article class="post-card">
+            <img src="/img/posts/672e753bda3e9-post01.jpg" class="post-card__image" alt="Descrição da imagem">
+            <div class="post-card__content">
+              <div class="post-card__meta">
+                <span class="post-card__date">02, agosto 2023</span> |
+                <span class="post-card__category">Extração do Siso</span>
+              </div>
+              <h3 class="post-card__title">
+                Tudo o que você precisa saber sobre o dente do siso: Mitos e verdades
+              </h3>
+              <div class="post-card__footer">
+                <a href="#" class="post-card__link">Ler mais</a>
+                <div class="post-card__comments">
+                  <img src="/img/icons/comment.svg" alt=""><span class="number-comments">5</span>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="post-card">
+            <img src="/img/posts/672e753bda3e9-post01.jpg" class="post-card__image" alt="Descrição da imagem">
+            <div class="post-card__content">
+              <div class="post-card__meta">
+                <span class="post-card__date">02, agosto 2023</span> |
+                <span class="post-card__category">Extração do Siso</span>
+              </div>
+              <h3 class="post-card__title">
+                Tudo o que você precisa saber sobre o dente do siso: Mitos e verdades
+              </h3>
+              <div class="post-card__footer">
+                <a href="#" class="post-card__link">Ler mais</a>
+                <div class="post-card__comments">
+                  <img src="/img/icons/comment.svg" alt=""><span class="number-comments">5</span>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="post-card">
+            <img src="/img/posts/672e753bda3e9-post01.jpg" class="post-card__image" alt="Descrição da imagem">
+            <div class="post-card__content">
+              <div class="post-card__meta">
+                <span class="post-card__date">02, agosto 2023</span> |
+                <span class="post-card__category">Extração do Siso</span>
+              </div>
+              <h3 class="post-card__title">
+                Tudo o que você precisa saber sobre o dente do siso: Mitos e verdades
+              </h3>
+              <div class="post-card__footer">
+                <a href="#" class="post-card__link">Ler mais</a>
+                <div class="post-card__comments">
+                  <img src="/img/icons/comment.svg" alt=""><span class="number-comments">5</span>
+                </div>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <div class="most-acessed">
+          <div class="heading">
+            <h2>Mais acessados</h2>
+          </div>
+
+          <div class="post-list">
+            <article class="post-card">
+              <img src="/img/posts/672e753bda3e9-post01.jpg" class="post-card__image" alt="Descrição da imagem">
+              <div class="post-card__content">
+                <div class="post-card__meta">
+                  <span class="post-card__date">02, agosto 2023</span> |
+                  <span class="post-card__category">Extração do Siso</span>
+                </div>
+                <h3 class="post-card__title">
+                  Tudo o que você precisa saber sobre o dente do siso: Mitos e verdades
+                </h3>
+                <div class="post-card__footer">
+                  <a href="#" class="post-card__link">Ler mais</a>
+                  <div class="post-card__comments">
+                    <img src="/img/icons/comment.svg" alt=""><span class="number-comments">5</span>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <article class="post-card">
+              <img src="/img/posts/672e753bda3e9-post01.jpg" class="post-card__image" alt="Descrição da imagem">
+              <div class="post-card__content">
+                <div class="post-card__meta">
+                  <span class="post-card__date">02, agosto 2023</span> |
+                  <span class="post-card__category">Extração do Siso</span>
+                </div>
+                <h3 class="post-card__title">
+                  Tudo o que você precisa saber sobre o dente do siso: Mitos e verdades
+                </h3>
+                <div class="post-card__footer">
+                  <a href="#" class="post-card__link">Ler mais</a>
+                  <div class="post-card__comments">
+                    <img src="/img/icons/comment.svg" alt=""><span class="number-comments">5</span>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <article class="post-card">
+              <img src="/img/posts/672e753bda3e9-post01.jpg" class="post-card__image" alt="Descrição da imagem">
+              <div class="post-card__content">
+                <div class="post-card__meta">
+                  <span class="post-card__date">02, agosto 2023</span> |
+                  <span class="post-card__category">Extração do Siso</span>
+                </div>
+                <h3 class="post-card__title">
+                  Tudo o que você precisa saber sobre o dente do siso: Mitos e verdades
+                </h3>
+                <div class="post-card__footer">
+                  <a href="#" class="post-card__link">Ler mais</a>
+                  <div class="post-card__comments">
+                    <img src="/img/icons/comment.svg" alt=""><span class="number-comments">5</span>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+      <aside>
+        <div class="recommended-posts">
+          <h3>Posts recomendados</h3>
+          <div class="post-list">
+            <article class="post-card">
+              <img src="/img/posts/672e753bda3e9-post01.jpg" class="post-card__image" alt="Descrição da imagem">
+              <div class="post-card__content">
+                <div class="post-card__meta">
+                  <span class="post-card__date">02, agosto 2023</span> |
+                  <span class="post-card__category">Extração do Siso</span>
+                </div>
+                <h3 class="post-card__title">
+                  Tudo o que você precisa saber sobre o dente do siso: Mitos e verdades
+                </h3>
+              </div>
+            </article>
+            <article class="post-card">
+              <img src="/img/posts/672e753bda3e9-post01.jpg" class="post-card__image" alt="Descrição da imagem">
+              <div class="post-card__content">
+                <div class="post-card__meta">
+                  <span class="post-card__date">02, agosto 2023</span> |
+                  <span class="post-card__category">Extração do Siso</span>
+                </div>
+                <h3 class="post-card__title">
+                  Tudo o que você precisa saber sobre o dente do siso: Mitos e verdades
+                </h3>
+              </div>
+            </article>
+            <article class="post-card">
+              <img src="/img/posts/672e753bda3e9-post01.jpg" class="post-card__image" alt="Descrição da imagem">
+              <div class="post-card__content">
+                <div class="post-card__meta">
+                  <span class="post-card__date">02, agosto 2023</span> |
+                  <span class="post-card__category">Extração do Siso</span>
+                </div>
+                <h3 class="post-card__title">
+                  Tudo o que você precisa saber sobre o dente do siso: Mitos e verdades
+                </h3>
+              </div>
+            </article>
+          </div>
+        </div>
+        <div class="popular-categories">
+          <h3>Categorias mais acessadas</h3>
+          <div class="categories-list">
+            <a href="#">Saúde Bucal</a>
+            <a href="#">Tratamentos</a>
+            <a href="#">Produtos odontológicos</a>
+            <a href="#">Estética Dental</a>
+            <a href="#">Odontologia Infantil</a>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
 
 <div class="container">
 
@@ -42,7 +233,6 @@ $this->layout('master', ['title' => $title]); ?>
     <main class="post-list">
       <?php if (!$posts) { ?>
         <p class="post-not-found-message">Post não encontrado.</p>
-
       <?php } ?>
       <?php foreach ($posts as $post) { ?>
         <div class="post-card">
