@@ -1,0 +1,55 @@
+.post-article{
+  padding: 48px 20px;
+}
+
+.post__image{
+  height: 20rem;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.post__details{
+  margin-block: 20px 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.post__meta{
+  display: flex;
+  gap: 10px;
+}
+
+.post-author{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.post__author img{
+  width: 2.5rem;
+}
+
+.post__title{
+  margin-bottom: 30px;
+}
+
+.post__body h3, .post__body h2{
+  margin-bottom: 30px;
+}
+
+.post__body p{
+  margin-bottom: 30px;
+}
+
+.share-post h3{
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.share-post .social-links{
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}

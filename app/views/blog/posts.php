@@ -41,7 +41,8 @@ $this->layout('master', ['title' => $title]); ?>
             <img src="/img/posts/672e753bda3e9-post01.jpg" class="post-card__image" alt="Descrição da imagem">
             <div class="post-card__content">
               <div class="post-card__meta">
-                <span class="post-card__date">02, agosto 2023</span> |
+                <span class="post-card__date">02, agosto 2023</span>
+                <span>|</span>
                 <span class="post-card__category">Extração do Siso</span>
               </div>
               <h3 class="post-card__title">
@@ -60,7 +61,8 @@ $this->layout('master', ['title' => $title]); ?>
             <img src="/img/posts/672e753bda3e9-post01.jpg" class="post-card__image" alt="Descrição da imagem">
             <div class="post-card__content">
               <div class="post-card__meta">
-                <span class="post-card__date">02, agosto 2023</span> |
+                <span class="post-card__date">02, agosto 2023</span>
+                <span>|</span>
                 <span class="post-card__category">Extração do Siso</span>
               </div>
               <h3 class="post-card__title">
@@ -79,7 +81,8 @@ $this->layout('master', ['title' => $title]); ?>
             <img src="/img/posts/672e753bda3e9-post01.jpg" class="post-card__image" alt="Descrição da imagem">
             <div class="post-card__content">
               <div class="post-card__meta">
-                <span class="post-card__date">02, agosto 2023</span> |
+                <span class="post-card__date">02, agosto 2023</span>
+                <span>|</span>
                 <span class="post-card__category">Extração do Siso</span>
               </div>
               <h3 class="post-card__title">
@@ -105,7 +108,8 @@ $this->layout('master', ['title' => $title]); ?>
               <img src="/img/posts/672e753bda3e9-post01.jpg" class="post-card__image" alt="Descrição da imagem">
               <div class="post-card__content">
                 <div class="post-card__meta">
-                  <span class="post-card__date">02, agosto 2023</span> |
+                  <span class="post-card__date">02, agosto 2023</span>
+                  <span>|</span>
                   <span class="post-card__category">Extração do Siso</span>
                 </div>
                 <h3 class="post-card__title">
@@ -124,7 +128,8 @@ $this->layout('master', ['title' => $title]); ?>
               <img src="/img/posts/672e753bda3e9-post01.jpg" class="post-card__image" alt="Descrição da imagem">
               <div class="post-card__content">
                 <div class="post-card__meta">
-                  <span class="post-card__date">02, agosto 2023</span> |
+                  <span class="post-card__date">02, agosto 2023</span>
+                  <span>|</span>
                   <span class="post-card__category">Extração do Siso</span>
                 </div>
                 <h3 class="post-card__title">
@@ -143,7 +148,8 @@ $this->layout('master', ['title' => $title]); ?>
               <img src="/img/posts/672e753bda3e9-post01.jpg" class="post-card__image" alt="Descrição da imagem">
               <div class="post-card__content">
                 <div class="post-card__meta">
-                  <span class="post-card__date">02, agosto 2023</span> |
+                  <span class="post-card__date">02, agosto 2023</span>
+                  <span>|</span>
                   <span class="post-card__category">Extração do Siso</span>
                 </div>
                 <h3 class="post-card__title">
@@ -160,7 +166,8 @@ $this->layout('master', ['title' => $title]); ?>
           </div>
         </div>
       </div>
-      <aside>
+
+      <aside class="side-recommendations">
         <div class="recommended-posts">
           <h3>Posts recomendados</h3>
           <div class="post-list">
@@ -168,7 +175,8 @@ $this->layout('master', ['title' => $title]); ?>
               <img src="/img/posts/672e753bda3e9-post01.jpg" class="post-card__image" alt="Descrição da imagem">
               <div class="post-card__content">
                 <div class="post-card__meta">
-                  <span class="post-card__date">02, agosto 2023</span> |
+                  <span class="post-card__date">02, agosto 2023</span>
+                  <span>|</span>
                   <span class="post-card__category">Extração do Siso</span>
                 </div>
                 <h3 class="post-card__title">
@@ -180,7 +188,8 @@ $this->layout('master', ['title' => $title]); ?>
               <img src="/img/posts/672e753bda3e9-post01.jpg" class="post-card__image" alt="Descrição da imagem">
               <div class="post-card__content">
                 <div class="post-card__meta">
-                  <span class="post-card__date">02, agosto 2023</span> |
+                  <span class="post-card__date">02, agosto 2023</span>
+                  <span>|</span>
                   <span class="post-card__category">Extração do Siso</span>
                 </div>
                 <h3 class="post-card__title">
@@ -192,7 +201,8 @@ $this->layout('master', ['title' => $title]); ?>
               <img src="/img/posts/672e753bda3e9-post01.jpg" class="post-card__image" alt="Descrição da imagem">
               <div class="post-card__content">
                 <div class="post-card__meta">
-                  <span class="post-card__date">02, agosto 2023</span> |
+                  <span class="post-card__date">02, agosto 2023</span>
+                  <span>|</span>
                   <span class="post-card__category">Extração do Siso</span>
                 </div>
                 <h3 class="post-card__title">
@@ -217,6 +227,7 @@ $this->layout('master', ['title' => $title]); ?>
   </div>
 </section>
 
+<!--  
 <div class="container">
 
   <div class="content">
@@ -258,7 +269,7 @@ $this->layout('master', ['title' => $title]); ?>
   </div>
 </div>
 <?php echo $pagination->links() ?>
-
+-->
 
 <?php $this->start('slides') ?>
 <script src="/js/slides.js"></script>

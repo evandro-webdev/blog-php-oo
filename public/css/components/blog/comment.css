@@ -1,0 +1,18 @@
+.comments-section{
+  padding: 48px 20px;
+}
+
+.comments-section .heading{
+  margin-bottom: 20px;
+}
+
+.comment__head{
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.comment__body{
+  color: var(--clr-gray-400);
+}

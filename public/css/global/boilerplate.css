@@ -60,6 +60,9 @@ h1, h2, h3{
 
 h3{
   font-weight: 600;
+}
+
+.heading h3{
   color: var(--clr-blue-500);
 }
 

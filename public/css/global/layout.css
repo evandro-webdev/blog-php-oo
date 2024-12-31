@@ -2,3 +2,13 @@
   max-width: 37.5em;
   margin-inline: auto;
 }
+
+main{
+  margin-top: 72px;
+}
+
+@media (width >= 75em) {
+  main{
+    margin-top: 87px;
+  }
+}

@@ -34,23 +34,28 @@
 <header id="header" class="header">
   <div class="container">
     <div class="left-colum">
-      <a href="index.html" class="logo">
-        <img src="img/logo.svg" alt="logo da odontosmile" />
+      <a href="/" class="logo">
+        <img src="/img/logo.svg" alt="logo da odontosmile" />
       </a>
 
       <input type="checkbox" id="menu-bar" />
       <label for="menu-bar" class="menu-label">
-        <img src="img/icons/menu.svg" alt="menu de navegacao" />
+        <img src="/img/icons/menu.svg" alt="menu de navegacao" />
       </label>
 
       <nav class="navbar">
         <ul>
           <li><a href="/blog">Blog</a></li>
+          <li><a href="/admin">Dashboard</a></li>
           <li><a href="#">Sobre nós</a></li>
           <li><a href="#">Depoimentos</a></li>
           <li><a href="#">Serviços</a></li>
           <li><a href="#contato">Contato</a></li>
         </ul>
+        <div class="social-links">
+          <a href="#"><img src="/img/icons/facebook-white.svg" width="32" height="32" alt="icone do facebook"></a>
+          <a href="#"><img src="/img/icons/instagram-white.svg" width="32" height="32" alt="icone do instagram"></a>
+        </div>
       </nav>
     </div>
 

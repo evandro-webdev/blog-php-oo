@@ -1,13 +1,13 @@
 <footer class="footer">
   <div class="container">
     <div>
-      <a href="#inicio" class="logo"><img src="img/logo.svg" alt="logo da empresa" /></a>
+      <a href="#inicio" class="logo"><img src="/img/logo.svg" alt="logo da empresa" /></a>
       <ul class="social-links">
         <li>
-          <a href="#"><img src="img/icons/facebook.svg" alt="icone do Facebook" /></a>
+          <a href="#"><img src="/img/icons/facebook.svg" alt="icone do Facebook" /></a>
         </li>
         <li>
-          <a href="#"><img src="img/icons/instagram.svg" alt="icone do Instagram" /></a>
+          <a href="#"><img src="/img/icons/instagram.svg" alt="icone do Instagram" /></a>
         </li>
       </ul>
     </div>
