@@ -117,16 +117,17 @@
     float: left;
   }
 
-  .header .navbar ul li ul {
-    position: absolute;
-  }
-
   .navbar ul li a {
     padding: 0;
     font-size: 20px;
+    color: var(--clr-blue-900);
   }
 
   .navbar ul li:last-child {
+    display: none;
+  }
+
+  .navbar .social-links{
     display: none;
   }
 

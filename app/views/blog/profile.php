@@ -7,6 +7,75 @@ $userForm = (object) ($_SESSION['old_data'] ?? $user);
 <link rel="stylesheet" href="/css/temporary-styles.css" />
 <?php $this->stop() ?>
 
+<section class="profile-section">
+  <div class="container">
+    <div class="profile-management">
+      <div class="profile">
+        <h3>Bem vindo, <?php echo $user->name ?></h3>
+        <div class="profile__info">
+          <img src="<?php echo $user->profile_pic ?? '../img/icons/profile-pic.svg' ?>" width="150" height="150" alt="" class="profile__picture">
+          <div class="profile__details">
+            <span class="profile__name"><?php echo $user->name . " " . $user->last_name ?? '' ?></span>
+            <span class="profile__email"><?php echo $user->email ?></span>
+            <span class="profile__age">23 anos</span>
+          </div>
+        </div>
+        <a href="#" class="button has-icon"><img src="/img/icons/dashboard.svg" width="24" height="24" alt=""><span>Dashboard</span></a>
+      </div>
+      <form action="" class="profile__edit">
+        <div class="fields">
+          <div class="form-group">
+            <input type="text" placeholder="Digite seu nome" value="<?php echo $userForm->name ?? '' ?>">
+          </div>
+          <div class="form-group">
+            <input type="text" placeholder="Digite seu segundo nome" value="<?php echo $userForm->last_name ?? '' ?>">
+          </div>
+          <div class="form-group">
+            <input type="text" placeholder="Digite seu email" value="<?php echo $userForm->email ?? '' ?>">
+          </div>
+          <div class="form-group">
+            <input type="tel" placeholder="(XX) 5462-4108">
+          </div>
+        </div>
+        <button class="button">Salvar alterações</button>
+      </form>
+    </div>
+
+    <div class="card">
+      <h3>Posts mais vistos</h3>
+      <ul class="card__list">
+        <li class="posts-titles">Tudo o que você precisa saber sobre o dente do siso: Mitos e verdades</li>
+        <li class="posts-titles">Tudo o que você precisa saber sobre o dente do siso: Mitos e verdades</li>
+        <li class="posts-titles">Tudo o que você precisa saber sobre o dente do siso: Mitos e verdades</li>
+        <li class="posts-titles">Tudo o que você precisa saber sobre o dente do siso: Mitos e verdades</li>
+        <li class="posts-titles">Tudo o que você precisa saber sobre o dente do siso: Mitos e verdades</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>Posts recentes</h3>
+      <ul class="card__list">
+        <li class="posts-titles">Tudo o que você precisa saber sobre o dente do siso: Mitos e verdades</li>
+        <li class="posts-titles">Tudo o que você precisa saber sobre o dente do siso: Mitos e verdades</li>
+        <li class="posts-titles">Tudo o que você precisa saber sobre o dente do siso: Mitos e verdades</li>
+        <li class="posts-titles">Tudo o que você precisa saber sobre o dente do siso: Mitos e verdades</li>
+        <li class="posts-titles">Tudo o que você precisa saber sobre o dente do siso: Mitos e verdades</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>Estatisticas gerais</h3>
+      <ul class="card__list has-icon">
+        <li><img src="/img/icons/posts.svg" alt=""><span>20 publicações</span></li>
+        <li><img src="/img/icons/views.svg" alt=""><span>4300 cliques</span></li>
+        <li><img src="/img/icons/comments-blue.svg" alt=""><span>60 comentarios</span></li>
+        <li><img src="/img/icons/share.svg" alt=""><span>25 compartilhamentos</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!--
 <div class="profile-container">
   <div class="user-profile">
     <div class="profile-group">
@@ -74,7 +143,7 @@ $userForm = (object) ($_SESSION['old_data'] ?? $user);
     </div>
   <?php } ?>
 </div>
-
+-->
 
 <script>
   const userEditForm = document.querySelector('#user-edit-form');

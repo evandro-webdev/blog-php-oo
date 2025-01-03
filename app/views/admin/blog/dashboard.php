@@ -1,9 +1,6 @@
 <?php $this->layout('master', ['title' => $title]); ?>
 
-<?php $this->start('temporary-styles') ?>
-<link rel="stylesheet" href="/css/temporary-styles.css" />
-<?php $this->stop() ?>
-
+<!--
 <div class="container">
   <header>
     <h1>Gerenciamento de Posts</h1>
@@ -32,15 +29,106 @@
     </section>
   </main>
 </div>
+-->
+
+<section class="dashboard-section">
+  <div class="container">
+    <div class="heading">
+      <div>
+        <h3>Bem vindo, John</h3>
+        <h1>Dashboard</h1>
+      </div>
+      <form action="" class="post-search">
+        <div class="form-group">
+          <input type="search" placeholder="Procurar post">
+          <button type="submit"><img src="/img/icons/search.svg" alt=""></button>
+        </div>
+      </form>
+    </div>
+    <div class="dashboard">
+      <div class="dashboard__wrapper">
+        <table class="dashboard__table">
+          <thead>
+            <tr>
+              <th>Título</th>
+              <th>Categoria</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Tudo o que você precisa saber sobre o dente do siso: Mitos e verdades</td>
+              <td>Ortodontia</td>
+              <td class="dashboard__actions">
+                <a href="#" class="edit"><img src="/img/icons/edit-blue.svg" width="16" height="16" alt=""><span>Editar</span></a>
+                <a href="#" class="delete open-modal" data-modal="confirmation-modal"><img src="/img/icons/trash.svg" width="16" height="16" alt=""><span>Deletar</span></a>
+              </td>
+            </tr>
+            <tr>
+              <td>O que esperar durante um tratamento de canal: Mitos e verdades</td>
+              <td>Ortodontia</td>
+              <td class="dashboard__actions">
+                <a href="#" class="edit"><img src="/img/icons/edit-blue.svg" width="16" height="16" alt=""><span>Editar</span></a>
+                <a href="#" class="delete open-modal" data-modal="confirmation-modal"><img src="/img/icons/trash.svg" width="16" height="16" alt=""><span>Deletar</span></a>
+              </td>
+            </tr>
+            <tr>
+              <td>Importância das visitas regulares ao dentista</td>
+              <td>Ortodontia</td>
+              <td class="dashboard__actions">
+                <a href="#" class="edit"><img src="/img/icons/edit-blue.svg" width="16" height="16" alt=""><span>Editar</span></a>
+                <a href="#" class="delete open-modal" data-modal="confirmation-modal"><img src="/img/icons/trash.svg" width="16" height="16" alt=""><span>Deletar</span></a>
+              </td>
+            </tr>
+            <tr>
+              <td>Importância das visitas regulares ao dentista</td>
+              <td>Ortodontia</td>
+              <td class="dashboard__actions">
+                <a href="#" class="edit"><img src="/img/icons/edit-blue.svg" width="16" height="16" alt=""><span>Editar</span></a>
+                <a href="#" class="delete open-modal" data-modal="confirmation-modal"><img src="/img/icons/trash.svg" width="16" height="16" alt=""><span>Deletar</span></a>
+              </td>
+            </tr>
+            <tr>
+              <td>Importância das visitas regulares ao dentista</td>
+              <td>Ortodontia</td>
+              <td class="dashboard__actions">
+                <a href="#" class="edit"><img src="/img/icons/edit-blue.svg" width="16" height="16" alt=""><span>Editar</span></a>
+                <a href="#" class="delete open-modal" data-modal="confirmation-modal"><img src="/img/icons/trash.svg" width="16" height="16" alt=""><span>Deletar</span></a>
+              </td>
+            </tr>
+            <tr>
+              <td>Importância das visitas regulares ao dentista</td>
+              <td>Ortodontia</td>
+              <td class="dashboard__actions">
+                <a href="#" class="edit"><img src="/img/icons/edit-blue.svg" width="16" height="16" alt=""><span>Editar</span></a>
+                <a href="#" class="delete open-modal" data-modal="confirmation-modal"><img src="/img/icons/trash.svg" width="16" height="16" alt=""><span>Deletar</span></a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card">
+        <h3>Estatisticas gerais</h3>
+        <ul class="card__list has-icon">
+          <li><img src="/img/icons/posts.svg" alt=""><span>20 publicações</span></li>
+          <li><img src="/img/icons/views.svg" alt=""><span>4300 cliques</span></li>
+          <li><img src="/img/icons/comments-blue.svg" alt=""><span>60 comentarios</span></li>
+          <li><img src="/img/icons/share.svg" alt=""><span>25 compartilhamentos</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
 
 <div class="backdrop-container modal" id="confirmation-modal">
   <div class="confirmation-modal">
     <h3>Tem certeza que deseja deletar essa postagem?</h3>
     <div class="actions">
-      <button class="btn-cancel close-modal" data-modal="confirmation-modal">Cancelar</button>
+      <button class="button close-modal" data-modal="confirmation-modal">Cancelar</button>
       <form action="/admin/posts/delete/<?php echo $post->id ?>" method="POST">
         <input type="hidden" name="_method" value="DELETE">
-        <button class="btn-delete" type="submit">Deletar</button>
+        <button class="button" type="submit">Deletar</button>
       </form>
     </div>
   </div>

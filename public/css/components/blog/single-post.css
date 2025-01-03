@@ -2,6 +2,10 @@
   padding: 48px 20px;
 }
 
+.post-article .container{
+  max-width: 60.625rem;
+}
+
 .post__image{
   height: 20rem;
   object-fit: cover;
@@ -31,6 +35,11 @@
   width: 2.5rem;
 }
 
+.post__content{
+  max-width: 48.125rem;
+  margin-inline: auto;
+}
+
 .post__title{
   margin-bottom: 30px;
 }
@@ -52,4 +61,10 @@
   display: flex;
   justify-content: center;
   gap: 10px;
+}
+
+@media (width >= 50.625em) {
+  .post__image{
+    height: 31.875rem;
+  }
 }

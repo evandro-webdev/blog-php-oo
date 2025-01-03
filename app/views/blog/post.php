@@ -84,12 +84,35 @@ $this->layout('master', ['title' => $title]); ?>
         <h2>Comentários</h2>
       </div>
       <div class="add-comment">
-        <img src="" alt="">
+        <img src="/img/patient02.png" width="60" height="60" alt="">
         <form action="" class="add-comment__form">
-
+          <div class="form-group">
+            <input placeholder="Compartilhe a sua opnião"></input>
+            <button type="submit"><img src="/img/icons/send.svg" width="20" height="20" alt="icone de envio"></button>
+          </div>
         </form>
       </div>
       <div class="comments">
+        <div class="comment">
+          <div class="comment__head">
+            <img src="/img/patient03.png" width="60" height="60" alt="">
+            <div class="comment__details">
+              <h4 class="comment__author">Jane Doe</h4>
+              <span>04, agosto 2023</span>
+            </div>
+          </div>
+          <p class="comment__body">Ótimo post! As dicas são super úteis e fáceis de seguir. Já sabia da importância de escovar os dentes, mas não sabia que a postura ao escovar influenciava tanto. Vou começar a prestar mais atenção nisso! Uma dúvida: qual a frequência ideal para trocar a escova de dentes?</p>
+        </div>
+        <div class="comment">
+          <div class="comment__head">
+            <img src="/img/patient03.png" width="60" height="60" alt="">
+            <div class="comment__details">
+              <h4 class="comment__author">Jane Doe</h4>
+              <span>04, agosto 2023</span>
+            </div>
+          </div>
+          <p class="comment__body">Ótimo post! As dicas são super úteis e fáceis de seguir. Já sabia da importância de escovar os dentes, mas não sabia que a postura ao escovar influenciava tanto. Vou começar a prestar mais atenção nisso! Uma dúvida: qual a frequência ideal para trocar a escova de dentes?</p>
+        </div>
         <div class="comment">
           <div class="comment__head">
             <img src="/img/patient03.png" width="60" height="60" alt="">
