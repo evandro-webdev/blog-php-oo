@@ -9,8 +9,7 @@
 }
 
 .form {
-  display: flex;
-  flex-direction: column;
+  display: grid;
   gap: 20px;
 }
 
@@ -37,7 +36,6 @@
 }
 
 .form .button {
-  border: none;
   border-radius: 5px;
 }
 

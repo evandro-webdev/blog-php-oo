@@ -21,6 +21,7 @@
 }
 
 .dashboard__wrapper{
+  width: 100%;
   border-radius: 10px;
   overflow-x: auto;
 }
@@ -75,17 +76,23 @@
     max-width: 420px;
   }
 
+  .dashboard__table{
+    width: -webkit-fill-available;
+  }
+
   .dashboard__table tbody tr td:first-child{
     max-width: 350px;
   }
 
   .dashboard__actions a{
+    min-width: fit-content;
     display: flex;
     align-items: center;
     gap: 4px;
   }
 
   .dashboard__actions a span{
+    font-weight: 500;
     display: initial;
   }
 
@@ -111,7 +118,11 @@
     flex-direction: row;
   }
 
-  .dashboard__table{
+  .dashboard__wrapper{
     max-width: 900px;
+  }
+
+  .dashboard__table tbody tr td:first-child{
+    max-width: none;
   }
 }
