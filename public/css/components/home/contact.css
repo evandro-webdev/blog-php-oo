@@ -8,37 +8,6 @@
   gap: 30px;
 }
 
-.form {
-  display: grid;
-  gap: 20px;
-}
-
-.form input,
-.form textarea {
-  padding: 11px 20px;
-  border-radius: 5px;
-  border: 1px solid var(--clr-gray-400);
-
-  font-family: inherit;
-  font-weight: 300;
-  font-size: 18px;
-  background: none;
-}
-
-.form input::placeholder,
-.form textarea::placeholder {
-  color: var(--clr-gray-400);
-}
-
-.form textarea {
-  height: 6.25rem;
-  resize: none;
-}
-
-.form .button {
-  border-radius: 5px;
-}
-
 .contact-container img {
   border-radius: 20px;
 }

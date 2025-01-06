@@ -72,8 +72,9 @@
     align-items: center;
   }
 
-  .dashboard-section .post-search{
+  .dashboard-section .form__search{
     max-width: 420px;
+    width: -webkit-fill-available;
   }
 
   .dashboard__table{

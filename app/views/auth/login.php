@@ -4,14 +4,28 @@ $user = (object) ($_SESSION['old_data'] ?? '');
 unset($_SESSION['old_data']);
 ?>
 
-<?php $this->start('temporary-styles') ?>
-<link rel="stylesheet" href="/css/temporary-styles.css" />
-<?php $this->stop() ?>
-
 <?php echo flash('info', 'flash-message') ?>
 <?php echo flash('too-many-attempts', 'flash-message') ?>
 
-<div class="form-container">
+<section class="auth-section">
+  <div class="container">
+    <h1>Login</h1>
+    <form action="/auth/login" method="POST" class="form">
+      <div class="form__fields">
+        <input type="email" name="email" class="form__input" placeholder="Email" />
+        <input type="password" name="password" class="form__input" placeholder="Senha" />
+      </div>
+      <button class="button">Entrar</button>
+    </form>
+    <p>
+      Não possui uma conta?<br>
+      <a href="/auth/register">Clique aqui</a> para se registrar
+    </p>
+  </div>
+</section>
+
+
+<!-- <div class="form-container">
 
   <form method="POST" class="form">
     <div class="form-group">
@@ -31,4 +45,4 @@ unset($_SESSION['old_data']);
 
     <button type="submit">Entrar</button>
   </form>
-</div>
+</div> -->

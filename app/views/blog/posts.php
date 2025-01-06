@@ -26,9 +26,9 @@ $this->layout('master', ['title' => $title]); ?>
   <div class="container">
     <div class="heading">
       <h2>Postagens recentes</h2>
-      <form action="" class="post-search">
-        <div class="form-group">
-          <input type="search" placeholder="Procurar post">
+      <form action="" class="form form__search">
+        <div class="form__group float-button">
+          <input type="search" class="form__input" placeholder="Procurar post">
           <button type="submit"><img src="/img/icons/search.svg" alt=""></button>
         </div>
       </form>

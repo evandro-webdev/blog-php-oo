@@ -265,10 +265,12 @@
 
     <div class="contact-container">
       <form class="form">
-        <input type="text" placeholder="Nome completo" />
-        <input type="email" placeholder="Email" />
-        <input type="tel" placeholder="Telefone" />
-        <textarea placeholder="Mensagem"></textarea>
+        <div class="form__fields">
+          <input type="text" class="form__input" placeholder="Nome completo" />
+          <input type="email" class="form__input" placeholder="Email" />
+          <input type="tel" class="form__input" placeholder="Telefone" />
+          <textarea class="form__textarea" placeholder="Mensagem"></textarea>
+        </div>
         <button class="button">Enviar</button>
       </form>
       <img src="./img/map.jpg" alt="mapa da localização da Odontosmile" />

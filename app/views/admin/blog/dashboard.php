@@ -38,9 +38,9 @@
         <h3>Bem vindo, John</h3>
         <h1>Dashboard</h1>
       </div>
-      <form action="" class="post-search">
-        <div class="form-group">
-          <input type="search" placeholder="Procurar post">
+      <form action="" class="form form__search">
+        <div class="form__group float-button">
+          <input type="search" class="form__input" placeholder="Procurar post">
           <button type="submit"><img src="/img/icons/search.svg" alt=""></button>
         </div>
       </form>

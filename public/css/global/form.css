@@ -1,10 +1,15 @@
 .form {
   display: grid;
+  gap: 30px;
+}
+
+.form .form__fields{
+  display: grid;
   gap: 20px;
 }
 
-.form input,
-.form textarea {
+.form .form__input,
+.form .form__textarea {
   padding: 11px 20px;
   border-radius: 5px;
   border: 1px solid var(--clr-gray-400);
@@ -15,16 +20,42 @@
   background: none;
 }
 
-.form input::placeholder,
-.form textarea::placeholder {
+.form .form__input::placeholder,
+.form .form__textarea::placeholder {
   color: var(--clr-gray-400);
 }
 
-.form textarea {
+.form .form__textarea {
   height: 6.25rem;
   resize: none;
 }
 
 .form .button {
   border-radius: 5px;
+}
+
+.form.form__search .form__group.float-button{
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--clr-white);
+
+  position: relative;
+}
+
+.form.form__search .form__input{
+  width: 100%;
+  height: 3.25rem;
+  padding: 6px 52px 6px 20px;
+  border-radius: 10px;
+  border: none;
+}
+
+.form .form__group.float-button button{
+  padding: 10px;
+  border: none;
+  border-radius: 10px;
+  background: var(--clr-blue-500);
+  position: absolute;
+  right: 6px;
+  top: 6px;
 }

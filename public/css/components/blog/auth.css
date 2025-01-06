@@ -1,0 +1,25 @@
+.auth-section{
+  padding: 48px 20px;
+  background: var(--clr-blue-100);
+}
+
+.auth-section .container{
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  background: var(--clr-white);
+}
+
+.auth-section .form{
+  margin-block: 30px;
+}
+
+.auth-section p a{
+  color: var(--clr-blue-500);
+}
+
+@media (width >= 50.625em) {
+  .auth-section .container{
+    width: 29.375rem;
+  }
+}

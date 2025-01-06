@@ -4,10 +4,15 @@
   border: none;
   font-size: 18px;
   font-weight: 500;
+  transition: opacity ease-in-out 200ms;
 
   color: var(--clr-white);
   background: var(--clr-blue-500);
   display: inline-block;
+}
+
+.button:hover{
+  opacity: 0.8;
 }
 
 .button.outline {

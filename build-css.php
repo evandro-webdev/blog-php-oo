@@ -8,6 +8,7 @@ $homeFiles = [
   'public/css/global/layout.css',
   'public/css/global/fonts.css',
   'public/css/global/button.css',
+  'public/css/global/form.css',
   'public/css/components/home/header.css',
   'public/css/components/home/hero.css',
   'public/css/components/home/about.css',
@@ -25,6 +26,7 @@ $blogFiles = [
   'public/css/global/layout.css',
   'public/css/global/fonts.css',
   'public/css/global/button.css',
+  'public/css/global/form.css',
   'public/css/components/home/header.css',
   'public/css/components/home/footer.css'
 ];
@@ -38,11 +40,11 @@ foreach ($homeFiles as $file) {
 $homeMinifier->minify('public/css/style.min.css');
 echo "Home CSS files have been combined and minified into style.min.css!\n";
 
-$blogMinifier = new Minify\CSS();
+// $blogMinifier = new Minify\CSS();
 
-foreach ($blogFiles as $file) {
-  $blogMinifier->add($file);
-}
+// foreach ($blogFiles as $file) {
+//   $blogMinifier->add($file);
+// }
 
-$blogMinifier->minify('public/css/blog.min.css');
-echo "Blog CSS files have been combined and minified into blog.min.css!\n";
+// $blogMinifier->minify('public/css/blog.min.css');
+// echo "Blog CSS files have been combined and minified into blog.min.css!\n";
