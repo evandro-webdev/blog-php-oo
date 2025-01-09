@@ -19,6 +19,10 @@
 }
 
 @media (width >= 50.625em) {
+  .auth-section{
+    padding: 60px 20px;
+  }
+
   .auth-section .container{
     width: 29.375rem;
   }

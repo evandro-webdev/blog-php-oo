@@ -45,7 +45,7 @@ button{
   border: none;
 }
 
-input, textarea{
+input, textarea, select{
   font-family: inherit;
   font-size: 18px;
   color: var(--clr-blue-900);
