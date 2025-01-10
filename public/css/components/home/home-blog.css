@@ -51,7 +51,7 @@
 
 .post-card h3 {
   margin-block: 16px;
-  font-size: 18px;
+  font-size: var(--fs-4);
   text-overflow: ellipsis;
   color: var(--clr-blue-900);
 
@@ -63,10 +63,12 @@
 }
 
 .post-card a {
+  font-size: var(--fs-6);
   color: var(--clr-blue-500);
 }
 
 .see-more span{
+  font-size: var(--fs-5);
   color: var(--clr-blue-900);
 }
 

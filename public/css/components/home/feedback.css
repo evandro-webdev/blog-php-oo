@@ -22,6 +22,8 @@
 }
 
 .feedback-head h4 {
+  font-size: var(--fs-4);
+  font-weight: 600;
   color: var(--clr-blue-900);
 }
 

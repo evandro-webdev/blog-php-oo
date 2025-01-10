@@ -108,17 +108,20 @@
       'checklist', 'mediaembed', 'casechange', 'export', 'formatpainter', 'pageembed', 'a11ychecker', 'tinymcespellchecker', 'permanentpen', 'powerpaste', 'advtable', 'advcode', 'editimage', 'advtemplate', 'mentions', 'tableofcontents', 'footnotes', 'mergetags', 'autocorrect', 'typography', 'inlinecss', 'markdown', 'importword', 'exportword', 'exportpdf'
     ],
     placeholder: 'Escreva aqui o conteúdo do post...',
-    toolbar: 'styles | bold italic underline | outdent indent | link image',
+    toolbar: 'styles | bold italic underline strikethrough | outdent indent | link image',
     branding: false,
-    font_family_formats: "Poppins=poppins, sans-serif;",
+    font_family_formats: "Poppins=poppins",
     content_style: `
-      body { 
-        font-family: 'Poppins', sans-serif;
+      @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+      body {
+        margin: 11px 20px;
+        font-family: 'Poppins';
         font-size: 18px;
-        color: var(--clr-blue-900);
+        font-weight: 400;
+        color: #323761;
       }
       .mce-content-body[data-mce-placeholder]::before {
-        font-family: 'Poppins', sans-serif;
+        font-family: 'Poppins';
         font-weight: 300;
         font-size: 18px;
       }

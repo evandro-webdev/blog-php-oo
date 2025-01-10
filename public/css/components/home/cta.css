@@ -6,12 +6,11 @@
 }
 
 .cta-section h2 {
-  font-size: 32px;
   color: var(--clr-white);
 }
 
 .cta-section p {
-  font-size: 18px;
+  font-size: var(--fs-4);
   margin: 8px 0 16px;
 }
 
@@ -29,7 +28,6 @@
   }
 
   .cta-section p {
-    font-size: 20px;
     margin-bottom: 0;
   }
 }
@@ -55,9 +53,5 @@
   .cta-section .container {
     position: relative;
     z-index: 100;
-  }
-
-  .cta-section h2 {
-    font-size: 48px;
   }
 }

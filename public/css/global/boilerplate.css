@@ -41,13 +41,17 @@ a {
   text-decoration: none;
 }
 
+p{
+  font-size: var(--fs-5);
+}
+
 button{
   border: none;
 }
 
 input, textarea, select{
   font-family: inherit;
-  font-size: 18px;
+  font-size: var(--fs-6);
   color: var(--clr-blue-900);
 }
 
@@ -102,7 +106,12 @@ caption {
   text-align: center;
 }
 
+.heading h2{
+  font-size: var(--fs-2);
+}
+
 .heading h3{
+  font-size: var(--fs-3);
   color: var(--clr-blue-500);
 }
 

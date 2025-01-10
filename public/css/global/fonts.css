@@ -45,3 +45,13 @@
   font-weight: 800;
   src: url('/fonts/poppins-v22-latin-800.woff2') format('woff2');
 }
+
+:root{
+  --fs-1: clamp(2rem, -0.0769230769230771rem + 4.102564102564102vw, 3rem);
+  --fs-2: clamp(1.625rem, 1.6428571428571428rem + 0.4761904761904762vw, 2rem);
+  --fs-3: clamp(1.125rem, 0.9642857142857143rem + 0.7142857142857143vw, 1.5rem);
+  --fs-4: clamp(1.125rem, 0.8928571428571428rem + 0.4761904761904762vw, 1.25rem);
+  --fs-5: clamp(1rem, 0.9464285714285714rem + 0.2380952380952381vw, 1.125rem);
+  --fs-6: 1.125rem;
+  --fs-7: 0.75rem;
+}

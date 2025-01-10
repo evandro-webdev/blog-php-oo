@@ -2,7 +2,7 @@
   padding: 10px 22px;
   border-radius: 5px;
   border: none;
-  font-size: 18px;
+  font-size: var(--fs-5);
   font-weight: 500;
   transition: opacity ease-in-out 200ms;
 
@@ -46,4 +46,10 @@
 
 .whatsapp-link img{
   width: 32px;
+}
+
+@media (width >= 75em){
+  .button{
+    padding: 12px 26px;
+  }
 }

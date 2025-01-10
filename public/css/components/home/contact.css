@@ -31,6 +31,7 @@
 }
 
 .contact span {
+  font-size: var(--fs-5);
   font-weight: 300;
   color: var(--clr-blue-900);
 }

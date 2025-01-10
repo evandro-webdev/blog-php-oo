@@ -18,7 +18,7 @@
 
 .service-card h4 {
   margin-block: 16px 8px;
-  font-size: 20px;
+  font-size: var(--fs-4);
   font-weight: 600;
   color: var(--clr-blue-900);
 }

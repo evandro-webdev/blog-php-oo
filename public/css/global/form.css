@@ -16,7 +16,7 @@
   border-radius: 5px;
   border: 1px solid var(--clr-gray-400);
 
-  font-weight: 300;
+  font-weight: 400;
   background: none;
 }
 
@@ -40,9 +40,6 @@
 
 .form__select {
   transition: all 0.3s ease; 
-  
-  color: var(--clr-gray-400);
-  
   -moz-appearance: none;
 }
 
@@ -121,7 +118,7 @@
   text-align: center;
 
   color: white;
-  background: #AEB7BE;
+  background: #899096;
   transition: background ease-in-out 200ms;
 }
 

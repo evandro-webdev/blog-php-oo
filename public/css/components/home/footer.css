@@ -28,13 +28,14 @@
 }
 
 .nav-col h3 {
-  font-size: 20px;
+  font-size: var(--fs-3);
   margin-bottom: 24px;
   color: var(--clr-blue-900);
 }
 
 .nav-col a {
   padding: 8px 10px;
+  font-size: var(--fs-5);
   color: var(--clr-blue-900);
 
   display: inline-block;
@@ -46,7 +47,7 @@
 
 .copyright {
   margin-top: 60px;
-  font-size: 12px;
+  font-size: var(--fs-7);
   text-align: center;
 
   color: var(--clr-blue-900);
