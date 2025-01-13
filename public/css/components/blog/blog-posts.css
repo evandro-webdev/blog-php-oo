@@ -11,7 +11,7 @@
 }
 
 .blog-section h2{
-  font-size: 26px;
+  font-size: var(--fs-2);
 }
 
 .blog-posts{
@@ -25,7 +25,7 @@
 
 .post-list{
   display: grid;
-  row-gap: 40px;
+  row-gap: 20px;
 }
 
 .post-card{
@@ -46,7 +46,7 @@
 }
 
 .post-card__meta{
-  font-size: 12px;
+  font-size: var(--fs-7);
   color: var(--clr-blue-900);
 
   display: flex;
@@ -63,6 +63,7 @@
 
 .post-card__title{
   margin-block: 10px;
+  font-size: var(--fs-4);
   color: var(--clr-blue-900);
 
   display: -webkit-box;
@@ -79,6 +80,7 @@
 }
 
 .post-card__link{
+  font-size: var(--fs-6);
   font-weight: 500;
   color: var(--clr-blue-500);
 }
@@ -90,7 +92,7 @@
 }
 
 .post-card__comments span{
-  font-size: 12px;
+  font-size: var(--fs-7);
 }
 
 .side-recommendations{
@@ -98,8 +100,11 @@
   gap: 30px;
 }
 
-.recommended-posts > h3{
-  margin-bottom: 32px;
+.recommended-posts > h3,
+.popular-categories > h3{
+  margin-bottom: 20px;
+  font-size: var(--fs-2);
+  color: var(--clr-blue-500);
 }
 
 .recommended-posts .post-card__title{
@@ -117,7 +122,6 @@
 }
 
 .categories-list{
-  margin-top: 32px;
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -126,35 +130,6 @@
 @media (width >= 50.625em) {
   .blog-section {
     padding: 60px 20px;
-  }
-
-  .blog-section .container{
-    max-width: 41.875em;
-  }
-
-  .main-posts .post-card{
-    flex-direction: row;
-    align-items: center;
-  }
-
-  .main-posts .post-card__image{
-    max-width: 16.875rem;
-  }
-
-  .recommended-posts .post-list{
-    grid-template-columns: repeat(3, 1fr);
-    column-gap: 40px;
-  }
-
-  .categories-list{
-    flex-direction: row;
-    flex-wrap: wrap;
-  }
-}
-
-@media (width >= 75em) {
-  .blog-section {
-    padding: 80px 20px;
   }
 
   .blog-section .container{
@@ -167,16 +142,50 @@
     align-items: center;
   }
 
-  .blog-section .post-search{
-    max-width: 29.375rem;
+  .blog-section .form__search{
+    max-width: 26.25rem;
   }
 
   .blog-posts{
     grid-template-columns: 0.744fr 0.256fr;
+
+    gap: 30px;
+  }
+
+  .main-posts .post-card{
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .main-posts .post-card__image{
+    max-width: 16.875rem;
+  }
+
+  .recommended-posts > h3,
+  .popular-categories > h3{
+    margin-bottom: 20px;
+    font-size: var(--fs-4);
+    color: var(--clr-blue-500);
+  }
+
+  .recommended-posts .post-list{
+    grid-template-columns: 1fr;
+    column-gap: 40px;
   }
 
   .recommended-posts{
     order: 2;
+  }
+
+  .categories-list{
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+}
+
+@media (width >= 75em) {
+  .blog-section {
+    padding: 80px 20px;
   }
 
   .recommended-posts .post-list{

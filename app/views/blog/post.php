@@ -85,9 +85,9 @@ $this->layout('master', ['title' => $title]); ?>
       </div>
       <div class="add-comment">
         <img src="/img/patient02.png" width="60" height="60" alt="">
-        <form action="" class="add-comment__form">
-          <div class="form-group">
-            <input placeholder="Compartilhe a sua opnião"></input>
+        <form action="" class="form form__search">
+          <div class="form__group float-button">
+            <input type="text" class="form__input" placeholder="Compartilhe a sua opnião"></input>
             <button type="submit"><img src="/img/icons/send.svg" width="20" height="20" alt="icone de envio"></button>
           </div>
         </form>
