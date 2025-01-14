@@ -22,6 +22,7 @@
 
 .form .form__input::placeholder,
 .form .form__textarea::placeholder {
+  font-weight: 300;
   color: var(--clr-gray-400);
 }
 
@@ -29,8 +30,8 @@
 .form__textarea:focus,
 .form__select:focus {
   outline: none;
-  border-color: var(--clr-blue-500); 
-  box-shadow: 0 0 3px var(--clr-blue-500); 
+  border-color: var(--clr-blue-500);
+  box-shadow: 0 0 3px var(--clr-blue-500);
 }
 
 .form .form__textarea {
@@ -41,6 +42,15 @@
 .form__select {
   transition: all 0.3s ease; 
   -moz-appearance: none;
+  color: var(--clr-gray-400);
+}
+
+.form .form__select.initial {
+  color: var(--clr-gray-400);
+}
+
+.form .form__select.selected {
+  color: var(--clr-blue-900);
 }
 
 .form__select::-ms-expand {
@@ -48,10 +58,7 @@
 }
 
 .form__option {
-  font-size: 18px;
   font-weight: 300;
-  color: var(--clr-gray-400);
-  background: var(--clr-white);
 }
 
 .form.form__search .form__input{
@@ -66,6 +73,10 @@
   display: flex;
   align-items: center;
   gap: 10px;
+}
+
+.checkbox label{
+  font-size: var(--fs-5);
 }
 
 .form .button {
@@ -127,7 +138,7 @@
 }
 
 .form__file-name {
-  font-size: 14px;
+  font-size: var(--fs-7);
   word-break: break-all;
 }
 

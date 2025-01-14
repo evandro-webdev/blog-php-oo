@@ -71,7 +71,7 @@
       <input type="text" name="title" value="<?php echo $post->title ?? '' ?>" placeholder="Título do post" class="form__input" />
       <div class="form__group">
         <select id="category" name="categoryId" class="form__select">
-          <option value="" class="form__option">Selecione uma categoria</option>
+          <option value="" class="form__option" selected disabled>Selecione uma categoria</option>
           <?php foreach ($categories as $category) { ?>
             <option class="form__option" <?php echo isset($post->categoryId) && $post->categoryId == $category->id ? "selected" : "" ?>
               value="<?php echo $category->id ?>">
@@ -124,7 +124,27 @@
         font-family: 'Poppins';
         font-weight: 300;
         font-size: 18px;
+        color: #969696 !important;
       }
     `,
   });
+
+  const selectElement = document.querySelector('.form__select');
+
+  selectElement.addEventListener('change', function() {
+    if (this.value === '') {
+      this.classList.add('initial');
+      this.classList.remove('selected');
+    } else {
+      this.classList.add('selected');
+      this.classList.remove('initial');
+    }
+  });
+
+  // Inicialmente, adicione a classe `initial`
+  if (selectElement.value === '') {
+    selectElement.classList.add('initial');
+  } else {
+    selectElement.classList.add('selected');
+  }
 </script>
