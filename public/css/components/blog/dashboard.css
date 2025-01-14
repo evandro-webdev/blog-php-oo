@@ -13,6 +13,12 @@
   gap: 20px;
 }
 
+.dashboard-section h1{
+  font-size: var(--fs-4);
+  font-weight: 600;
+  color: var(--clr-blue-500);
+}
+
 .dashboard{
   margin-block: 30px;
   display: flex;
@@ -34,10 +40,12 @@
 .dashboard__table thead th{
   padding: 10px;
   border-bottom: 1px solid #E6E6E6;
+  font-size: var(--fs-4);
 }
 
 .dashboard__table tbody tr td{
   padding: 10px;
+  font-size: var(--fs-5);
 }
 
 .dashboard__table tbody tr{
@@ -65,6 +73,12 @@
   gap: 10px;
 }
 
+.dashboard aside{
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
 @media (width >= 50.625em) {
   .dashboard-section .heading{
     flex-direction: row;
@@ -79,10 +93,6 @@
 
   .dashboard__table{
     width: -webkit-fill-available;
-  }
-
-  .dashboard__table tbody tr td:first-child{
-    max-width: 350px;
   }
 
   .dashboard__actions a{
@@ -106,7 +116,11 @@
   }
 
   .dashboard .card{
-    width:fit-content;
+    width: fit-content;
+  }
+
+  .dashboard .card__list{
+    grid-template-columns: repeat(4, 1fr);
   }
 }
 
@@ -123,7 +137,7 @@
     max-width: 900px;
   }
 
-  .dashboard__table tbody tr td:first-child{
-    max-width: none;
+  .dashboard .card__list{
+    grid-template-columns: 1fr;
   }
 }

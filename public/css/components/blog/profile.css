@@ -70,6 +70,7 @@
 .card__list li{
   font-weight: 500;
   font-size: var(--fs-5);
+  text-wrap: nowrap;
 
   display: -webkit-box;
   -webkit-box-orient: vertical;

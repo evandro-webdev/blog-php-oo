@@ -35,8 +35,8 @@
   <div class="container">
     <div class="heading">
       <div>
-        <h3>Bem vindo, John</h3>
         <h1>Dashboard</h1>
+        <h2>Bem vindo, John</h2>
       </div>
       <form action="" class="form form__search">
         <div class="form__group float-button">
@@ -51,72 +51,36 @@
           <thead>
             <tr>
               <th>Título</th>
-              <th>Categoria</th>
               <th>Ações</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>Tudo o que você precisa saber sobre o dente do siso: Mitos e verdades</td>
-              <td>Ortodontia</td>
-              <td class="dashboard__actions">
-                <a href="#" class="edit"><img src="/img/icons/edit-blue.svg" width="16" height="16" alt=""><span>Editar</span></a>
-                <a href="#" class="delete open-modal" data-modal="confirmation-modal"><img src="/img/icons/trash.svg" width="16" height="16" alt=""><span>Deletar</span></a>
-              </td>
-            </tr>
-            <tr>
-              <td>O que esperar durante um tratamento de canal: Mitos e verdades</td>
-              <td>Ortodontia</td>
-              <td class="dashboard__actions">
-                <a href="#" class="edit"><img src="/img/icons/edit-blue.svg" width="16" height="16" alt=""><span>Editar</span></a>
-                <a href="#" class="delete open-modal" data-modal="confirmation-modal"><img src="/img/icons/trash.svg" width="16" height="16" alt=""><span>Deletar</span></a>
-              </td>
-            </tr>
-            <tr>
-              <td>Importância das visitas regulares ao dentista</td>
-              <td>Ortodontia</td>
-              <td class="dashboard__actions">
-                <a href="#" class="edit"><img src="/img/icons/edit-blue.svg" width="16" height="16" alt=""><span>Editar</span></a>
-                <a href="#" class="delete open-modal" data-modal="confirmation-modal"><img src="/img/icons/trash.svg" width="16" height="16" alt=""><span>Deletar</span></a>
-              </td>
-            </tr>
-            <tr>
-              <td>Importância das visitas regulares ao dentista</td>
-              <td>Ortodontia</td>
-              <td class="dashboard__actions">
-                <a href="#" class="edit"><img src="/img/icons/edit-blue.svg" width="16" height="16" alt=""><span>Editar</span></a>
-                <a href="#" class="delete open-modal" data-modal="confirmation-modal"><img src="/img/icons/trash.svg" width="16" height="16" alt=""><span>Deletar</span></a>
-              </td>
-            </tr>
-            <tr>
-              <td>Importância das visitas regulares ao dentista</td>
-              <td>Ortodontia</td>
-              <td class="dashboard__actions">
-                <a href="#" class="edit"><img src="/img/icons/edit-blue.svg" width="16" height="16" alt=""><span>Editar</span></a>
-                <a href="#" class="delete open-modal" data-modal="confirmation-modal"><img src="/img/icons/trash.svg" width="16" height="16" alt=""><span>Deletar</span></a>
-              </td>
-            </tr>
-            <tr>
-              <td>Importância das visitas regulares ao dentista</td>
-              <td>Ortodontia</td>
-              <td class="dashboard__actions">
-                <a href="#" class="edit"><img src="/img/icons/edit-blue.svg" width="16" height="16" alt=""><span>Editar</span></a>
-                <a href="#" class="delete open-modal" data-modal="confirmation-modal"><img src="/img/icons/trash.svg" width="16" height="16" alt=""><span>Deletar</span></a>
-              </td>
-            </tr>
+            <?php foreach ($posts as $post) { ?>
+              <tr>
+                <td><?php echo $post->title ?></td>
+                <td class="dashboard__actions">
+                  <a href="/admin/posts/edit/<?php echo $post->id ?>" class="edit"><img src="/img/icons/edit-blue.svg" width="16" height="16" alt=""><span>Editar</span></a>
+                  <a href="#" class="delete open-modal" data-modal="confirmation-modal"><img src="/img/icons/trash.svg" width="16" height="16" alt=""><span>Deletar</span></a>
+                </td>
+              </tr>
+            <?php } ?>
           </tbody>
         </table>
       </div>
 
-      <div class="card">
-        <h3>Estatisticas gerais</h3>
-        <ul class="card__list has-icon">
-          <li><img src="/img/icons/posts.svg" alt=""><span>20 publicações</span></li>
-          <li><img src="/img/icons/views.svg" alt=""><span>4300 cliques</span></li>
-          <li><img src="/img/icons/comments-blue.svg" alt=""><span>60 comentarios</span></li>
-          <li><img src="/img/icons/share.svg" alt=""><span>25 compartilhamentos</span></li>
-        </ul>
-      </div>
+      <aside>
+        <div class="card">
+          <h3>Estatisticas gerais</h3>
+          <ul class="card__list has-icon">
+            <li><img src="/img/icons/posts.svg" alt=""><span>20 publicações</span></li>
+            <li><img src="/img/icons/views.svg" alt=""><span>4300 cliques</span></li>
+            <li><img src="/img/icons/comments-blue.svg" alt=""><span>60 comentarios</span></li>
+            <li><img src="/img/icons/share.svg" alt=""><span>25 compartilhamentos</span></li>
+          </ul>
+        </div>
+        <a href="/admin/posts/create" class="button has-icon"><img src="/img/icons/edit.svg" alt="icone de edição"> Novo post</a>
+      </aside>
+
     </div>
   </div>
 </section>
