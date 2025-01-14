@@ -11,7 +11,10 @@ $userForm = (object) ($_SESSION['old_data'] ?? $user);
   <div class="container">
     <div class="profile-management">
       <div class="profile">
-        <h3>Bem vindo, <?php echo $user->name ?></h3>
+        <div class="heading">
+          <h1>Perfil</h1>
+          <h2>Bem vindo, <?php echo $user->name ?></h2>
+        </div>
         <div class="profile__info">
           <img src="<?php echo $user->profile_pic ?? '../img/icons/profile-pic.svg' ?>" width="150" height="150" alt="" class="profile__picture">
           <div class="profile__details">
@@ -20,21 +23,20 @@ $userForm = (object) ($_SESSION['old_data'] ?? $user);
             <span class="profile__age">23 anos</span>
           </div>
         </div>
-        <a href="#" class="button has-icon"><img src="/img/icons/dashboard.svg" width="24" height="24" alt=""><span>Dashboard</span></a>
       </div>
-      <form action="" class="profile__edit">
-        <div class="fields">
-          <div class="form-group">
-            <input type="text" placeholder="Digite seu nome" value="<?php echo $userForm->name ?? '' ?>">
+      <form action="" class="form profile__edit">
+        <div class="form__fields">
+          <div class="form__group">
+            <input type="text" class="form__input" placeholder="Digite seu nome" value="<?php echo $userForm->name ?? '' ?>">
           </div>
-          <div class="form-group">
-            <input type="text" placeholder="Digite seu segundo nome" value="<?php echo $userForm->last_name ?? '' ?>">
+          <div class="form__group">
+            <input type="text" class="form__input" placeholder="Digite seu segundo nome" value="<?php echo $userForm->last_name ?? '' ?>">
           </div>
-          <div class="form-group">
-            <input type="text" placeholder="Digite seu email" value="<?php echo $userForm->email ?? '' ?>">
+          <div class="form__group">
+            <input type="text" class="form__input" placeholder="Digite seu email" value="<?php echo $userForm->email ?? '' ?>">
           </div>
-          <div class="form-group">
-            <input type="tel" placeholder="(XX) 5462-4108">
+          <div class="form__group">
+            <input type="tel" class="form__input" placeholder="(XX) 5462-4108">
           </div>
         </div>
         <button class="button">Salvar alterações</button>
@@ -71,6 +73,7 @@ $userForm = (object) ($_SESSION['old_data'] ?? $user);
         <li><img src="/img/icons/comments-blue.svg" alt=""><span>60 comentarios</span></li>
         <li><img src="/img/icons/share.svg" alt=""><span>25 compartilhamentos</span></li>
       </ul>
+      <a href="/admin" class="button has-icon"><img src="/img/icons/dashboard.svg" width="24" height="24" alt=""><span>Dashboard</span></a>
     </div>
   </div>
 </section>
