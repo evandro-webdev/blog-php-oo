@@ -10,11 +10,16 @@
   background: var(--clr-white);
 }
 
+.auth-section h1{
+  font-size: var(--fs-1);
+}
+
 .auth-section .form{
   margin-block: 30px;
 }
 
 .auth-section p a{
+  font-size: var(--fs-5);
   color: var(--clr-blue-500);
 }
 

@@ -1,6 +1,7 @@
 :root {
   --clr-white: #fff;
   --clr-blue-100: #F6FAFC;
+  --clr-blue-200: #E2F5FF;
   --clr-blue-500: #0a98e8;
   --clr-blue-900: #323761;
   --clr-green-500: #0ACC78;
@@ -35,6 +36,11 @@ a,
 button {
   font-family: inherit;
   cursor: pointer;
+}
+
+button{
+  padding: 0;
+  background: none;
 }
 
 a {

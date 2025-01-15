@@ -60,6 +60,7 @@
   margin-bottom: 20px;
   font-weight: 700;
   font-size: var(--fs-3);
+  color: var(--clr-blue-500);
 }
 
 .card__list{
@@ -87,6 +88,7 @@
 
 .card .button{
   margin-top: 20px;
+  border: var(--clr-green-500) solid 1px;
   background: var(--clr-green-500);
 }
 

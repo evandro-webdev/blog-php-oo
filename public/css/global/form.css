@@ -46,10 +46,12 @@
 }
 
 .form .form__select.initial {
+  font-weight: 300;
   color: var(--clr-gray-400);
 }
 
 .form .form__select.selected {
+  font-weight: 400;
   color: var(--clr-blue-900);
 }
 

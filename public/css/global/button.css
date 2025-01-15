@@ -1,7 +1,7 @@
 .button {
   padding: 10px 22px;
   border-radius: 5px;
-  border: none;
+  border: 1px solid var(--clr-blue-500);
   font-size: var(--fs-5);
   font-weight: 500;
   transition: opacity ease-in-out 200ms;
@@ -19,7 +19,13 @@
   border: 1px solid var(--clr-blue-500);
 
   color: var(--clr-blue-500);
-  background: var(--clr-white);
+  background: none;
+  transition: background ease-in-out 200ms, color ease-in-out 200ms;
+}
+
+.button.outline:hover {
+  color: var(--clr-white);
+  background: var(--clr-blue-500);
 }
 
 .button.has-icon{
@@ -31,6 +37,11 @@
 
 .button.rounded{
   border-radius: 30px;
+}
+
+.button.full-rounded{
+  padding: 10px;
+  border-radius: 50%;
 }
 
 .whatsapp-link {

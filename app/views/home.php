@@ -12,8 +12,8 @@
       </p>
 
       <div class="button-group">
-        <a href="" class="button">Agende agora</a>
-        <a href="" class="button outline">Ver depoimentos</a>
+        <a href="" class="button rounded">Agende agora</a>
+        <a href="#depoimentos" class="button outline rounded">Ver depoimentos</a>
       </div>
     </div>
 
@@ -84,7 +84,7 @@
   </div>
 </section>
 
-<section class="feedback-section">
+<section id="depoimentos" class="feedback-section">
   <div class="container">
     <div class="heading">
       <img src="./img/icons/quote.svg" width="50" height="50" alt="ícone de aspas" />
@@ -142,7 +142,7 @@
   </div>
 </div>
 
-<section class="services-section">
+<section id="servicos" class="services-section">
   <div class="container">
     <div class="heading">
       <h3>Serviços</h3>
@@ -256,7 +256,7 @@
   </div>
 </section>
 
-<section class="contact-section">
+<section id="contato" class="contact-section">
   <div class="container">
     <div class="heading">
       <h3>Contato</h3>

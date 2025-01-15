@@ -50,10 +50,12 @@
 
 .dashboard__table tbody tr{
   height: 50px;
+  cursor: pointer;
+  transition: background 200ms ease-in-out;
 }
 
 .dashboard__table tbody tr:hover{
-  background: var(--clr-blue-100);
+  background: var(--clr-blue-200);
 }
 
 .dashboard__table tbody tr td:first-child{
