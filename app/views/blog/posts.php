@@ -22,6 +22,73 @@ $this->layout('master', ['title' => $title]); ?>
   <button class="next" onclick="moveSlides(1)">&#10095;</button>
 </div> -->
 
+<section class="highlighted-posts">
+  <div class="container">
+    <div class="slider">
+      <div class="slider__main">
+        <div class="slider__display">
+          <img src="/img/posts/672e753bda3e9-post01.jpg" alt="Imagem principal 1" class="slider__image active">
+          <div class="slider__content">
+            <div class="slider__post-meta">
+              <span class="slider__post-date">02, agosto 2023</span>
+              <span>|</span>
+              <span class="slider__post-category">Extração do Siso</span>
+            </div>
+            <h2>Tudo o que você precisa saber sobre implantes dentários: Um guia completo</h2>
+          </div>
+        </div>
+        <div class="slider__display">
+          <img src="/img/posts/672e73e1b8930-post425.jpg" alt="Imagem principal 2" class="slider__image">
+          <div class="slider__content">
+            <div class="slider__post-meta">
+              <span class="slider__post-date">02, agosto 2023</span>
+              <span>|</span>
+              <span class="slider__post-category">Extração do Siso</span>
+            </div>
+            <h2>Tudo o que você precisa saber sobre implantes dentários: Um guia completo</h2>
+          </div>
+        </div>
+        <div class="slider__display">
+          <img src="/img/posts/672e76957d760-post32.jpg" alt="Imagem principal 3" class="slider__image">
+          <div class="slider__content">
+            <div class="slider__post-meta">
+              <span class="slider__post-date">02, agosto 2023</span>
+              <span>|</span>
+              <span class="slider__post-category">Extração do Siso</span>
+            </div>
+            <h2>Tudo o que você precisa saber sobre implantes dentários: Um guia completo</h2>
+          </div>
+        </div>
+        <div class="slider__display">
+          <img src="/img/posts/672e6fac343d2-post43.jpg" alt="Imagem principal 4" class="slider__image">
+          <div class="slider__content">
+            <div class="slider__post-meta">
+              <span class="slider__post-date">02, agosto 2023</span>
+              <span>|</span>
+              <span class="slider__post-category">Extração do Siso</span>
+            </div>
+            <h2>Tudo o que você precisa saber sobre implantes dentários: Um guia completo</h2>
+          </div>
+        </div>
+      </div>
+      <div class="slider__thumbnails">
+        <div class="thumbnail-wrapper">
+          <img src="/img/posts/672e753bda3e9-post01.jpg" width="70" height="70" alt="Miniatura 1" class="slider__thumbnail active" data-index="0">
+        </div>
+        <div class="thumbnail-wrapper">
+          <img src="/img/posts/672e73e1b8930-post425.jpg" width="70" height="70" alt="Miniatura 2" class="slider__thumbnail" data-index="1">
+        </div>
+        <div class="thumbnail-wrapper">
+          <img src="/img/posts/672e76957d760-post32.jpg" width="70" height="70" alt="Miniatura 3" class="slider__thumbnail" data-index="2">
+        </div>
+        <div class="thumbnail-wrapper">
+          <img src="/img/posts/672e6fac343d2-post43.jpg" width="70" height="70" alt="Miniatura 4" class="slider__thumbnail" data-index="3">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section class="blog-section">
   <div class="container">
     <div class="heading">
@@ -274,3 +341,51 @@ $this->layout('master', ['title' => $title]); ?>
 <?php $this->start('slides') ?>
 <script src="/js/slides.js"></script>
 <?php $this->stop() ?>
+
+<script>
+  const sliderImages = document.querySelectorAll('.slider__display');
+  const thumbnails = document.querySelectorAll('.thumbnail-wrapper');
+  let currentIndex = 0;
+  let interval;
+
+  // Função para exibir a imagem ativa
+  function showImage(index) {
+    // Remove a classe 'active' de todas as imagens e miniaturas
+    sliderImages.forEach(img => img.classList.remove('active'));
+    thumbnails.forEach(thumb => thumb.classList.remove('active'));
+
+    // Adiciona a classe 'active' na imagem e miniatura selecionada
+    sliderImages[index].classList.add('active');
+    thumbnails[index].classList.add('active');
+    currentIndex = index;
+  }
+
+  // Função para avançar para a próxima imagem
+  function nextImage() {
+    const nextIndex = (currentIndex + 1) % sliderImages.length;
+    showImage(nextIndex);
+  }
+
+  // Adiciona evento de clique nas miniaturas
+  thumbnails.forEach((thumb, index) => {
+    thumb.addEventListener('click', () => {
+      showImage(index);
+      restartInterval(); // Reinicia o intervalo ao clicar
+    });
+  });
+
+  // Inicia a troca automática de imagens
+  function startInterval() {
+    interval = setInterval(nextImage, 4000); // Troca a cada 4 segundos
+  }
+
+  // Reinicia o intervalo
+  function restartInterval() {
+    clearInterval(interval);
+    startInterval();
+  }
+
+  // Inicializa o slider
+  showImage(currentIndex);
+  startInterval();
+</script>
