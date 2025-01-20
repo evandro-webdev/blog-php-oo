@@ -8,9 +8,11 @@ class Filters
 {
   private array $filters = [];
   private array $binds = [];
+  private array $subQueries = [];
+  private bool $isUnion = false;
   private array $validOperators = ['=', '!=', '>', '<', '>=', '<=', 'IN', 'NOT IN', 'LIKE'];
 
-  public function where(string $field, string $operator, mixed $value, string $logic = '')
+  public function where(string $field, string $operator, mixed $value, string $logic = ''): self
   {
     if (!in_array(strtoupper($operator), $this->validOperators)) {
       throw new InvalidArgumentException("Operador inválido: $operator");
@@ -35,27 +37,49 @@ class Filters
     return $this;
   }
 
-  public function join(string $foreignTable, string $joinTable1, string $operator, string $joinTable2, string $joinType = 'INNER JOIN')
+  public function join(string $foreignTable, string $joinTable1, string $operator, string $joinTable2, string $joinType = 'INNER JOIN'): self
   {
     $this->filters['join'][] = " $joinType $foreignTable ON $joinTable1 $operator $joinTable2 ";
     return $this;
   }
 
-  public function groupBy($field)
+  public function groupBy($field): self
   {
     $this->filters['groupBy'] = " GROUP BY $field";
     return $this;
   }
 
-  public function orderBy(string $field, string $order = 'ASC')
+  public function orderBy(string $field, string $order = 'ASC'): self
   {
     $this->filters['order'] = " ORDER BY $field $order ";
     return $this;
   }
 
-  public function limit(int $limit)
+  public function limit(int $limit): self
   {
     $this->filters['limit'] = " LIMIT $limit";
+    return $this;
+  }
+
+  public function union(string $query): self
+  {
+    $this->isUnion = true;
+    $this->subQueries[] = $query;
+    $this->resetFilters();
+    return $this;
+  }
+
+  public function unionAll(): self
+  {
+    $this->isUnion = true;
+    $this->subQueries[] = $this->dump() . " UNION ALL ";
+    $this->resetFilters();
+    return $this;
+  }
+
+  public function resetFilters()
+  {
+    $this->filters = [];
   }
 
   public function getBind()
@@ -72,5 +96,15 @@ class Filters
     $filter .= $this->filters['limit'] ?? '';
 
     return $filter;
+  }
+
+  public function buildQuery(string $baseQuery)
+  {
+    if ($this->isUnion) {
+      $unions = implode(' UNION ', array_map(fn($q) => "($q)", $this->subQueries));
+      return $unions;
+    }
+
+    return $baseQuery;
   }
 }

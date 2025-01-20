@@ -22,11 +22,38 @@ class PostFilterService
       ->orderBy('created_at', 'DESC');
   }
 
-  public function getMostViewed($limit = 5)
+  public function getMostViewed($limit = 3)
   {
     $filter = new Filters;
     $filter->join('categories', 'posts.categoryId', '=', 'categories.id')
       ->orderBy('views', 'DESC')
+      ->limit($limit);
+
+    return (new Post)
+      ->setFields("posts.title, posts.slug, imagePath, created_at, categories.title as categoryTitle")
+      ->setFilters($filter)
+      ->all();
+  }
+
+  public function getRecent($limit = 3)
+  {
+    $filter = new Filters;
+    $filter->join('categories', 'posts.categoryId', '=', 'categories.id')
+      ->orderBy('created_at', 'DESC')
+      ->limit($limit);
+
+    return (new Post)
+      ->setFields("posts.title, posts.slug, imagePath, created_at, categories.title as categoryTitle")
+      ->setFilters($filter)
+      ->all();
+  }
+
+  public function getFeatured($limit = 4)
+  {
+    $filter = new Filters;
+    $filter
+      ->join('categories', 'posts.categoryId', '=', 'categories.id')
+      ->where('featured', '=', 1)
       ->limit($limit);
 
     return (new Post)

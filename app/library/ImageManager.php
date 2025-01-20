@@ -9,7 +9,7 @@ class ImageManager
   protected string $uploadDir;
   protected string $folder;
 
-  public function __construct(string $uploadDir = '/public/img/posts/', string $folder)
+  public function __construct(string $folder = 'posts/', string $uploadDir = '/public/img/posts/')
   {
     $this->uploadDir = BASE_PATH . $uploadDir;
     $this->folder = $folder;

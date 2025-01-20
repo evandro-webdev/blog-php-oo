@@ -5,85 +5,30 @@ $this->layout('master', ['title' => $title]); ?>
 <?php echo flash('user-created', 'flash-message') ?>
 <?php echo flash('login-success', 'flash-message') ?>
 
-<!-- <div class="slides-container <?php echo (isset($_GET['search'])) ? 'disabled' : ''  ?>">
-  <?php foreach ($mostViewed as $post) { ?>
-    <div class="slide" id="slide-1" style="background-image: url('<?php echo $post->imagePath ?? '' ?>')">
-      <div class="slide-content">
-        <a href="/blog/post/<?php echo $post->slug ?>">
-          <h2><?php echo $post->title ?></h2>
-        </a>
-        <p><?php echo $post->categoryTitle ?></p>
-        <p><?php echo formatDate($post->created_at) ?></p>
-      </div>
-    </div>
-  <?php } ?>
-
-  <button class="prev" onclick="moveSlides(-1)">&#10094;</button>
-  <button class="next" onclick="moveSlides(1)">&#10095;</button>
-</div> -->
-
 <section class="highlighted-posts">
   <div class="container">
     <div class="slider">
       <div class="slider__main">
-        <div class="slider__display">
-          <img src="/img/posts/672e753bda3e9-post01.jpg" alt="Imagem principal 1" class="slider__image active">
-          <div class="slider__content">
-            <div class="slider__post-meta">
-              <span class="slider__post-date">02, agosto 2023</span>
-              <span>|</span>
-              <span class="slider__post-category">Extração do Siso</span>
+        <?php foreach ($featured as $post) { ?>
+          <div class="slider__display">
+            <img src="<?php echo $post->imagePath ?? '' ?>" alt="Imagem principal 1" class="slider__image active">
+            <div class="slider__content">
+              <div class="slider__post-meta">
+                <span class="slider__post-date"><?php echo formatDate($post->created_at) ?></span>
+                <span>|</span>
+                <span class="slider__post-category"><?php echo $post->categoryTitle ?></span>
+              </div>
+              <h2><?php echo $post->title ?></h2>
             </div>
-            <h2>Tudo o que você precisa saber sobre implantes dentários: Um guia completo</h2>
           </div>
-        </div>
-        <div class="slider__display">
-          <img src="/img/posts/672e73e1b8930-post425.jpg" alt="Imagem principal 2" class="slider__image">
-          <div class="slider__content">
-            <div class="slider__post-meta">
-              <span class="slider__post-date">02, agosto 2023</span>
-              <span>|</span>
-              <span class="slider__post-category">Extração do Siso</span>
-            </div>
-            <h2>Tudo o que você precisa saber sobre implantes dentários: Um guia completo</h2>
-          </div>
-        </div>
-        <div class="slider__display">
-          <img src="/img/posts/672e76957d760-post32.jpg" alt="Imagem principal 3" class="slider__image">
-          <div class="slider__content">
-            <div class="slider__post-meta">
-              <span class="slider__post-date">02, agosto 2023</span>
-              <span>|</span>
-              <span class="slider__post-category">Extração do Siso</span>
-            </div>
-            <h2>Tudo o que você precisa saber sobre implantes dentários: Um guia completo</h2>
-          </div>
-        </div>
-        <div class="slider__display">
-          <img src="/img/posts/672e6fac343d2-post43.jpg" alt="Imagem principal 4" class="slider__image">
-          <div class="slider__content">
-            <div class="slider__post-meta">
-              <span class="slider__post-date">02, agosto 2023</span>
-              <span>|</span>
-              <span class="slider__post-category">Extração do Siso</span>
-            </div>
-            <h2>Tudo o que você precisa saber sobre implantes dentários: Um guia completo</h2>
-          </div>
-        </div>
+        <?php } ?>
       </div>
       <div class="slider__thumbnails">
-        <div class="thumbnail-wrapper">
-          <img src="/img/posts/672e753bda3e9-post01.jpg" width="70" height="70" alt="Miniatura 1" class="slider__thumbnail active" data-index="0">
-        </div>
-        <div class="thumbnail-wrapper">
-          <img src="/img/posts/672e73e1b8930-post425.jpg" width="70" height="70" alt="Miniatura 2" class="slider__thumbnail" data-index="1">
-        </div>
-        <div class="thumbnail-wrapper">
-          <img src="/img/posts/672e76957d760-post32.jpg" width="70" height="70" alt="Miniatura 3" class="slider__thumbnail" data-index="2">
-        </div>
-        <div class="thumbnail-wrapper">
-          <img src="/img/posts/672e6fac343d2-post43.jpg" width="70" height="70" alt="Miniatura 4" class="slider__thumbnail" data-index="3">
-        </div>
+        <?php foreach ($featured as $post) { ?>
+          <div class="thumbnail-wrapper">
+            <img src="<?php echo $post->imagePath ?? '' ?>" width="70" height="70" alt="" class="slider__thumbnail active" data-index="0">
+          </div>
+        <?php } ?>
       </div>
     </div>
   </div>
@@ -104,65 +49,27 @@ $this->layout('master', ['title' => $title]); ?>
     <div class="blog-posts">
       <div class="main-posts">
         <div class="post-list">
-          <article class="post-card">
-            <img src="/img/posts/672e753bda3e9-post01.jpg" class="post-card__image" alt="Descrição da imagem">
-            <div class="post-card__content">
-              <div class="post-card__meta">
-                <span class="post-card__date">02, agosto 2023</span>
-                <span>|</span>
-                <span class="post-card__category">Extração do Siso</span>
-              </div>
-              <h3 class="post-card__title">
-                Tudo o que você precisa saber sobre o dente do siso: Mitos e verdades
-              </h3>
-              <div class="post-card__footer">
-                <a href="#" class="post-card__link">Ler mais</a>
-                <div class="post-card__comments">
-                  <img src="/img/icons/comment.svg" alt=""><span class="number-comments">5</span>
+          <?php foreach ($recent as $post) { ?>
+            <article class="post-card">
+              <img src="<?php echo $post->imagePath ?? '' ?>" class="post-card__image" alt="Descrição da imagem">
+              <div class="post-card__content">
+                <div class="post-card__meta">
+                  <span class="post-card__date"><?php echo formatDate($post->created_at) ?></span>
+                  <span>|</span>
+                  <span class="post-card__category"><?php echo $post->categoryTitle ?></span>
+                </div>
+                <h3 class="post-card__title">
+                  <?php echo $post->title ?>
+                </h3>
+                <div class="post-card__footer">
+                  <a href="post/<?php echo $post->slug ?>" class="post-card__link">Ler mais</a>
+                  <div class="post-card__comments">
+                    <img src="/img/icons/comment.svg" alt=""><span class="number-comments">5</span>
+                  </div>
                 </div>
               </div>
-            </div>
-          </article>
-
-          <article class="post-card">
-            <img src="/img/posts/672e753bda3e9-post01.jpg" class="post-card__image" alt="Descrição da imagem">
-            <div class="post-card__content">
-              <div class="post-card__meta">
-                <span class="post-card__date">02, agosto 2023</span>
-                <span>|</span>
-                <span class="post-card__category">Extração do Siso</span>
-              </div>
-              <h3 class="post-card__title">
-                Tudo o que você precisa saber sobre o dente do siso: Mitos e verdades
-              </h3>
-              <div class="post-card__footer">
-                <a href="#" class="post-card__link">Ler mais</a>
-                <div class="post-card__comments">
-                  <img src="/img/icons/comment.svg" alt=""><span class="number-comments">5</span>
-                </div>
-              </div>
-            </div>
-          </article>
-
-          <article class="post-card">
-            <img src="/img/posts/672e753bda3e9-post01.jpg" class="post-card__image" alt="Descrição da imagem">
-            <div class="post-card__content">
-              <div class="post-card__meta">
-                <span class="post-card__date">02, agosto 2023</span>
-                <span>|</span>
-                <span class="post-card__category">Extração do Siso</span>
-              </div>
-              <h3 class="post-card__title">
-                Tudo o que você precisa saber sobre o dente do siso: Mitos e verdades
-              </h3>
-              <div class="post-card__footer">
-                <a href="#" class="post-card__link">Ler mais</a>
-                <div class="post-card__comments">
-                  <img src="/img/icons/comment.svg" alt=""><span class="number-comments">5</span>
-                </div>
-              </div>
-            </div>
-          </article>
+            </article>
+          <?php } ?>
         </div>
 
         <div class="most-acessed">
@@ -171,65 +78,27 @@ $this->layout('master', ['title' => $title]); ?>
           </div>
 
           <div class="post-list">
-            <article class="post-card">
-              <img src="/img/posts/672e753bda3e9-post01.jpg" class="post-card__image" alt="Descrição da imagem">
-              <div class="post-card__content">
-                <div class="post-card__meta">
-                  <span class="post-card__date">02, agosto 2023</span>
-                  <span>|</span>
-                  <span class="post-card__category">Extração do Siso</span>
-                </div>
-                <h3 class="post-card__title">
-                  Tudo o que você precisa saber sobre o dente do siso: Mitos e verdades
-                </h3>
-                <div class="post-card__footer">
-                  <a href="#" class="post-card__link">Ler mais</a>
-                  <div class="post-card__comments">
-                    <img src="/img/icons/comment.svg" alt=""><span class="number-comments">5</span>
+            <?php foreach ($mostViewed as $post) { ?>
+              <article class="post-card">
+                <img src="<?php echo $post->imagePath ?? '' ?>" class="post-card__image" alt="Descrição da imagem">
+                <div class="post-card__content">
+                  <div class="post-card__meta">
+                    <span class="post-card__date"><?php echo formatDate($post->created_at) ?></span>
+                    <span>|</span>
+                    <span class="post-card__category"><?php echo $post->categoryTitle ?></span>
+                  </div>
+                  <h3 class="post-card__title">
+                    <?php echo $post->title ?>
+                  </h3>
+                  <div class="post-card__footer">
+                    <a href="post/<?php echo $post->slug ?>" class="post-card__link">Ler mais</a>
+                    <div class="post-card__comments">
+                      <img src="/img/icons/comment.svg" alt=""><span class="number-comments">5</span>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </article>
-
-            <article class="post-card">
-              <img src="/img/posts/672e753bda3e9-post01.jpg" class="post-card__image" alt="Descrição da imagem">
-              <div class="post-card__content">
-                <div class="post-card__meta">
-                  <span class="post-card__date">02, agosto 2023</span>
-                  <span>|</span>
-                  <span class="post-card__category">Extração do Siso</span>
-                </div>
-                <h3 class="post-card__title">
-                  Tudo o que você precisa saber sobre o dente do siso: Mitos e verdades
-                </h3>
-                <div class="post-card__footer">
-                  <a href="#" class="post-card__link">Ler mais</a>
-                  <div class="post-card__comments">
-                    <img src="/img/icons/comment.svg" alt=""><span class="number-comments">5</span>
-                  </div>
-                </div>
-              </div>
-            </article>
-
-            <article class="post-card">
-              <img src="/img/posts/672e753bda3e9-post01.jpg" class="post-card__image" alt="Descrição da imagem">
-              <div class="post-card__content">
-                <div class="post-card__meta">
-                  <span class="post-card__date">02, agosto 2023</span>
-                  <span>|</span>
-                  <span class="post-card__category">Extração do Siso</span>
-                </div>
-                <h3 class="post-card__title">
-                  Tudo o que você precisa saber sobre o dente do siso: Mitos e verdades
-                </h3>
-                <div class="post-card__footer">
-                  <a href="#" class="post-card__link">Ler mais</a>
-                  <div class="post-card__comments">
-                    <img src="/img/icons/comment.svg" alt=""><span class="number-comments">5</span>
-                  </div>
-                </div>
-              </div>
-            </article>
+              </article>
+            <?php } ?>
           </div>
         </div>
       </div>
@@ -238,45 +107,19 @@ $this->layout('master', ['title' => $title]); ?>
         <div class="recommended-posts">
           <h3>Posts recomendados</h3>
           <div class="post-list">
-            <article class="post-card">
-              <img src="/img/posts/672e753bda3e9-post01.jpg" class="post-card__image" alt="Descrição da imagem">
-              <div class="post-card__content">
-                <div class="post-card__meta">
-                  <span class="post-card__date">02, agosto 2023</span>
-                  <span>|</span>
-                  <span class="post-card__category">Extração do Siso</span>
+            <?php foreach ($mostViewed as $post) { ?>
+              <article class="post-card">
+                <img src="<?php echo $post->imagePath ?? '' ?>" class="post-card__image" alt="Descrição da imagem">
+                <div class="post-card__content">
+                  <div class="post-card__meta">
+                    <span class="post-card__date"><?php echo formatDate($post->created_at) ?></span>
+                    <span>|</span>
+                    <span class="post-card__category"><?php echo $post->categoryTitle ?></span>
+                  </div>
+                  <h3 class="post-card__title"><?php echo $post->title ?></h3>
                 </div>
-                <h3 class="post-card__title">
-                  Tudo o que você precisa saber sobre o dente do siso: Mitos e verdades
-                </h3>
-              </div>
-            </article>
-            <article class="post-card">
-              <img src="/img/posts/672e753bda3e9-post01.jpg" class="post-card__image" alt="Descrição da imagem">
-              <div class="post-card__content">
-                <div class="post-card__meta">
-                  <span class="post-card__date">02, agosto 2023</span>
-                  <span>|</span>
-                  <span class="post-card__category">Extração do Siso</span>
-                </div>
-                <h3 class="post-card__title">
-                  Tudo o que você precisa saber sobre o dente do siso: Mitos e verdades
-                </h3>
-              </div>
-            </article>
-            <article class="post-card">
-              <img src="/img/posts/672e753bda3e9-post01.jpg" class="post-card__image" alt="Descrição da imagem">
-              <div class="post-card__content">
-                <div class="post-card__meta">
-                  <span class="post-card__date">02, agosto 2023</span>
-                  <span>|</span>
-                  <span class="post-card__category">Extração do Siso</span>
-                </div>
-                <h3 class="post-card__title">
-                  Tudo o que você precisa saber sobre o dente do siso: Mitos e verdades
-                </h3>
-              </div>
-            </article>
+              </article>
+            <?php } ?>
           </div>
         </div>
         <div class="popular-categories">
@@ -294,50 +137,6 @@ $this->layout('master', ['title' => $title]); ?>
   </div>
 </section>
 
-<!--  
-<div class="container">
-
-  <div class="content">
-    <aside class="sidebar">
-      <h2>Categorias</h2>
-      <ul>
-        <li><a href="/blog">Todos</a></li>
-        <?php foreach ($categories as $category) { ?>
-          <li><a href="/blog/categoria/<?php echo $category->slug ?>"><?php echo $category->title ?></a></li>
-        <?php } ?>
-      </ul>
-    </aside>
-
-    <main class="post-list">
-      <?php if (!$posts) { ?>
-        <p class="post-not-found-message">Post não encontrado.</p>
-      <?php } ?>
-      <?php foreach ($posts as $post) { ?>
-        <div class="post-card">
-          <img src="<?php echo $post->imagePath ?>">
-          <div class="post-info">
-            <span class="category"><?php echo $post->category_title ?></span>
-            <a href="/blog/post/<?php echo $post->slug ?>">
-              <h3 class="title"><?php echo $post->title ?></h3>
-            </a>
-            <div class="meta">
-              <div>
-                <span>Por <?php echo $post->author ?></span> | <span><?php echo formatDate($post->created_at) ?></span>
-              </div>
-              <span class="comment-count">
-                <img src="/img/icons/comment.svg" alt="">
-                <?php echo $post->comment_count ?>
-              </span>
-            </div>
-          </div>
-        </div>
-      <?php } ?>
-    </main>
-  </div>
-</div>
-<?php echo $pagination->links() ?>
--->
-
 <?php $this->start('slides') ?>
 <script src="/js/slides.js"></script>
 <?php $this->stop() ?>
@@ -348,7 +147,6 @@ $this->layout('master', ['title' => $title]); ?>
   let currentIndex = 0;
   let interval;
 
-  // Função para exibir a imagem ativa
   function showImage(index) {
     // Remove a classe 'active' de todas as imagens e miniaturas
     sliderImages.forEach(img => img.classList.remove('active'));
@@ -360,7 +158,6 @@ $this->layout('master', ['title' => $title]); ?>
     currentIndex = index;
   }
 
-  // Função para avançar para a próxima imagem
   function nextImage() {
     const nextIndex = (currentIndex + 1) % sliderImages.length;
     showImage(nextIndex);
@@ -374,7 +171,6 @@ $this->layout('master', ['title' => $title]); ?>
     });
   });
 
-  // Inicia a troca automática de imagens
   function startInterval() {
     interval = setInterval(nextImage, 4000); // Troca a cada 4 segundos
   }

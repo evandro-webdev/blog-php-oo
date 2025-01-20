@@ -5,6 +5,7 @@ namespace app\controllers\Blog;
 use app\auth\Auth;
 use app\library\Request;
 use app\controllers\Controller;
+use app\database\Filters;
 use app\database\Pagination;
 use app\database\models\Post;
 use app\database\models\Comment;
@@ -20,39 +21,48 @@ class BlogController extends Controller
     $this->postFilterService = new PostFilterService();
   }
 
-  public function index($slug = null)
+  // public function index($slug = null)
+  // {
+  //   $filter = $this->postFilterService->baseFilter()->orderBy('posts.created_at', 'DESC');
+
+  //   if ($slug) {
+  //     $filter->where('categories.slug', '=', $slug);
+  //   }
+
+  //   $search = Request::query('search') ?? null;
+  //   if ($search) {
+  //     $filter->where('posts.title', 'LIKE', "%$search%");
+  //   }
+
+  //   $posts = (new Post)
+  //     ->setFields("posts.id, posts.title, posts.slug, posts.created_at, imagePath, 
+  //       categories.title as category_title, 
+  //       users.name as author, COUNT(comments.id) as comment_count")
+  //     ->setFilters($filter)
+  //     ->all();
+
+  //   $categories = (new Category)->all();
+
+  //   $mostViewed = $this->postFilterService->getMostViewed();
+
+  //   $this->view('blog/posts', [
+  //     'title' => 'Postagens recentes',
+  //     'posts' => $posts,
+  //     'categories' => $categories,
+  //     'mostViewed' => $mostViewed
+  //   ]);
+  // }
+
+  public function index()
   {
-    $filter = $this->postFilterService->baseFilter()->orderBy('posts.created_at', 'DESC');
-
-    if ($slug) {
-      $filter->where('categories.slug', '=', $slug);
-    }
-
-    $search = Request::query('search') ?? null;
-    if ($search) {
-      $filter->where('posts.title', 'LIKE', "%$search%");
-    }
-
-    $pagination = new Pagination;
-
-    $posts = (new Post)
-      ->setFields("posts.id, posts.title, posts.slug, posts.created_at, imagePath, 
-        categories.title as category_title, 
-        users.name as author, COUNT(comments.id) as comment_count")
-      ->setFilters($filter)
-      ->setPagination($pagination)
-      ->all();
-
-    $categories = (new Category)->all();
-
-    $mostViewed = $this->postFilterService->getMostViewed();
-
+    $mostViewed = $this->postFilterService->getMostViewed(3);
+    $recent = $this->postFilterService->getRecent();
+    $featured = $this->postFilterService->getFeatured();
     $this->view('blog/posts', [
-      'title' => 'Postagens recentes',
-      'posts' => $posts,
-      'categories' => $categories,
+      'title' => 'Página inicial',
       'mostViewed' => $mostViewed,
-      'pagination' => $pagination
+      'recent' => $recent,
+      'featured' => $featured
     ]);
   }
 
@@ -77,7 +87,7 @@ class BlogController extends Controller
       ->all();
 
     $this->view('blog/post', [
-      'title' => 'Post',
+      'title' => $foundPost[0]->title,
       'post' => $foundPost[0],
       'relatedPosts' => $relatedPosts,
       'comments' => $comments,

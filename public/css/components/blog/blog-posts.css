@@ -39,6 +39,7 @@
 
 .post-card__image{
   width: 100%;
+  object-fit: cover;
 }
 
 .post-card__content{
@@ -159,6 +160,11 @@
 
   .main-posts .post-card__image{
     max-width: 16.875rem;
+    max-height: 10rem;
+  }
+
+  .recommended-posts .post-card__image{
+    max-height: 8.875rem;
   }
 
   .recommended-posts > h3,
