@@ -27,10 +27,12 @@
   left: 0;
   opacity: 0;
   transition: opacity 0.5s;
+  pointer-events: none;
 }
 
 .slider__display.active {
   opacity: 1;
+  pointer-events: initial;
 }
 
 .slider__image{
@@ -71,6 +73,10 @@
 .slider__content h2{
   font-size: var(--fs-2);
   text-wrap: balance;
+}
+
+.slider__content a{
+  color: var(--clr-white);
 }
 
 .slider__thumbnails {

@@ -18,7 +18,7 @@ $this->layout('master', ['title' => $title]); ?>
                 <span>|</span>
                 <span class="slider__post-category"><?php echo $post->categoryTitle ?></span>
               </div>
-              <h2><?php echo $post->title ?></h2>
+              <h2><a href="/blog/post/<?php echo $post->slug ?>"><?php echo $post->title ?></a></h2>
             </div>
           </div>
         <?php } ?>
@@ -112,7 +112,7 @@ $this->layout('master', ['title' => $title]); ?>
                     <span>|</span>
                     <span class="post-card__category"><?php echo $post->categoryTitle ?></span>
                   </div>
-                  <h3 class="post-card__title"><?php echo $post->title ?></h3>
+                  <h3 class="post-card__title"><a href="/blog/post/<?php echo $post->slug ?>"><?php echo $post->title ?></a></h3>
                 </div>
               </article>
             <?php } ?>

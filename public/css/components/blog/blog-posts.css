@@ -74,6 +74,10 @@
   -webkit-line-clamp: 2;
 }
 
+.post-card__title a{
+  color: var(--clr-blue-900);
+}
+
 .post-card__footer{
   display: flex;
   justify-content: space-between;
