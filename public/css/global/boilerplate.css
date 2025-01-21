@@ -49,7 +49,6 @@ a {
 
 p{
   font-size: var(--fs-5);
-  text-wrap: balance;
 }
 
 button{

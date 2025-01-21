@@ -8,8 +8,6 @@ class Filters
 {
   private array $filters = [];
   private array $binds = [];
-  private array $subQueries = [];
-  private bool $isUnion = false;
   private array $validOperators = ['=', '!=', '>', '<', '>=', '<=', 'IN', 'NOT IN', 'LIKE'];
 
   public function where(string $field, string $operator, mixed $value, string $logic = ''): self
@@ -55,31 +53,9 @@ class Filters
     return $this;
   }
 
-  public function limit(int $limit): self
+  public function limit(int $limit)
   {
     $this->filters['limit'] = " LIMIT $limit";
-    return $this;
-  }
-
-  public function union(string $query): self
-  {
-    $this->isUnion = true;
-    $this->subQueries[] = $query;
-    $this->resetFilters();
-    return $this;
-  }
-
-  public function unionAll(): self
-  {
-    $this->isUnion = true;
-    $this->subQueries[] = $this->dump() . " UNION ALL ";
-    $this->resetFilters();
-    return $this;
-  }
-
-  public function resetFilters()
-  {
-    $this->filters = [];
   }
 
   public function getBind()
@@ -96,15 +72,5 @@ class Filters
     $filter .= $this->filters['limit'] ?? '';
 
     return $filter;
-  }
-
-  public function buildQuery(string $baseQuery)
-  {
-    if ($this->isUnion) {
-      $unions = implode(' UNION ', array_map(fn($q) => "($q)", $this->subQueries));
-      return $unions;
-    }
-
-    return $baseQuery;
   }
 }

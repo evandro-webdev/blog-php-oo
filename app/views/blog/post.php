@@ -14,56 +14,22 @@ $this->layout('master', ['title' => $title]); ?>
 
   <article class="post-article">
     <div class="container">
-      <img src="/img/posts/672e753bda3e9-post01.jpg" width="968" height="510" alt="" class="post__image">
+      <img src="<?php echo $post->imagePath ?? '' ?>" width="968" height="510" alt="" class="post__image">
       <div class="post__details">
-        <div class="post__meta">
-          <span class="post-card__date">02, agosto 2023</span>
-          <span>|</span>
-          <span class="post-card__category">Extração do Siso</span>
-        </div>
         <div class="post-author">
           <img src="/img/patient01.png" width="50" height="50" alt="">
-          <span>John Doe</span>
+          <span><?php echo $post->author ?></span>
+        </div>
+        <div class="post__meta">
+          <span class="post-card__date"><?php echo formatDate($post->created_at) ?></span>
+          <span>|</span>
+          <span class="post-card__category"><?php echo $post->categoryTitle ?></span>
         </div>
       </div>
       <div class="post__content">
-        <h1 class="post__title">Melhores práticas para manter a saúde bucal em dia: Dicas e truques</h1>
+        <h1 class="post__title"><?php echo $post->title ?></h1>
         <div class="post__body">
-          <p>A saúde bucal é um aspecto fundamental do bem-estar geral. Manter uma boa higiene oral não apenas ajuda a prevenir problemas como cáries, gengivite e halitose, mas também contribui para a saúde do coração, do sistema imunológico e até mesmo para a autoestima.</p>
-          <p>Neste post, vamos compartilhar algumas das melhores práticas para manter a saúde bucal em dia, incluindo dicas e truques para tornar a rotina de cuidados mais fácil e agradável.</p>
-
-          <h3>Escove os dentes corretamente</h3>
-          <p>A escovação dos dentes é a base de uma boa higiene bucal. É importante escovar os dentes pelo menos duas vezes ao dia, de manhã e à noite, por cerca de dois minutos. Utilize uma escova de cerdas macias e uma pasta de dente com flúor. A técnica correta de escovação é fundamental para remover a placa bacteriana e os resíduos de alimentos dos dentes e gengivas.</p>
-
-          <h3>Use fio dental regularmente</h3>
-          <p>A escovação dos dentes não é suficiente para remover a placa bacteriana acumulada entre os dentes. O uso do fio dental é essencial para garantir uma limpeza completa e prevenir a gengivite e a cárie. Passe o fio dental uma vez ao dia, preferencialmente à noite antes de dormir. Utilize um pedaço de fio dental com cerca de 45 cm e passe-o suavemente entre os dentes.</p>
-
-          <h3>Visite o dentista regularmente</h3>
-          <p>As visitas regulares ao dentista são essenciais para manter a saúde bucal em dia. O dentista pode identificar e tratar problemas precocemente, além de realizar limpezas profissionais e orientar sobre os cuidados adequados. Recomenda-se visitar o dentista pelo menos duas vezes ao ano.</p>
-
-          <h3>Adote uma alimentação saudável</h3>
-          <p>A alimentação desempenha um papel importante na saúde bucal. Alimentos ricos em açúcares e amidos podem aumentar a produção de ácido, que por sua vez danifica o esmalte dos dentes e promove a formação de cáries. Uma dieta equilibrada, rica em frutas, legumes, verduras e grãos integrais, ajuda a manter os dentes e gengivas saudáveis.</p>
-
-          <h3>Não fume</h3>
-          <p>O tabagismo é um dos principais fatores de risco para doenças bucais, como câncer oral, gengivite e perda de dentes. Se você fuma, procure ajuda para parar de fumar.</p>
-
-          <h3>Proteja seus dentes</h3>
-          <p>Se você pratica esportes de contato ou trabalha em atividades que podem causar lesões na boca, use um protetor bucal para proteger seus dentes.</p>
-
-          <h3>Mantenha uma boa hidratação</h3>
-          <p>A saliva ajuda a neutralizar o ácido e remover os resíduos de alimentos da boca. Beber água regularmente ajuda a manter a boca hidratada e a prevenir a boca seca.</p>
-
-          <h3>Evite o consumo excessivo de álcool</h3>
-          <p>O consumo excessivo de álcool pode danificar os dentes e gengivas, além de aumentar o risco de câncer oral.</p>
-
-          <h3>Pratique bons hábitos de higiene</h3>
-          <p>Além da escovação e do uso do fio dental, é importante tomar outras medidas de higiene bucal, como enxaguar a boca após as refeições e evitar compartilhar objetos pessoais, como escovas de dentes e copos.</p>
-
-          <h3>Consulte um profissional</h3>
-          <p>Se você perceber algum problema na sua saúde bucal, como dor, sangramento ou inchaço nas gengivas, consulte um dentista imediatamente.</p>
-
-          <h2>Conclusão</h2>
-          <p>A saúde bucal é um aspecto importante do bem-estar geral. Ao seguir as dicas e truques mencionados neste post, você pode manter seus dentes e gengivas saudáveis e prevenir problemas bucais. Lembre-se de que a visita regular ao dentista é essencial para uma boa saúde bucal.</p>
+          <?php echo $post->content ?>
         </div>
       </div>
       <div class="share-post">
@@ -85,44 +51,31 @@ $this->layout('master', ['title' => $title]); ?>
       </div>
       <div class="add-comment">
         <img src="/img/patient02.png" width="60" height="60" alt="">
-        <form action="" class="form form__search">
+        <form action="/blog/comment" method="POST" class="form form__search">
+          <input type="hidden" name="postId" value="<?php echo $post->id; ?>">
           <div class="form__group float-button">
-            <input type="text" class="form__input" placeholder="Compartilhe a sua opnião"></input>
+            <input type="text" name="content" class="form__input" placeholder="Compartilhe a sua opnião"></input>
             <button type="submit"><img src="/img/icons/send.svg" width="20" height="20" alt="icone de envio"></button>
           </div>
         </form>
       </div>
       <div class="comments">
-        <div class="comment">
-          <div class="comment__head">
-            <img src="/img/patient03.png" width="60" height="60" alt="">
-            <div class="comment__details">
-              <h4 class="comment__author">Jane Doe</h4>
-              <span>04, agosto 2023</span>
+        <?php foreach ($comments as $comment) { ?>
+          <div class="comment">
+            <div class="comment__head">
+              <img src="<?php echo $comment->profile_pic ?>" class="comment__author-pic" width="60" height="60" alt="">
+              <div class="comment__details">
+                <h4 class="comment__author"><?php echo $comment->name ?></h4>
+                <span><?php echo formatDate($comment->created_at) ?></span>
+              </div>
             </div>
+            <p class="comment__body"><?php echo $comment->content ?></p>
           </div>
-          <p class="comment__body">Ótimo post! As dicas são super úteis e fáceis de seguir. Já sabia da importância de escovar os dentes, mas não sabia que a postura ao escovar influenciava tanto. Vou começar a prestar mais atenção nisso! Uma dúvida: qual a frequência ideal para trocar a escova de dentes?</p>
-        </div>
-        <div class="comment">
-          <div class="comment__head">
-            <img src="/img/patient03.png" width="60" height="60" alt="">
-            <div class="comment__details">
-              <h4 class="comment__author">Jane Doe</h4>
-              <span>04, agosto 2023</span>
-            </div>
-          </div>
-          <p class="comment__body">Ótimo post! As dicas são super úteis e fáceis de seguir. Já sabia da importância de escovar os dentes, mas não sabia que a postura ao escovar influenciava tanto. Vou começar a prestar mais atenção nisso! Uma dúvida: qual a frequência ideal para trocar a escova de dentes?</p>
-        </div>
-        <div class="comment">
-          <div class="comment__head">
-            <img src="/img/patient03.png" width="60" height="60" alt="">
-            <div class="comment__details">
-              <h4 class="comment__author">Jane Doe</h4>
-              <span>04, agosto 2023</span>
-            </div>
-          </div>
-          <p class="comment__body">Ótimo post! As dicas são super úteis e fáceis de seguir. Já sabia da importância de escovar os dentes, mas não sabia que a postura ao escovar influenciava tanto. Vou começar a prestar mais atenção nisso! Uma dúvida: qual a frequência ideal para trocar a escova de dentes?</p>
-        </div>
+        <?php } ?>
+        <?php if (!$comments) { ?>
+          <p>Nenhum comentário encontrado, seja o primeiro a opinar!</p>
+        <?php } ?>
+
       </div>
     </div>
   </section>

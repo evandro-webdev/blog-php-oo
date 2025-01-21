@@ -58,11 +58,9 @@ $this->layout('master', ['title' => $title]); ?>
                   <span>|</span>
                   <span class="post-card__category"><?php echo $post->categoryTitle ?></span>
                 </div>
-                <h3 class="post-card__title">
-                  <?php echo $post->title ?>
-                </h3>
+                <h3 class="post-card__title"><?php echo $post->title ?></h3>
                 <div class="post-card__footer">
-                  <a href="post/<?php echo $post->slug ?>" class="post-card__link">Ler mais</a>
+                  <a href="/blog/post/<?php echo $post->slug ?>" class="post-card__link">Ler mais</a>
                   <div class="post-card__comments">
                     <img src="/img/icons/comment.svg" alt=""><span class="number-comments">5</span>
                   </div>
@@ -87,11 +85,9 @@ $this->layout('master', ['title' => $title]); ?>
                     <span>|</span>
                     <span class="post-card__category"><?php echo $post->categoryTitle ?></span>
                   </div>
-                  <h3 class="post-card__title">
-                    <?php echo $post->title ?>
-                  </h3>
+                  <h3 class="post-card__title"><?php echo $post->title ?></h3>
                   <div class="post-card__footer">
-                    <a href="post/<?php echo $post->slug ?>" class="post-card__link">Ler mais</a>
+                    <a href="/blog/post/<?php echo $post->slug ?>" class="post-card__link">Ler mais</a>
                     <div class="post-card__comments">
                       <img src="/img/icons/comment.svg" alt=""><span class="number-comments">5</span>
                     </div>

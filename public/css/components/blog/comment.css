@@ -12,7 +12,7 @@
 }
 
 .add-comment{
-  margin-block: 20px 30px;
+  margin-block: 20px 40px;
   display: flex;
   align-items: center;
   gap: 20px;
@@ -38,6 +38,13 @@
   display: flex;
   align-items: center;
   gap: 20px;
+}
+
+.comment__author-pic{
+  width: 3.75rem;
+  height: 3.75rem;
+  object-fit: cover;
+  border-radius: 50%;
 }
 
 .comment__author{
