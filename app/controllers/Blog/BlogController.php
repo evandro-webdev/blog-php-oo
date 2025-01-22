@@ -5,11 +5,9 @@ namespace app\controllers\Blog;
 use app\auth\Auth;
 use app\library\Request;
 use app\controllers\Controller;
-use app\database\Filters;
 use app\database\Pagination;
 use app\database\models\Post;
 use app\database\models\Comment;
-use app\database\models\Category;
 use app\services\PostFilterService;
 
 class BlogController extends Controller
@@ -23,15 +21,23 @@ class BlogController extends Controller
 
   public function index()
   {
-    $mostViewed = $this->postFilterService->getMostViewed(3);
-    $recent = $this->postFilterService->getRecent();
     $featured = $this->postFilterService->getFeatured();
+    $recent = $this->postFilterService->getRecent();
+    $mostViewed = $this->postFilterService->getMostViewed(3);
+
+    if (Request::query('search')) {
+      $pagination = new Pagination;
+      $foundPosts = $this->postFilterService->getSearched(Request::query('search'), $pagination);
+    }
+
+    // dd($pagination);
 
     $this->view('blog/posts', [
       'title' => 'Página inicial',
+      'featured' => $featured,
+      'posts' => $foundPosts ?? $recent,
       'mostViewed' => $mostViewed,
-      'recent' => $recent,
-      'featured' => $featured
+      'pagination' => $pagination ?? ''
     ]);
   }
 

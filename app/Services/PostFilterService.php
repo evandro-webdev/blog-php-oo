@@ -76,4 +76,18 @@ class PostFilterService
       ->setFilters($filter)
       ->all();
   }
+
+  public function getSearched($searchTerm, $pagination)
+  {
+    $filter = new Filters;
+    $filter->join('categories', 'posts.categoryId', '=', 'categories.id')
+      ->where('posts.title', 'LIKE', "%$searchTerm%")
+      ->orderBy('views', 'DESC');
+
+    return (new Post)
+      ->setFields("posts.title, posts.slug, imagePath, created_at, categories.title as categoryTitle")
+      ->setFilters($filter)
+      ->setPagination($pagination)
+      ->all();
+  }
 }

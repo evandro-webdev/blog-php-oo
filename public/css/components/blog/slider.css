@@ -3,6 +3,10 @@
   background: var(--clr-blue-100);
 }
 
+.highlighted-posts.disabled{
+  display: none;
+}
+
 .highlighted-posts .container{
   max-width: 60.625em;
 }

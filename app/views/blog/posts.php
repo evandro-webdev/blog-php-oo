@@ -5,7 +5,7 @@ $this->layout('master', ['title' => $title]); ?>
 <?php echo flash('user-created', 'flash-message') ?>
 <?php echo flash('login-success', 'flash-message') ?>
 
-<section class="highlighted-posts">
+<section class="highlighted-posts <?php echo (isset($_GET['search'])) ? 'disabled' : ''  ?>">
   <div class="container">
     <div class="slider">
       <div class="slider__main">
@@ -38,9 +38,9 @@ $this->layout('master', ['title' => $title]); ?>
   <div class="container">
     <div class="heading">
       <h2>Postagens recentes</h2>
-      <form action="" class="form form__search">
+      <form action="/blog" method="GET" class="form form__search">
         <div class="form__group float-button">
-          <input type="search" class="form__input" placeholder="Procurar post">
+          <input type="search" name="search" class="form__input" placeholder="Procurar post">
           <button type="submit"><img src="/img/icons/search.svg" alt=""></button>
         </div>
       </form>
@@ -49,9 +49,9 @@ $this->layout('master', ['title' => $title]); ?>
     <div class="blog-posts">
       <div class="main-posts">
         <div class="post-list">
-          <?php foreach ($recent as $post) { ?>
+          <?php foreach ($posts as $post) { ?>
             <article class="post-card">
-              <img src="<?php echo $post->imagePath ?? '' ?>" class="post-card__image" alt="Descrição da imagem">
+              <img src="<?php echo $post->imagePath ?? '' ?>" class="post-card__image" width="270" height="160" alt="Descrição da imagem">
               <div class="post-card__content">
                 <div class="post-card__meta">
                   <span class="post-card__date"><?php echo formatDate($post->created_at) ?></span>
@@ -68,9 +68,10 @@ $this->layout('master', ['title' => $title]); ?>
               </div>
             </article>
           <?php } ?>
+          <?php echo $pagination->links() ?>
         </div>
 
-        <div class="most-acessed">
+        <div class="most-acessed <?php echo (isset($_GET['search'])) ? 'disabled' : ''  ?>">
           <div class="heading">
             <h2>Mais acessados</h2>
           </div>

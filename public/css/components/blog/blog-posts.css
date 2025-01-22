@@ -23,6 +23,10 @@
   margin-top: 60px;
 }
 
+.most-acessed.disabled{
+  display: none;
+}
+
 .post-list{
   display: grid;
   row-gap: 20px;
@@ -43,6 +47,7 @@
 }
 
 .post-card__content{
+  width: 100%;
   padding: 15px 10px;
 }
 
