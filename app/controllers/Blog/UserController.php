@@ -48,7 +48,6 @@ class UserController extends Controller
     ]);
 
     if (!$validatedImage) {
-      dd('falhou');
       Redirect::back();
     }
 
@@ -61,7 +60,7 @@ class UserController extends Controller
 
   private function handleImageUpdate($id, $validated)
   {
-    $imageManager = new ImageManager('/public/img/profilePics/', 'profilePics');
+    $imageManager = new ImageManager('profilePics/', '/public/img/profilePics/');
     $foundUser = (new User)->setFields('id, profile_pic')->findBy('id', $id);
 
     if ($foundUser && $foundUser->profile_pic) {

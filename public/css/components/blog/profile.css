@@ -38,6 +38,10 @@
   object-fit: cover;
 }
 
+.profile__pic-input{
+  display: none;
+}
+
 .profile__details{
   font-size: var(--fs-5);
   display: flex;

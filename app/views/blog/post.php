@@ -16,8 +16,8 @@ $this->layout('master', ['title' => $title]); ?>
     <div class="container">
       <img src="<?php echo $post->imagePath ?? '' ?>" width="968" height="510" alt="" class="post__image">
       <div class="post__details">
-        <div class="post-author">
-          <img src="/img/patient01.png" width="50" height="50" alt="">
+        <div class="post__author">
+          <img src="<?php echo $post->profile_pic ?? '/img/icons/profile-pic.svg' ?>" width="50" height="50" alt="">
           <span><?php echo $post->author ?></span>
         </div>
         <div class="post__meta">
@@ -50,7 +50,7 @@ $this->layout('master', ['title' => $title]); ?>
         <h2>Comentários</h2>
       </div>
       <div class="add-comment">
-        <img src="/img/patient02.png" width="60" height="60" alt="">
+        <img src="<?php echo $_SESSION['auth']->profile_pic ?? '/img/icons/profile-pic.svg' ?>" width="60" height="60" alt="">
         <form action="/blog/comment" method="POST" class="form form__search">
           <input type="hidden" name="postId" value="<?php echo $post->id; ?>">
           <div class="form__group float-button">
@@ -63,7 +63,7 @@ $this->layout('master', ['title' => $title]); ?>
         <?php foreach ($comments as $comment) { ?>
           <div class="comment">
             <div class="comment__head">
-              <img src="<?php echo $comment->profile_pic ?>" class="comment__author-pic" width="60" height="60" alt="">
+              <img src="<?php echo $comment->profile_pic ?? '/img/icons/profile-pic.svg' ?>" class="comment__author-pic" width="60" height="60" alt="">
               <div class="comment__details">
                 <h4 class="comment__author"><?php echo $comment->name ?></h4>
                 <span><?php echo formatDate($comment->created_at) ?></span>

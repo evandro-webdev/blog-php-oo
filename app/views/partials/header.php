@@ -32,8 +32,8 @@
 
         <div class="profile-menu">
           <div class="profile-menu__head">
-            <img src="/img/icons/profile-placeholder.svg" width="34" height="34" alt="foto de perfil">
-            <h4>Evandro Mateus</h4>
+            <img src="<?php echo $_SESSION['auth']->profile_pic ?? '../img/icons/profile-pic.svg' ?>" width="40" height="40" alt="foto de perfil">
+            <h4><?php echo $_SESSION['auth']->name . " " . $_SESSION['auth']->last_name ?></h4>
           </div>
           <ul class="profile-menu__links">
             <li><a href="/blog/perfil"><img src="/img/icons/profile-outline.svg" alt="icone de perfil"> Perfil</a></li>

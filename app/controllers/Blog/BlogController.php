@@ -30,8 +30,6 @@ class BlogController extends Controller
       $foundPosts = $this->postFilterService->getSearched(Request::query('search'), $pagination);
     }
 
-    // dd($pagination);
-
     $this->view('blog/posts', [
       'title' => 'Página inicial',
       'featured' => $featured,
@@ -48,7 +46,7 @@ class BlogController extends Controller
     $post = new Post;
     $foundPost = $post
       ->setFields("posts.id, posts.title, posts.slug, categoryId, posts.content, imagePath, posts.created_at, 
-        categories.slug as categorySlug, categories.title as categoryTitle, users.name as author")
+        categories.slug as categorySlug, categories.title as categoryTitle, users.name as author, users.profile_pic")
       ->setFilters($filter)
       ->all();
 

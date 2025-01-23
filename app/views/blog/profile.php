@@ -16,7 +16,14 @@ $userForm = (object) ($_SESSION['old_data'] ?? $user);
           <h2>Bem vindo, <?php echo $user->name ?></h2>
         </div>
         <div class="profile__info">
-          <img src="<?php echo $user->profile_pic ?? '../img/icons/profile-pic.svg' ?>" width="150" height="150" alt="" class="profile__picture">
+          <div class="profile-pic-container">
+            <form action="/blog/atualizar-foto" method="POST" id="profile-pic-form" enctype="multipart/form-data">
+              <input type="file" id="profile-pic" name="profile_pic" class="profile__pic-input" onchange="submitForm()">
+              <label for="profile-pic" class="profile-pic-label">
+                <img src="<?php echo $user->profile_pic ?? '../img/icons/profile-pic.svg' ?>" width="150" height="150" alt="foto de perfil" class="profile__picture">
+              </label>
+            </form>
+          </div>
           <div class="profile__details">
             <span class="profile__name"><?php echo $user->name . " " . $user->last_name ?? '' ?></span>
             <span class="profile__email"><?php echo $user->email ?></span>
@@ -24,19 +31,20 @@ $userForm = (object) ($_SESSION['old_data'] ?? $user);
           </div>
         </div>
       </div>
-      <form action="" class="form profile__edit">
+      <form action="/blog/atualizar-perfil" method="POST" class="form profile__edit">
+        <?php echo flash('profile-updated', 'msg msg_success') ?>
         <div class="form__fields">
           <div class="form__group">
-            <input type="text" class="form__input" placeholder="Digite seu nome" value="<?php echo $userForm->name ?? '' ?>">
+            <input type="text" class="form__input" name="name" placeholder="Digite seu nome" value="<?php echo $userForm->name ?? '' ?>">
           </div>
           <div class="form__group">
-            <input type="text" class="form__input" placeholder="Digite seu segundo nome" value="<?php echo $userForm->last_name ?? '' ?>">
+            <input type="text" class="form__input" name="last_name" placeholder="Digite seu segundo nome" value="<?php echo $userForm->last_name ?? '' ?>">
           </div>
           <div class="form__group">
-            <input type="text" class="form__input" placeholder="Digite seu email" value="<?php echo $userForm->email ?? '' ?>">
+            <input type="text" class="form__input" name="email" placeholder="Digite seu email" value="<?php echo $userForm->email ?? '' ?>">
           </div>
           <div class="form__group">
-            <input type="tel" class="form__input" placeholder="(XX) 5462-4108">
+            <input type="tel" class="form__input" name="phone" placeholder="(XX) 5462-4108" value="<?php echo $userForm->phone ?? '' ?>">
           </div>
         </div>
         <button class="button">Salvar alterações</button>
@@ -149,18 +157,6 @@ $userForm = (object) ($_SESSION['old_data'] ?? $user);
 -->
 
 <script>
-  const userEditForm = document.querySelector('#user-edit-form');
-  const toggleForm = document.querySelector('#toggle-form');
-
-  <?php if (!empty($_SESSION['old_data'])) { ?>
-    userEditForm.classList.add('active');
-    unset($_SESSION['old_data']);
-  <?php } ?>
-
-  toggleForm.addEventListener('click', e => {
-    userEditForm.classList.toggle('active');
-  })
-
   function submitForm() {
     document.querySelector('#profile-pic-form').submit();
   }

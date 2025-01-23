@@ -38,7 +38,6 @@ abstract class Model
   {
     try {
       $sql = "SELECT $this->fields FROM $this->table {$this->filters?->dump()} $this->pagination";
-      // dd($sql);
       $connection = Connection::connect();
       $prepare = $connection->prepare($sql);
       $prepare->execute($this->filters ? $this->filters->getBind() : []);

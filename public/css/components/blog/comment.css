@@ -18,6 +18,13 @@
   gap: 20px;
 }
 
+.add-comment > img{
+  width: 3.75rem;
+  height: 3.75rem;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
 .add-comment .form{
   width: 100%;
   border: var(--clr-gray-400) 1px solid;

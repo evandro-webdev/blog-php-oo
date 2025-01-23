@@ -9,10 +9,22 @@ unset($_SESSION['old_data']);
     <h1>Criar conta</h1>
     <form action="/auth/register" method="POST" class="form">
       <div class="form__fields">
-        <input type="email" name="name" class="form__input" placeholder="Nome" />
-        <input type="email" name="email" class="form__input" placeholder="Email" />
-        <input type="password" name="password" class="form__input" placeholder="Senha" />
-        <input type="password" name="confirmPassword" class="form__input" placeholder="Confirme a senha" />
+        <div class="form__group">
+          <input type="text" name="name" class="form__input" value="<?php echo $user->name ?? '' ?>" placeholder="Nome" />
+          <?php echo flash('name', 'msg msg_failed mt') ?>
+        </div>
+        <div class="form__group">
+          <input type="email" name="email" class="form__input" value="<?php echo $user->email ?? '' ?>" placeholder="Email" />
+          <?php echo flash('email', 'msg msg_failed mt') ?>
+        </div>
+        <div class="form__group">
+          <input type="password" name="password" class="form__input" value="<?php echo $user->password ?? '' ?>" placeholder="Senha" />
+          <?php echo flash('password', 'msg msg_failed mt') ?>
+        </div>
+        <div class="form__group">
+          <input type="password" name="confirmPassword" class="form__input" value="<?php echo $user->confirmPassword ?? '' ?>" placeholder="Confirme a senha" />
+          <?php echo flash('confirmPassword', 'msg msg_failed mt') ?>
+        </div>
       </div>
       <button class="button">Entrar</button>
     </form>

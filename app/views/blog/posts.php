@@ -41,7 +41,7 @@ $this->layout('master', ['title' => $title]); ?>
       <form action="/blog" method="GET" class="form form__search">
         <div class="form__group float-button">
           <input type="search" name="search" class="form__input" placeholder="Procurar post">
-          <button type="submit"><img src="/img/icons/search.svg" alt=""></button>
+          <button type="submit"><img src="/img/icons/search.svg" width="20" height="20" alt=""></button>
         </div>
       </form>
     </div>
@@ -68,7 +68,7 @@ $this->layout('master', ['title' => $title]); ?>
               </div>
             </article>
           <?php } ?>
-          <?php echo $pagination->links() ?>
+          <?php echo $pagination ? $pagination->links() : '' ?>
         </div>
 
         <div class="most-acessed <?php echo (isset($_GET['search'])) ? 'disabled' : ''  ?>">
