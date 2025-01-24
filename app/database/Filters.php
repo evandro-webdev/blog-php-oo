@@ -10,6 +10,12 @@ class Filters
   private array $binds = [];
   private array $validOperators = ['=', '!=', '>', '<', '>=', '<=', 'IN', 'NOT IN', 'LIKE'];
 
+  public function distinct(): self
+  {
+
+    return $this;
+  }
+
   public function where(string $field, string $operator, mixed $value, string $logic = ''): self
   {
     if (!in_array(strtoupper($operator), $this->validOperators)) {
@@ -56,6 +62,7 @@ class Filters
   public function limit(int $limit)
   {
     $this->filters['limit'] = " LIMIT $limit";
+    return $this;
   }
 
   public function getBind()
