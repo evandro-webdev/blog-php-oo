@@ -4,8 +4,9 @@ namespace app\controllers\Blog;
 
 use app\auth\Auth;
 use app\library\Request;
-use app\controllers\Controller;
 use app\database\Pagination;
+use app\database\models\Post;
+use app\controllers\Controller;
 use app\services\PostFilterService;
 
 class BlogController extends Controller
@@ -40,9 +41,9 @@ class BlogController extends Controller
   public function show($slug)
   {
     $post = $this->postFilterService->getPost($slug)[0];
-    // $post->incrementViews($post->id);
     $relatedPosts = $this->postFilterService->getRelatedPosts($post->id, $post->categoryId);
     $comments = $this->postFilterService->getCommentsForPost($post->id);
+    (new Post)->incrementViews($post->id);
 
     $this->view('blog/post', [
       'title' => $post->title,

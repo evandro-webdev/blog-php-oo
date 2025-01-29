@@ -4,24 +4,33 @@ namespace app\controllers\Blog;
 
 use app\auth\Auth;
 use app\support\Flash;
-use app\database\Filters;
 use app\library\Redirect;
 use app\support\Validation;
-use app\database\models\Post;
 use app\database\models\User;
 use app\library\ImageManager;
 use app\controllers\Controller;
-
+use app\services\PostFilterService;
 
 class UserController extends Controller
 {
+  private $postFilterService;
+
+  public function __construct()
+  {
+    $this->postFilterService = new PostFilterService();
+  }
+
   public function profile()
   {
     $userId = Auth::getUser()->id;
     $user = (new User)->findBy('id', $userId);
-    $filters = (new Filters)->where('userId', '=', $userId);
-    $postsByUser = (new Post)->setFilters($filters)->all();
-    $this->view('blog/profile', ['title' => 'Perfil', 'user' => $user, 'postsByUser' => $postsByUser]);
+    $postsByUser = $this->postFilterService->getPostsByUser($userId);
+
+    $this->view('blog/profile', [
+      'title' => 'Perfil',
+      'user' => $user,
+      'postsByUser' => $postsByUser
+    ]);
   }
 
   public function updateProfile()

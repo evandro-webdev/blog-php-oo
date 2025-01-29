@@ -7,6 +7,7 @@ use PDOException;
 use app\database\Connection;
 use app\database\Filters;
 use app\database\Pagination;
+use PDOStatement;
 
 abstract class Model
 {
@@ -15,107 +16,81 @@ abstract class Model
   private ?Filters $filters = null;
   private string $pagination = '';
 
-  public function setFields(string $fields)
+  public function setFields(string $fields): self
   {
     $this->fields = $fields;
     return $this;
   }
 
-  public function setFilters(Filters $filters)
+  public function setFilters(Filters $filters): self
   {
     $this->filters = $filters;
     return $this;
   }
 
-  public function setPagination(Pagination $pagination)
+  public function setPagination(Pagination $pagination): self
   {
     $pagination->setTotalItems($this->count());
     $this->pagination = $pagination->dump();
     return $this;
   }
 
-  public function all()
+  private function executeQuery(string $sql, array $params = []): PDOStatement
   {
     try {
-      $sql = "SELECT $this->fields FROM $this->table {$this->filters?->dump()} $this->pagination";
-      $connection = Connection::connect();
-      $prepare = $connection->prepare($sql);
-      $prepare->execute($this->filters ? $this->filters->getBind() : []);
-      return $prepare->fetchAll(PDO::FETCH_CLASS);
+      $stmt = Connection::connect()->prepare($sql);
+      $stmt->execute($params);
+      return $stmt;
     } catch (PDOException $e) {
       dd($e->getMessage());
     }
   }
 
-  public function findBy(string $field, string $value)
-  { // ARRUMARRRRRR
+  public function all(): array
+  {
+    $sql = "SELECT $this->fields FROM $this->table {$this->filters?->dump()} $this->pagination";
+    $params = $this->filters ? $this->filters->getBind() : [];
+    return $this->executeQuery($sql, $params)->fetchAll(PDO::FETCH_CLASS);
+  }
+
+  public function findBy(string $field, string $value): ?object
+  {
     $sql = "SELECT $this->fields FROM $this->table WHERE $field = :$field";
-
-    $connection = Connection::connect();
-    $prepare = $connection->prepare($sql);
-    $prepare->execute([$field => $value]);
-    return $prepare->fetchObject();
+    return $this->executeQuery($sql, [$field => $value])->fetchObject();
   }
 
-  public function create(array $data)
+  public function create(array $data): bool
   {
-    try {
-      $sql = "INSERT INTO $this->table (";
-      $sql .= implode(',', array_keys($data)) . ") VALUES(:";
-      $sql .= implode(',:', array_keys($data)) . ")";
-
-      $connection = Connection::connect();
-      $prepare = $connection->prepare($sql);
-      return $prepare->execute($data);
-    } catch (PDOException $e) {
-      dd($e->getMessage());
-    }
+    $sql = "INSERT INTO $this->table (";
+    $sql .= implode(',', array_keys($data)) . ") VALUES(:";
+    $sql .= implode(',:', array_keys($data)) . ")";
+    return $this->executeQuery($sql, $data)->rowCount() > 1;
   }
 
-  public function update(string $id, array $data)
+  public function update(string $id, array $data): bool
   {
-    try {
-      $sql = "UPDATE $this->table SET ";
-
-      foreach ($data as $key => $value) {
-        $sql .= "$key = :$key,";
-      }
-
-      $sql = rtrim($sql, ",");
-      $sql .= " WHERE id = :id";
-      $data['id'] = $id;
-
-      $connection = Connection::connect();
-      $prepare = $connection->prepare($sql);
-      return $prepare->execute($data);
-    } catch (PDOException $e) {
-      dd($e->getMessage());
+    $sql = "UPDATE $this->table SET ";
+    foreach ($data as $key => $value) {
+      $sql .= "$key = :$key,";
     }
+
+    $sql = rtrim($sql, ",");
+    $sql .= " WHERE id = :id";
+    $data['id'] = $id;
+
+    return $this->executeQuery($sql, $data)->rowCount() > 0;
   }
 
-  public function delete(string $id)
+  public function delete(string $id): bool
   {
-    try {
-      $sql = "DELETE FROM $this->table WHERE id = :id";
-      $connection = Connection::connect();
-
-      $prepare = $connection->prepare($sql);
-      return $prepare->execute(['id' => $id]);
-    } catch (PDOException $e) {
-      dd($e->getMessage());
-    }
+    $sql = "DELETE FROM $this->table WHERE id = :id";
+    return $this->executeQuery($sql, ['id' => $id])->rowCount() > 0;
   }
 
-  public function count()
+  public function count(): int
   {
-    try {
-      $sql = "SELECT $this->fields FROM $this->table {$this->filters?->dump()}";
-      $connection = Connection::connect();
-      $prepare = $connection->prepare($sql);
-      $prepare->execute($this->filters ? $this->filters->getBind() : []);
-      return $prepare->rowCount();
-    } catch (PDOException $e) {
-      dd($e->getMessage());
-    }
+    $sql = "SELECT COUNT(*) as total FROM $this->table {$this->filters?->dump()}";
+    $params = $this->filters ? $this->filters->getBind() : [];
+    return (int) $this->executeQuery($sql, $params)->fetchObject()->total;
   }
 }

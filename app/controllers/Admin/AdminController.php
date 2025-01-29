@@ -5,18 +5,25 @@ namespace app\controllers\Admin;
 use app\auth\Auth;
 use app\support\Flash;
 use app\support\Slugify;
-use app\support\Validation;
-use app\controllers\Controller;
-use app\database\models\Post;
-use app\database\models\Category;
-use app\library\ImageManager;
+use app\database\Filters;
 use app\library\Redirect;
+use app\support\Validation;
+use app\database\models\Post;
+use app\database\models\User;
+use app\library\ImageManager;
+use app\controllers\Controller;
+use app\database\models\Category;
 
 class AdminController extends Controller
 {
   public function index()
   {
     $posts = (new Post)->all();
+    $filter = (new Filters)->join('posts', 'users.id', '=', 'posts.userId', 'RIGHT JOIN');
+    $authors = (new User)->setFields('name, last_name')
+      ->setFilters($filter)
+      ->all();
+    // dd($authors);
 
     $this->view('admin/blog/dashboard', [
       "title" => "Painel Administrativo",

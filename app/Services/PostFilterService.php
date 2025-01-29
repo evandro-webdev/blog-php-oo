@@ -8,14 +8,6 @@ use app\database\models\Comment;
 
 class PostFilterService
 {
-  // public function baseFilter()
-  // {
-  //   return (new Filters)->join('categories', 'posts.categoryId', '=', 'categories.id')
-  //     ->join('users', 'posts.userId', '=', 'users.id')
-  //     ->join('comments', 'posts.id', '=', 'comments.postId', 'LEFT JOIN')
-  //     ->groupBy('posts.id');
-  // }
-
   private const POST_CARD_FIELDS = "posts.title, posts.slug, imagePath, created_at, categories.title as categoryTitle";
   private const POST_ALL_FIELDS = "
       posts.id, posts.title, posts.slug, categoryId, posts.content, imagePath, posts.created_at, 
@@ -104,5 +96,11 @@ class PostFilterService
       ->setFields("comments.id, content, comments.created_at, name, userId, profile_pic")
       ->setFilters($filter)
       ->all();
+  }
+
+  public function getPostsByUser($userId)
+  {
+    $filters = (new Filters)->where('userId', '=', $userId);
+    return (new Post)->setFilters($filters)->all();
   }
 }
