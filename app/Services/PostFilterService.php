@@ -14,16 +14,29 @@ class PostFilterService
       categories.slug as categorySlug, categories.title as categoryTitle, 
       CONCAT(name, ' ', last_name) as author, users.profile_pic";
 
-  public function baseFilter($fieldOrder, $limit = 3)
+  public function baseFilter($fieldOrder)
   {
     return (new Filters)->join('categories', 'posts.categoryId', '=', 'categories.id')
-      ->orderBy($fieldOrder, 'DESC')
-      ->limit($limit);
+      ->orderBy($fieldOrder, 'DESC');
   }
 
-  public function getMostViewed()
+  public function getAll($pagination)
   {
     $filter = $this->baseFilter('views');
+
+    return (new Post)
+      ->setFields(self::POST_CARD_FIELDS)
+      ->setFilters($filter)
+      ->setPagination($pagination)
+      ->all();
+  }
+
+  public function getFeatured()
+  {
+    $filter = $this->baseFilter('created_at')
+      ->where('featured', '=', 1)
+      ->limit(4);
+
     return (new Post)
       ->setFields(self::POST_CARD_FIELDS)
       ->setFilters($filter)
@@ -32,16 +45,20 @@ class PostFilterService
 
   public function getRecent()
   {
-    $filter = $this->baseFilter('created_at');
+    $filter = $this->baseFilter('created_at')
+      ->limit(3);
+
     return (new Post)
       ->setFields(self::POST_CARD_FIELDS)
       ->setFilters($filter)
       ->all();
   }
 
-  public function getFeatured($limit = 4)
+  public function getMostViewed()
   {
-    $filter = $this->baseFilter('created_at', $limit)->where('featured', '=', 1);
+    $filter = $this->baseFilter('views')
+      ->limit(3);
+
     return (new Post)
       ->setFields(self::POST_CARD_FIELDS)
       ->setFilters($filter)
@@ -52,7 +69,8 @@ class PostFilterService
   {
     $filter = $this->baseFilter('created_at')
       ->where('categoryId', '=', $categoryId, 'AND')
-      ->where('posts.id', '!=', $postId);
+      ->where('posts.id', '!=', $postId)
+      ->limit(3);
 
     return (new Post)
       ->setFields(self::POST_CARD_FIELDS)

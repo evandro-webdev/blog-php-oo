@@ -5,29 +5,41 @@ namespace app\controllers\Admin;
 use app\auth\Auth;
 use app\support\Flash;
 use app\support\Slugify;
-use app\database\Filters;
-use app\library\Redirect;
 use app\support\Validation;
+use app\database\Filters;
+use app\database\Pagination;
 use app\database\models\Post;
 use app\database\models\User;
+use app\database\models\Category;
+use app\library\Redirect;
 use app\library\ImageManager;
 use app\controllers\Controller;
-use app\database\models\Category;
+use app\services\PostFilterService;
+use app\services\UserService;
 
 class AdminController extends Controller
 {
+  private $postFilterService;
+  private $userService;
+
+  public function __construct()
+  {
+    $this->postFilterService = new PostFilterService();
+    $this->userService = new UserService;
+  }
+
   public function index()
   {
-    $posts = (new Post)->all();
-    $filter = (new Filters)->join('posts', 'users.id', '=', 'posts.userId', 'RIGHT JOIN');
-    $authors = (new User)->setFields('name, last_name')
-      ->setFilters($filter)
-      ->all();
-    // dd($authors);
+    $pagination = new Pagination;
+    $pagination->setItemsPerPage(8);
+    $posts = $this->postFilterService->getAll($pagination);
+    $authors = $this->userService->getUsersWithPosts();
 
     $this->view('admin/blog/dashboard', [
       "title" => "Painel Administrativo",
-      "posts" => $posts
+      "posts" => $posts,
+      "authors" => $authors,
+      "pagination" => $pagination
     ]);
   }
 

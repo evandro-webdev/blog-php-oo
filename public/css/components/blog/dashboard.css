@@ -28,8 +28,12 @@
 
 .dashboard__wrapper{
   width: 100%;
-  border-radius: 10px;
+  height: initial;
   overflow-x: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 30px;
 }
 
 .dashboard__table{
@@ -79,6 +83,21 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
+}
+
+.dashboard .card.authors{
+  width: 100%;
+}
+
+.dashboard .card.authors img{
+  width: 2.5rem;
+  height: 2.5rem;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.dashboard__wrapper .pagination{
+  justify-content: start;
 }
 
 @media (width >= 50.625em) {

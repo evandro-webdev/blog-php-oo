@@ -66,6 +66,7 @@
             <?php } ?>
           </tbody>
         </table>
+        <?php echo $pagination->links() ?>
       </div>
 
       <aside>
@@ -76,6 +77,14 @@
             <li><img src="/img/icons/views.svg" alt=""><span>4300 cliques</span></li>
             <li><img src="/img/icons/comments-blue.svg" alt=""><span>60 comentarios</span></li>
             <li><img src="/img/icons/share.svg" alt=""><span>25 compartilhamentos</span></li>
+          </ul>
+        </div>
+        <div class="card authors">
+          <h3>Redatores</h3>
+          <ul class="card__list has-icon">
+            <?php foreach ($authors as $author) { ?>
+              <li><img src="<?php echo $author->profile_pic ?? '/img/icons/posts.svg' ?>" width="40" height="40" alt=""><span><?php echo $author->name ?></span></li>
+            <?php } ?>
           </ul>
         </div>
         <a href="/admin/posts/create" class="button has-icon"><img src="/img/icons/edit.svg" alt="icone de edição"> Novo post</a>

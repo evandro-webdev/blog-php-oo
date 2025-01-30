@@ -53,6 +53,15 @@ abstract class Model
     return $this->executeQuery($sql, $params)->fetchAll(PDO::FETCH_CLASS);
   }
 
+  public function allDistinct(string|array $columns): array
+  {
+    $distinctColumns = is_array($columns) ? implode(',', $columns) : $columns;
+    $sql = "SELECT DISTINCT $distinctColumns $this->fields FROM $this->table {$this->filters?->dump()} $this->pagination";
+
+    $params = $this->filters ? $this->filters->getBind() : [];
+    return $this->executeQuery($sql, $params)->fetchAll(PDO::FETCH_CLASS);
+  }
+
   public function findBy(string $field, string $value): ?object
   {
     $sql = "SELECT $this->fields FROM $this->table WHERE $field = :$field";
