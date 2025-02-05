@@ -26,7 +26,7 @@ class BlogController extends Controller
 
     if (Request::query('search')) {
       $pagination = new Pagination;
-      $searchResults = $this->postFilterService->getSearch(Request::query('search'), $pagination);
+      $searchResults = $this->postFilterService->getPosts($pagination, Request::query('search'));
     }
 
     $this->view('blog/posts', [

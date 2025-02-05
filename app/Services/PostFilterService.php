@@ -8,7 +8,7 @@ use app\database\models\Comment;
 
 class PostFilterService
 {
-  private const POST_CARD_FIELDS = "posts.title, posts.slug, imagePath, created_at, categories.title as categoryTitle";
+  private const POST_CARD_FIELDS = "posts.id, posts.title, posts.slug, imagePath, created_at, categories.title as categoryTitle";
   private const POST_ALL_FIELDS = "
       posts.id, posts.title, posts.slug, categoryId, posts.content, imagePath, posts.created_at, 
       categories.slug as categorySlug, categories.title as categoryTitle, 
@@ -20,9 +20,13 @@ class PostFilterService
       ->orderBy($fieldOrder, 'DESC');
   }
 
-  public function getAll($pagination)
+  public function getPosts($pagination, $searchTerm = null, $fieldOrder = 'created_at')
   {
-    $filter = $this->baseFilter('views');
+    $filter = $this->baseFilter($fieldOrder);
+
+    if ($searchTerm) {
+      $filter->where('posts.title', 'LIKE', "%$searchTerm%");
+    }
 
     return (new Post)
       ->setFields(self::POST_CARD_FIELDS)
@@ -78,18 +82,6 @@ class PostFilterService
       ->all();
   }
 
-  public function getSearch($searchTerm, $pagination)
-  {
-    $filter = $this->baseFilter('created_at')
-      ->where('posts.title', 'LIKE', "%$searchTerm%");
-
-    return (new Post)
-      ->setFields(self::POST_CARD_FIELDS)
-      ->setFilters($filter)
-      ->setPagination($pagination)
-      ->all();
-  }
-
   public function getPost($slug)
   {
     $filter = (new Filters)->join('categories', 'posts.categoryId', '=', 'categories.id')
@@ -119,6 +111,9 @@ class PostFilterService
   public function getPostsByUser($userId)
   {
     $filters = (new Filters)->where('userId', '=', $userId);
-    return (new Post)->setFilters($filters)->all();
+
+    return (new Post)
+      ->setFilters($filters)
+      ->all();
   }
 }

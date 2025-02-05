@@ -5,6 +5,7 @@ try {
 
   $router->group(['prefix' => 'admin', 'controller' => 'admin', 'middlewares' => ['admin']], function () {
     $this->add('/', 'GET', 'AdminController:index');
+    $this->add('?search=(:any)', 'GET', 'AdminController:index', ['search']);
     $this->add('/posts/create', 'GET', 'AdminController:create');
     $this->add('/posts', 'POST', 'AdminController:store');
     $this->add('/posts/edit/(:numeric)', 'GET', 'AdminController:edit', ['id']);

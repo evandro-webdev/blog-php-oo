@@ -11,7 +11,11 @@ function closeModal(modalId) {
 document.querySelectorAll(".open-modal").forEach(button => {
   button.addEventListener("click", function () {
     const modalId = this.getAttribute("data-modal");
+    const postId = this.getAttribute("data-post-id");
     openModal(modalId);
+
+    const form = document.getElementById("delete-post-form");
+    form.action = "/admin/posts/delete/" + postId;
   });
 });
 

@@ -14,12 +14,14 @@
 
     <div class="form__checkboxes">
       <div class="form__group checkbox">
-        <input type="checkbox" name="publish" id="publish">
+        <input type="checkbox" name="publish" id="publish" value="1">
         <label for="publish">Publicar imediatamente</label>
       </div>
       <div class="form__group checkbox">
-        <input type="checkbox" name="highlight" id="highlight">
+        <input type="hidden" name="featured" value="0">
+        <input type="checkbox" name="featured" id="highlight" value="1" <?php echo $post->featured ? 'checked' : ''; ?>>
         <label for="highlight">Publicar como destaque</label>
+        <?php echo flash('featured', 'msg msg_failed mt') ?>
       </div>
     </div>
 
@@ -46,16 +48,17 @@
         <textarea class="form__textarea" id="content" name="content"><?php echo $post->content ?? '' ?></textarea>
         <?php echo flash('content', 'msg msg_failed mt') ?>
       </div>
-      <div class="form__checkboxes">
+      <!-- <div class="form__checkboxes">
         <div class="form__group checkbox">
-          <input type="checkbox" name="publish" id="publish">
+          <input type="checkbox" name="publish" id="publish" value="1">
           <label for="publish">Publicar imediatamente</label>
         </div>
         <div class="form__group checkbox">
-          <input type="checkbox" name="highlight" id="highlight">
+          <input type="hidden" name="featured" value="0">
+          <input type="checkbox" name="featured" id="highlight" value="1">
           <label for="highlight">Publicar como destaque</label>
         </div>
-      </div>
+      </div> -->
     </div>
     <button class="button">Enviar</button>
   </div>
