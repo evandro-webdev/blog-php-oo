@@ -89,6 +89,12 @@
   width: 100%;
 }
 
+.dashboard .card.authors a{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
 .dashboard .card.authors img{
   width: 2.5rem;
   height: 2.5rem;

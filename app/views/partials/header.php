@@ -38,7 +38,7 @@
           <ul class="profile-menu__links">
             <li><a href="/blog/perfil"><img src="/img/icons/profile-outline.svg" alt="icone de perfil"> Perfil</a></li>
             <?php if (isset($_SESSION['auth']) && $_SESSION['auth']->is_admin) { ?>
-              <li><a href="/admin"><img src="/img/icons/dashboard-blue.svg" alt="icone de gerenciamento"> Dashboard</a></li>
+              <li><a href="/admin/posts"><img src="/img/icons/dashboard-blue.svg" alt="icone de gerenciamento"> Dashboard</a></li>
             <?php } ?>
             <li>
               <form action="/auth/logout" method="POST"><button type="submit"><img src="/img/icons/logout.svg" alt="icone de saída">Sair</button></form>

@@ -11,7 +11,7 @@
         <h1>Dashboard</h1>
         <h2>Bem vindo, John</h2>
       </div>
-      <form action="/admin" method="GET" class="form form__search">
+      <form action="/admin/posts" method="GET" class="form form__search">
         <div class="form__group float-button">
           <input type="search" name="search" class="form__input" placeholder="Procurar post">
           <button type="submit"><img src="/img/icons/search.svg" width="20" height="20" alt=""></button>
@@ -56,7 +56,7 @@
           <h3>Redatores</h3>
           <ul class="card__list has-icon">
             <?php foreach ($authors as $author) { ?>
-              <li><img src="<?php echo $author->profile_pic ?? '/img/icons/posts.svg' ?>" width="40" height="40" alt=""><span><?php echo $author->name ?></span></li>
+              <li><a href="/admin/posts/autor/<?php echo $author->id ?>"><img src="<?php echo $author->profile_pic ?? '/img/icons/posts.svg' ?>" width="40" height="40" alt=""><span><?php echo $author->name ?></span></a></li>
             <?php } ?>
           </ul>
         </div>

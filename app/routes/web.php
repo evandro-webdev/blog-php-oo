@@ -4,8 +4,9 @@ try {
   $router->add('/', 'GET', 'HomeController:index');
 
   $router->group(['prefix' => 'admin', 'controller' => 'admin', 'middlewares' => ['admin']], function () {
-    $this->add('/', 'GET', 'AdminController:index');
-    $this->add('?search=(:any)', 'GET', 'AdminController:index', ['search']);
+    $this->add('/posts', 'GET', 'AdminController:index');
+    $this->add('/posts/autor/(:numeric)', 'GET', 'AdminController:index', ['userId']);
+    $this->add('?search=(:any)', 'GET', 'AdminController:index');
     $this->add('/posts/create', 'GET', 'AdminController:create');
     $this->add('/posts', 'POST', 'AdminController:store');
     $this->add('/posts/edit/(:numeric)', 'GET', 'AdminController:edit', ['id']);
@@ -16,7 +17,7 @@ try {
   $router->group(['prefix' => 'blog', 'controller' => 'blog'], function () {
     $this->add('/', 'GET', 'BlogController:index');
     $this->add('/categoria/(:any)', 'GET', 'BlogController:index', ['slug']);
-    $this->add('?search=(:any)', 'GET', 'BlogController:index', ['search']);
+    $this->add('?search=(:any)', 'GET', 'BlogController:index');
     $this->add('/post/(:any)', 'GET', 'BlogController:show', ['slug']);
     $this->add('/comment', 'POST', 'CommentController:create');
     $this->add('/comment/delete/(:numeric)', 'POST', 'CommentController:delete', ['id']);

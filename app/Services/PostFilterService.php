@@ -82,6 +82,17 @@ class PostFilterService
       ->all();
   }
 
+  // public function getPostsByUser($userId)
+  // {
+  //   $filter = $this->baseFilter('created_at')
+  //     ->where('userId', '=', $userId);
+
+  //   return (new Post)
+  //     ->setFields(self::POST_CARD_FIELDS)
+  //     ->setFilters($filter)
+  //     ->all();
+  // }
+
   public function getPost($slug)
   {
     $filter = (new Filters)->join('categories', 'posts.categoryId', '=', 'categories.id')

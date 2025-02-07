@@ -32,6 +32,13 @@ ul li {
   list-style: none;
 }
 
+a {
+  all: unset;
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+}
+
 a,
 button {
   font-family: inherit;
@@ -41,10 +48,6 @@ button {
 button{
   padding: 0;
   background: none;
-}
-
-a {
-  text-decoration: none;
 }
 
 p{

@@ -27,17 +27,23 @@ class AdminController extends Controller
     $this->userService = new UserService;
   }
 
-  public function index()
+  public function index($userId = '')
   {
     $pagination = new Pagination;
     $pagination->setItemsPerPage(8);
+
     $searchQuery = Request::query('search');
     $posts = $this->postFilterService->getPosts($pagination, $searchQuery);
+
+    if ($userId) {
+      $postsByUser = $this->postFilterService->getPostsByUser(($userId));
+    }
+
     $authors = $this->userService->getUsersWithPosts();
 
     $this->view('admin/blog/dashboard', [
       "title" => "Painel Administrativo",
-      'posts' => $posts,
+      'posts' => $postsByUser ?? $posts,
       "authors" => $authors,
       "pagination" => $pagination
     ]);
