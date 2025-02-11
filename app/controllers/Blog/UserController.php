@@ -4,32 +4,22 @@ namespace app\controllers\Blog;
 
 use app\auth\Auth;
 use app\support\Flash;
-use app\library\Redirect;
 use app\support\Validation;
 use app\database\models\User;
+use app\library\Redirect;
 use app\library\ImageManager;
 use app\controllers\Controller;
-use app\services\PostFilterService;
 
 class UserController extends Controller
 {
-  private $postFilterService;
-
-  public function __construct()
-  {
-    $this->postFilterService = new PostFilterService();
-  }
-
   public function profile()
   {
     $userId = Auth::getUser()->id;
     $user = (new User)->findBy('id', $userId);
-    $postsByUser = $this->postFilterService->getPostsByUser($userId);
 
     $this->view('blog/profile', [
       'title' => 'Perfil',
-      'user' => $user,
-      'postsByUser' => $postsByUser
+      'user' => $user
     ]);
   }
 
@@ -73,10 +63,10 @@ class UserController extends Controller
     $foundUser = (new User)->setFields('id, profile_pic')->findBy('id', $id);
 
     if ($foundUser && $foundUser->profile_pic) {
-      $imageManager->delete($foundUser->profile_pic);
+      $imageManager->deleteImage($foundUser->profile_pic);
     }
 
-    $validated['profile_pic'] = $imageManager->upload($validated['profile_pic']);
+    $validated['profile_pic'] = $imageManager->uploadImage($validated['profile_pic']);
     return $validated;
   }
 }

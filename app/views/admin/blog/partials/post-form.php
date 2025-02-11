@@ -19,7 +19,7 @@
       </div>
       <div class="form__group checkbox">
         <input type="hidden" name="featured" value="0">
-        <input type="checkbox" name="featured" id="highlight" value="1" <?php echo $post->featured ? 'checked' : ''; ?>>
+        <input type="checkbox" name="featured" id="highlight" value="1" <?php echo isset($post->featured) && $post->featured ? 'checked' : ''; ?>>
         <label for="highlight">Publicar como destaque</label>
         <?php echo flash('featured', 'msg msg_failed mt') ?>
       </div>

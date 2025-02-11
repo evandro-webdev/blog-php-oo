@@ -7,26 +7,26 @@ use app\library\Request;
 use app\database\Pagination;
 use app\database\models\Post;
 use app\controllers\Controller;
-use app\services\PostFilterService;
+use app\services\PostService;
 
 class BlogController extends Controller
 {
-  private $postFilterService;
+  private $postService;
 
   public function __construct()
   {
-    $this->postFilterService = new PostFilterService();
+    $this->postService = new PostService();
   }
 
   public function index()
   {
-    $featured = $this->postFilterService->getFeatured();
-    $recent = $this->postFilterService->getRecent();
-    $mostViewed = $this->postFilterService->getMostViewed(3);
+    $featured = $this->postService->getFeatured();
+    $recent = $this->postService->getRecent();
+    $mostViewed = $this->postService->getMostViewed(3);
 
     if (Request::query('search')) {
       $pagination = new Pagination;
-      $searchResults = $this->postFilterService->getPosts($pagination, Request::query('search'));
+      $searchResults = $this->postService->getPosts($pagination, Request::query('search'));
     }
 
     $this->view('blog/posts', [
@@ -40,9 +40,9 @@ class BlogController extends Controller
 
   public function show($slug)
   {
-    $post = $this->postFilterService->getPost($slug)[0];
-    $relatedPosts = $this->postFilterService->getRelatedPosts($post->id, $post->categoryId);
-    $comments = $this->postFilterService->getCommentsForPost($post->id);
+    $post = $this->postService->getPost($slug)[0];
+    $relatedPosts = $this->postService->getRelatedPosts($post->id, $post->categoryId);
+    $comments = $this->postService->getCommentsForPost($post->id);
     (new Post)->incrementViews($post->id);
 
     $this->view('blog/post', [

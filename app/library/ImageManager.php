@@ -15,7 +15,7 @@ class ImageManager
     $this->folder = $folder;
   }
 
-  public function upload(array $image): string
+  public function uploadImage(array $image): string
   {
     $imageName = uniqid() . '-' . basename($image['name']);
     $imagePath = $this->uploadDir . $imageName;
@@ -27,7 +27,7 @@ class ImageManager
     throw new Exception('Erro ao fazer o upload de imagem');
   }
 
-  public function delete(string $imagePath): bool
+  public function deleteImage(string $imagePath): bool
   {
     $filePath = BASE_PATH . "/public{$imagePath}";
     if (file_exists($filePath)) {

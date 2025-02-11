@@ -4,26 +4,26 @@ namespace app\controllers\Admin;
 
 use app\auth\Auth;
 use app\support\Flash;
-use app\library\Request;
 use app\support\Slugify;
-use app\library\Redirect;
 use app\support\Validation;
+use app\library\Request;
+use app\library\Redirect;
+use app\library\ImageManager;
 use app\database\Pagination;
 use app\database\models\Post;
-use app\library\ImageManager;
-use app\services\UserService;
-use app\controllers\Controller;
 use app\database\models\Category;
-use app\services\PostFilterService;
+use app\services\UserService;
+use app\services\PostService;
+use app\controllers\Controller;
 
 class AdminController extends Controller
 {
-  private $postFilterService;
+  private $postService;
   private $userService;
 
   public function __construct()
   {
-    $this->postFilterService = new PostFilterService();
+    $this->postService = new PostService;
     $this->userService = new UserService;
   }
 
@@ -33,17 +33,16 @@ class AdminController extends Controller
     $pagination->setItemsPerPage(8);
 
     $searchQuery = Request::query('search');
-    $posts = $this->postFilterService->getPosts($pagination, $searchQuery);
 
-    if ($userId) {
-      $postsByUser = $this->postFilterService->getPostsByUser(($userId));
-    }
+    $posts = $userId
+      ? $this->postService->getPostsByUser($pagination, $userId)
+      : $this->postService->getPosts($pagination, $searchQuery);
 
     $authors = $this->userService->getUsersWithPosts();
 
     $this->view('admin/blog/dashboard', [
       "title" => "Painel Administrativo",
-      'posts' => $postsByUser ?? $posts,
+      'posts' => $posts,
       "authors" => $authors,
       "pagination" => $pagination
     ]);
@@ -78,7 +77,7 @@ class AdminController extends Controller
     $validated['userId'] = Auth::getUser()->id;
 
     $imageManager = new ImageManager();
-    $validated['imagePath'] = $imageManager->upload($validated['postImage']);
+    $validated['imagePath'] = $imageManager->uploadImage($validated['postImage']);
     unset($validated['postImage']);
 
     (new Post)->create($validated);
@@ -127,12 +126,32 @@ class AdminController extends Controller
 
   public function delete($id)
   {
-    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['_method']) && $_POST['_method'] === 'DELETE') {
-      $deletedPost = (new Post)->delete($id);
-      if ($deletedPost) {
-        Flash::set('post-deleted', 'O post foi deletado com sucesso');
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['_method'] === 'DELETE') {
+      $imageManager = new ImageManager;
+      $post = (new Post)->findBy('id', $id);
+
+      if (!$post) {
+        Flash::set('error', 'Post não encontrado');
         Redirect::to('/admin');
       }
+
+      $imageToDelete = $post->imagePath;
+
+      if ($imageToDelete) {
+        if (!$imageManager->deleteImage($imageToDelete)) {
+          Flash::set('error', 'Falha ao deletar imagem');
+        }
+      }
+
+      $postModel = new Post;
+
+      if ($postModel->delete($id)) {
+        Flash::set('post-deleted', 'O post foi deletado com sucesso');
+      } else {
+        Flash::set('error', 'Falha ao deletar o post');
+      }
+
+      Redirect::to('/admin');
     }
   }
 
@@ -142,10 +161,10 @@ class AdminController extends Controller
     $foundPost = (new Post)->setFields('id, imagePath')->findBy('id', $id);
 
     if ($foundPost && $foundPost->imagePath) {
-      $imageManager->delete($foundPost->imagePath);
+      $imageManager->deleteImage($foundPost->imagePath);
     }
 
-    $validated['imagePath'] = $imageManager->upload($validated['postImage']);
+    $validated['imagePath'] = $imageManager->uploadImage($validated['postImage']);
     return $validated;
   }
 }

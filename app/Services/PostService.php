@@ -6,7 +6,7 @@ use app\database\Filters;
 use app\database\models\Post;
 use app\database\models\Comment;
 
-class PostFilterService
+class PostService
 {
   private const POST_CARD_FIELDS = "posts.id, posts.title, posts.slug, imagePath, created_at, categories.title as categoryTitle";
   private const POST_ALL_FIELDS = "
@@ -82,16 +82,15 @@ class PostFilterService
       ->all();
   }
 
-  // public function getPostsByUser($userId)
-  // {
-  //   $filter = $this->baseFilter('created_at')
-  //     ->where('userId', '=', $userId);
+  public function getPostsByUser($pagination, $userId)
+  {
+    $filters = (new Filters)->where('userId', '=', $userId);
 
-  //   return (new Post)
-  //     ->setFields(self::POST_CARD_FIELDS)
-  //     ->setFilters($filter)
-  //     ->all();
-  // }
+    return (new Post)
+      ->setFilters($filters)
+      ->setPagination($pagination)
+      ->all();
+  }
 
   public function getPost($slug)
   {
@@ -116,15 +115,6 @@ class PostFilterService
     return (new Comment)
       ->setFields("comments.id, content, comments.created_at, name, userId, profile_pic")
       ->setFilters($filter)
-      ->all();
-  }
-
-  public function getPostsByUser($userId)
-  {
-    $filters = (new Filters)->where('userId', '=', $userId);
-
-    return (new Post)
-      ->setFilters($filters)
       ->all();
   }
 }
