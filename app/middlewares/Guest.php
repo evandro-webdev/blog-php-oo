@@ -12,7 +12,7 @@ class Guest implements MiddlewareInterface
   {
     if (Auth::isAuth()) {
       if (Auth::isAdmin()) {
-        Redirect::to('/admin');
+        Redirect::to('/admin/posts');
       } else {
         Redirect::to('/blog');
       }

@@ -45,7 +45,7 @@ class AuthController extends Controller
     Flash::set('login-success', "Bem vindo, $user->name!");
 
     if ($user->is_admin) {
-      Redirect::to('/admin');
+      Redirect::to('/admin/posts');
     }
 
     Redirect::to('/blog');
