@@ -11,11 +11,11 @@ use app\services\PostService;
 
 class BlogController extends Controller
 {
-  private $postService;
+  private PostService $postService;
 
-  public function __construct()
+  public function __construct(PostService $postService)
   {
-    $this->postService = new PostService();
+    $this->postService = $postService;
   }
 
   public function index()
@@ -25,8 +25,7 @@ class BlogController extends Controller
     $mostViewed = $this->postService->getMostViewed(3);
 
     if (Request::query('search')) {
-      $pagination = new Pagination;
-      $searchResults = $this->postService->getPosts($pagination, Request::query('search'));
+      $searchResults = $this->postService->getPosts(new Pagination, Request::query('search'));
     }
 
     $this->view('blog/posts', [
@@ -43,6 +42,7 @@ class BlogController extends Controller
     $post = $this->postService->getPost($slug)[0];
     $relatedPosts = $this->postService->getRelatedPosts($post->id, $post->categoryId);
     $comments = $this->postService->getCommentsForPost($post->id);
+
     (new Post)->incrementViews($post->id);
 
     $this->view('blog/post', [

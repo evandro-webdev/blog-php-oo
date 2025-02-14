@@ -35,7 +35,7 @@ abstract class Model
     return $this;
   }
 
-  private function executeQuery(string $sql, array $params = []): PDOStatement
+  protected function executeQuery(string $sql, array $params = []): PDOStatement
   {
     try {
       $stmt = Connection::connect()->prepare($sql);

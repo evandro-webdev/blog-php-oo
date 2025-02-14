@@ -1,9 +1,8 @@
 <?php
 
-use app\library\Router;
-
 require '../vendor/autoload.php';
 
 session_start();
 
-$router = new Router;
+$container = require '../app/config/container.php';
+$router = new \app\library\Router($container);

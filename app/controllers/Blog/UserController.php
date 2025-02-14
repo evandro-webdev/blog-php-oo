@@ -59,7 +59,7 @@ class UserController extends Controller
 
   private function handleImageUpdate($id, $validated)
   {
-    $imageManager = new ImageManager('profilePics/', '/public/img/profilePics/');
+    $imageManager = new ImageManager('profilePics');
     $foundUser = (new User)->setFields('id, profile_pic')->findBy('id', $id);
 
     if ($foundUser && $foundUser->profile_pic) {

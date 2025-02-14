@@ -8,11 +8,18 @@ use app\database\models\Comment;
 
 class PostService
 {
+  private Post $post;
+
   private const POST_CARD_FIELDS = "posts.id, posts.title, posts.slug, imagePath, created_at, categories.title as categoryTitle";
   private const POST_ALL_FIELDS = "
-      posts.id, posts.title, posts.slug, categoryId, posts.content, imagePath, posts.created_at, 
-      categories.slug as categorySlug, categories.title as categoryTitle, 
+      posts.id, posts.title, posts.slug, categoryId, posts.content, imagePath, posts.created_at,
+      categories.slug as categorySlug, categories.title as categoryTitle,
       CONCAT(name, ' ', last_name) as author, users.profile_pic";
+
+  public function __construct(Post $post)
+  {
+    $this->post = $post;
+  }
 
   public function baseFilter($fieldOrder)
   {
@@ -28,7 +35,7 @@ class PostService
       $filter->where('posts.title', 'LIKE', "%$searchTerm%");
     }
 
-    return (new Post)
+    return $this->post
       ->setFields(self::POST_CARD_FIELDS)
       ->setFilters($filter)
       ->setPagination($pagination)
@@ -41,7 +48,7 @@ class PostService
       ->where('featured', '=', 1)
       ->limit(4);
 
-    return (new Post)
+    return $this->post
       ->setFields(self::POST_CARD_FIELDS)
       ->setFilters($filter)
       ->all();
@@ -52,7 +59,7 @@ class PostService
     $filter = $this->baseFilter('created_at')
       ->limit(3);
 
-    return (new Post)
+    return $this->post
       ->setFields(self::POST_CARD_FIELDS)
       ->setFilters($filter)
       ->all();
@@ -63,7 +70,7 @@ class PostService
     $filter = $this->baseFilter('views')
       ->limit(3);
 
-    return (new Post)
+    return $this->post
       ->setFields(self::POST_CARD_FIELDS)
       ->setFilters($filter)
       ->all();
@@ -76,7 +83,7 @@ class PostService
       ->where('posts.id', '!=', $postId)
       ->limit(3);
 
-    return (new Post)
+    return $this->post
       ->setFields(self::POST_CARD_FIELDS)
       ->setFilters($filter)
       ->all();
@@ -86,7 +93,7 @@ class PostService
   {
     $filters = (new Filters)->where('userId', '=', $userId);
 
-    return (new Post)
+    return $this->post
       ->setFilters($filters)
       ->setPagination($pagination)
       ->all();
@@ -100,7 +107,7 @@ class PostService
       ->where('posts.slug', '=', $slug)
       ->groupBy('posts.id');
 
-    return (new Post)
+    return $this->post
       ->setFields(self::POST_ALL_FIELDS)
       ->setFilters($filter)
       ->all();

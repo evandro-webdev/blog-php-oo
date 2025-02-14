@@ -3,7 +3,6 @@
 namespace app\database\models;
 
 use PDOException;
-use app\database\Connection;
 
 class Post extends Model
 {
@@ -16,9 +15,7 @@ class Post extends Model
   {
     try {
       $sql = "UPDATE $this->table SET views = views + 1 WHERE id = :id";
-      $connection = Connection::connect();
-      $prepare = $connection->prepare($sql);
-      return $prepare->execute(['id' => $postId]);
+      return $this->executeQuery($sql, ['id' => $postId]);
     } catch (PDOException $e) {
       dd($e->getMessage());
     }

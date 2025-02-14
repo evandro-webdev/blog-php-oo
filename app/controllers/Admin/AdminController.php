@@ -18,13 +18,24 @@ use app\controllers\Controller;
 
 class AdminController extends Controller
 {
+  private $post;
+  private $category;
   private $postService;
   private $userService;
+  private $validation;
 
-  public function __construct()
-  {
-    $this->postService = new PostService;
-    $this->userService = new UserService;
+  public function __construct(
+    Post $post,
+    Category $category,
+    PostService $postService,
+    UserService $userService,
+    Validation $validation
+  ) {
+    $this->post = $post;
+    $this->category = $category;
+    $this->postService = $postService;
+    $this->userService = $userService;
+    $this->validation = $validation;
   }
 
   public function index($userId = '')
@@ -50,7 +61,7 @@ class AdminController extends Controller
 
   public function create()
   {
-    $categories = (new Category)->all();
+    $categories = $this->category->all();
 
     $this->view('admin/blog/create', [
       "title" => "Publicar novo post",
@@ -61,7 +72,7 @@ class AdminController extends Controller
 
   public function store()
   {
-    $validated = (new Validation)->validate([
+    $validated = $this->validation->validate([
       "title" => "required|maxLen:255",
       "content" => "required",
       "categoryId" => "required",
@@ -76,19 +87,19 @@ class AdminController extends Controller
     $validated['slug'] = Slugify::slugify($validated['title']);
     $validated['userId'] = Auth::getUser()->id;
 
-    $imageManager = new ImageManager();
+    $imageManager = new ImageManager('posts');
     $validated['imagePath'] = $imageManager->uploadImage($validated['postImage']);
     unset($validated['postImage']);
 
-    (new Post)->create($validated);
+    $this->post->create($validated);
     Flash::set('post-created', 'O post foi criado com sucesso');
-    Redirect::to('/admin');
+    Redirect::to('/admin/posts');
   }
 
   public function edit($id)
   {
-    $foundPost = (new Post)->findBy('id', $id);
-    $categories = (new Category)->all();
+    $foundPost = $this->post->findBy('id', $id);
+    $categories = $this->category->all();
 
     $this->view('admin/blog/edit', [
       "title" => "Editar post",
@@ -100,7 +111,7 @@ class AdminController extends Controller
 
   public function update($id)
   {
-    $validated = (new Validation)->validate([
+    $validated = $this->validation->validate([
       "title" => "required|maxLen:255",
       "content" => "required",
       "categoryId" => "required",
@@ -119,16 +130,16 @@ class AdminController extends Controller
     $validated['slug'] = Slugify::slugify($validated['title']);
     unset($validated['postImage']);
 
-    (new Post)->update($id, $validated);
+    $this->post->update($id, $validated);
     Flash::set('post-created', 'O post foi atualizado com sucesso');
-    Redirect::to('/admin');
+    Redirect::to('/admin/posts');
   }
 
   public function delete($id)
   {
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['_method'] === 'DELETE') {
-      $imageManager = new ImageManager;
-      $post = (new Post)->findBy('id', $id);
+      $imageManager = new ImageManager('posts');
+      $post = $this->post->findBy('id', $id);
 
       if (!$post) {
         Flash::set('error', 'Post não encontrado');
@@ -145,20 +156,19 @@ class AdminController extends Controller
 
       $postModel = new Post;
 
-      if ($postModel->delete($id)) {
-        Flash::set('post-deleted', 'O post foi deletado com sucesso');
-      } else {
+      if (!$postModel->delete($id)) {
         Flash::set('error', 'Falha ao deletar o post');
       }
 
+      Flash::set('post-deleted', 'O post foi deletado com sucesso');
       Redirect::to('/admin');
     }
   }
 
   private function handleImageUpdate($id, $validated)
   {
-    $imageManager = new ImageManager();
-    $foundPost = (new Post)->setFields('id, imagePath')->findBy('id', $id);
+    $imageManager = new ImageManager('posts');
+    $foundPost = $this->post->setFields('id, imagePath')->findBy('id', $id);
 
     if ($foundPost && $foundPost->imagePath) {
       $imageManager->deleteImage($foundPost->imagePath);

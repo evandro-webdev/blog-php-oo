@@ -2,10 +2,18 @@
 
 namespace app\library;
 
+use DI\Container;
 use Exception;
 
 class Controller
 {
+  private Container $container;
+
+  public function __construct(Container $container)
+  {
+    $this->container = $container;
+  }
+
   private function controllerPath($route, $controller)
   {
     return $route->getRouteOptionsInstance() && $route->getRouteOptionsInstance()->optionExist('controller') ?
@@ -28,9 +36,9 @@ class Controller
       throw new Exception("Controller $controller does not exist");
     }
 
-    $controller = new $controllerPath;
+    $controllerInstance = $this->container->get($controllerPath);
 
-    if (!method_exists($controller, $action)) {
+    if (!method_exists($controllerInstance, $action)) {
       throw new Exception("Method $action does not exist in controller $controllerPath");
     }
 
@@ -38,6 +46,6 @@ class Controller
       (new Middleware($route->getRouteOptionsInstance()->execute('middlewares')))->execute();
     }
 
-    call_user_func_array([$controller, $action], $route->getRouteWildcardInstance()?->getParams() ?? []);
+    call_user_func_array([$controllerInstance, $action], $route->getRouteWildcardInstance()?->getParams() ?? []);
   }
 }

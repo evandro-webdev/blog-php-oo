@@ -3,12 +3,19 @@
 namespace app\library;
 
 use Closure;
+use DI\Container;
 
 class Router
 {
   private array $routes = [];
   private array $routeOptions = [];
   private Route $route;
+  private Container $container;
+
+  public function __construct(Container $container)
+  {
+    $this->container = $container;
+  }
 
   public function add(
     string $uri,
@@ -56,10 +63,10 @@ class Router
     foreach ($this->routes as $route) {
       if ($route->match()) {
         Redirect::register($route);
-        return (new Controller)->call($route);
+        return (new Controller($this->container))->call($route);
       }
     }
 
-    return (new Controller)->call(new Route('GET', 'NotFoundController:index', []));
+    return (new Controller($this->container))->call(new Route('GET', 'NotFoundController:index', []));
   }
 }
