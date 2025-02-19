@@ -11,6 +11,9 @@ use app\controllers\Controller;
 
 class AuthController extends Controller
 {
+
+  public function __construct(private Validation $validation, private User $user) {}
+
   public function loginForm()
   {
     $this->view('auth/login', ['title' => 'Entrar']);
@@ -23,7 +26,7 @@ class AuthController extends Controller
       Redirect::to('/auth/login');
     }
 
-    $validated = (new Validation)->validate([
+    $validated = $this->validation->validate([
       'email' => 'required|email',
       'password' => 'required'
     ]);
@@ -32,7 +35,7 @@ class AuthController extends Controller
       Redirect::backWithData();
     }
 
-    $user = (new User)->findBy('email', $validated['email']);
+    $user = $this->user->findBy('email', $validated['email']);
 
     if (!$user || !password_verify($validated['password'], $user->password)) {
       Auth::trackLoginAttempts();
@@ -58,7 +61,7 @@ class AuthController extends Controller
 
   public function register()
   {
-    $validated = (new Validation)->validate([
+    $validated = $this->validation->validate([
       'name' => 'required',
       'email' => 'required|email|unique:' . User::class,
       'password' => 'required|maxLen:16|minLen:6',
@@ -72,9 +75,8 @@ class AuthController extends Controller
     unset($validated['confirmPassword']);
     $validated['password'] = password_hash($validated['password'], PASSWORD_DEFAULT);
 
-    $user = new User;
-    $user->create($validated);
-    $createdUser = $user->findBy('email', $validated['email']);
+    $this->user->create($validated);
+    $createdUser = $this->user->findBy('email', $validated['email']);
 
     if (!$createdUser) {
       Flash::set('register-error', 'Ocorreu um erro ao criar sua conta. Tente novamente.');

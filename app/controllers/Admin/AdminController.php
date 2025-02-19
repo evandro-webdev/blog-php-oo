@@ -2,41 +2,27 @@
 
 namespace app\controllers\Admin;
 
-use app\auth\Auth;
 use app\support\Flash;
-use app\support\Slugify;
 use app\support\Validation;
 use app\library\Request;
 use app\library\Redirect;
-use app\library\ImageManager;
 use app\database\Pagination;
 use app\database\models\Post;
 use app\database\models\Category;
 use app\services\UserService;
 use app\services\PostService;
 use app\controllers\Controller;
+use Exception;
 
 class AdminController extends Controller
 {
-  private $post;
-  private $category;
-  private $postService;
-  private $userService;
-  private $validation;
-
   public function __construct(
-    Post $post,
-    Category $category,
-    PostService $postService,
-    UserService $userService,
-    Validation $validation
-  ) {
-    $this->post = $post;
-    $this->category = $category;
-    $this->postService = $postService;
-    $this->userService = $userService;
-    $this->validation = $validation;
-  }
+    private Post $post,
+    private Category $category,
+    private PostService $postService,
+    private UserService $userService,
+    private Validation $validation
+  ) {}
 
   public function index($userId = '')
   {
@@ -84,16 +70,14 @@ class AdminController extends Controller
       Redirect::backWithData();
     }
 
-    $validated['slug'] = Slugify::slugify($validated['title']);
-    $validated['userId'] = Auth::getUser()->id;
-
-    $imageManager = new ImageManager('posts');
-    $validated['imagePath'] = $imageManager->uploadImage($validated['postImage']);
-    unset($validated['postImage']);
-
-    $this->post->create($validated);
-    Flash::set('post-created', 'O post foi criado com sucesso');
-    Redirect::to('/admin/posts');
+    try {
+      $this->postService->createPost($validated);
+      Flash::set('post-created', 'O post foi criado com sucesso');
+      Redirect::to('/admin/posts');
+    } catch (Exception $e) {
+      Flash::set('post-error', 'Erro ao criar post: ' . $e->getMessage());
+      Redirect::backWithData();
+    }
   }
 
   public function edit($id)
@@ -123,58 +107,27 @@ class AdminController extends Controller
       Redirect::backWithData();
     }
 
-    if (!empty($validated['postImage'])) {
-      $validated = $this->handleImageUpdate($id, $validated);
+    try {
+      $this->postService->updatePost($id, $validated);
+      Flash::set('post-created', 'O post foi atualizado com sucesso');
+      Redirect::to('/admin/posts');
+    } catch (Exception $e) {
+      Flash::set('post-error', 'Erro ao atualizar o post: ' . $e->getMessage());
+      Redirect::backWithData();
     }
-
-    $validated['slug'] = Slugify::slugify($validated['title']);
-    unset($validated['postImage']);
-
-    $this->post->update($id, $validated);
-    Flash::set('post-created', 'O post foi atualizado com sucesso');
-    Redirect::to('/admin/posts');
   }
 
   public function delete($id)
   {
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['_method'] === 'DELETE') {
-      $imageManager = new ImageManager('posts');
-      $post = $this->post->findBy('id', $id);
-
-      if (!$post) {
-        Flash::set('error', 'Post não encontrado');
-        Redirect::to('/admin');
+      try {
+        $this->postService->deletePost($id);
+        Flash::set('post-deleted', 'O post foi deletado com sucesso');
+      } catch (Exception $e) {
+        Flash::set('error', 'Falha ao deletar o post' . $e->getMessage());
       }
 
-      $imageToDelete = $post->imagePath;
-
-      if ($imageToDelete) {
-        if (!$imageManager->deleteImage($imageToDelete)) {
-          Flash::set('error', 'Falha ao deletar imagem');
-        }
-      }
-
-      $postModel = new Post;
-
-      if (!$postModel->delete($id)) {
-        Flash::set('error', 'Falha ao deletar o post');
-      }
-
-      Flash::set('post-deleted', 'O post foi deletado com sucesso');
-      Redirect::to('/admin');
+      Redirect::to('/admin/posts');
     }
-  }
-
-  private function handleImageUpdate($id, $validated)
-  {
-    $imageManager = new ImageManager('posts');
-    $foundPost = $this->post->setFields('id, imagePath')->findBy('id', $id);
-
-    if ($foundPost && $foundPost->imagePath) {
-      $imageManager->deleteImage($foundPost->imagePath);
-    }
-
-    $validated['imagePath'] = $imageManager->uploadImage($validated['postImage']);
-    return $validated;
   }
 }

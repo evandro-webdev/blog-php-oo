@@ -122,11 +122,9 @@ $this->layout('master', ['title' => $title]); ?>
         <div class="popular-categories">
           <h3>Categorias mais acessadas</h3>
           <div class="categories-list">
-            <a href="#">Saúde Bucal</a>
-            <a href="#">Tratamentos</a>
-            <a href="#">Produtos odontológicos</a>
-            <a href="#">Estética Dental</a>
-            <a href="#">Odontologia Infantil</a>
+            <?php foreach ($mostViewed as $post) { ?>
+              <a href="/blog/categoria/<?php echo $post->categorySlug ?>"><?php echo $post->categoryTitle ?></a>
+            <?php } ?>
           </div>
         </div>
       </aside>

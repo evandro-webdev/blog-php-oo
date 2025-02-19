@@ -7,12 +7,7 @@ use Exception;
 
 class Controller
 {
-  private Container $container;
-
-  public function __construct(Container $container)
-  {
-    $this->container = $container;
-  }
+  public function __construct(private Container $container) {}
 
   private function controllerPath($route, $controller)
   {
