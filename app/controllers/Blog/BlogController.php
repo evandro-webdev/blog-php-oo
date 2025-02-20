@@ -15,25 +15,26 @@ class BlogController extends Controller
 
   public function index($slug = '')
   {
-    $filteredPosts = [];
     $featured = $this->postService->getFeaturedPosts();
     $recent = $this->postService->getRecentPosts();
     $mostViewed = $this->postService->getMostViewedPosts(3);
 
-    if (Request::query('search')) {
-      $filteredPosts = $this->postService->getPosts(new Pagination, Request::query('search'));
-    }
+    $searchQuery = Request::query('search');
 
-    if ($slug) {
-      $filteredPosts = $this->postService->getPostsByCategory(new Pagination, $slug);
-    }
+    $pagination = new Pagination;
+    $pagination->setItemsPerPage(8);
+
+    $filteredPosts = $slug
+      ? $this->postService->getPostsByCategory($pagination, $slug)
+      : $this->postService->getPosts($pagination, $searchQuery);
 
     $this->view('blog/posts', [
       'title' => 'Página inicial',
       'featured' => $featured,
       'posts' => $filteredPosts ?? $recent,
       'mostViewed' => $mostViewed,
-      'pagination' => $pagination ?? ''
+      'pagination' => $pagination ?? '',
+      'slug' => $slug
     ]);
   }
 

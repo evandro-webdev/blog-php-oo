@@ -4,8 +4,8 @@ namespace app\services;
 
 use app\auth\Auth;
 use app\support\Slugify;
-use app\database\models\Post;
 use app\library\ImageManager;
+use app\database\models\Post;
 use app\database\Filters;
 use app\database\models\Comment;
 use app\database\models\Category;
@@ -25,8 +25,6 @@ class PostService
   private const POST_ALL_FIELDS = "
     posts.id,
     posts.title,
-    posts.slug,
-    categoryId,
     posts.content,
     imagePath,
     posts.created_at,
@@ -37,102 +35,83 @@ class PostService
 
   public function __construct(private Post $post) {}
 
-  private function baseFilter($fieldOrder)
+  private function applyBaseFilter($fieldOrder)
   {
     return (new Filters)->join('categories', 'posts.categoryId', '=', 'categories.id')->orderBy($fieldOrder, 'DESC');
   }
 
-  private function executePostQuery(Filters $filter, $fieldsType, $pagination = null)
+  private function executePostQuery(Filters $filter, string $fieldsType, $pagination = null)
   {
-    return $this->post
+    $posts = $this->post
       ->setFields($fieldsType)
-      ->setFilters($filter)
-      ->setPagination($pagination)
-      ->all();
+      ->setFilters($filter);
+
+    if ($pagination) {
+      $posts->setPagination($pagination);
+    }
+
+    return $posts->all();
   }
 
   public function getPosts($pagination, $searchTerm = null, $fieldOrder = 'created_at')
   {
-    $filter = $this->baseFilter($fieldOrder);
+    $filter = $this->applyBaseFilter($fieldOrder);
 
     if ($searchTerm) {
       $filter->where('posts.title', 'LIKE', "%$searchTerm%");
     }
 
-    return $this->post
-      ->setFields(self::POST_CARD_FIELDS)
-      ->setFilters($filter)
-      ->setPagination($pagination)
-      ->all();
+    return $this->executePostQuery($filter, self::POST_CARD_FIELDS, $pagination);
   }
 
   public function getFeaturedPosts()
   {
-    $filter = $this->baseFilter('created_at')
+    $filter = $this->applyBaseFilter('created_at')
       ->where('featured', '=', 1)
       ->limit(4);
 
-    return $this->post
-      ->setFields(self::POST_CARD_FIELDS)
-      ->setFilters($filter)
-      ->all();
+    return $this->executePostQuery($filter, self::POST_CARD_FIELDS);
   }
 
   public function getRecentPosts()
   {
-    $filter = $this->baseFilter('created_at')
+    $filter = $this->applyBaseFilter('created_at')
       ->limit(3);
 
-    return $this->post
-      ->setFields(self::POST_CARD_FIELDS)
-      ->setFilters($filter)
-      ->all();
+    return $this->executePostQuery($filter, self::POST_CARD_FIELDS);
   }
 
   public function getMostViewedPosts()
   {
-    $filter = $this->baseFilter('views')
+    $filter = $this->applyBaseFilter('views')
       ->limit(3);
 
-    return $this->post
-      ->setFields(self::POST_CARD_FIELDS)
-      ->setFilters($filter)
-      ->all();
-  }
-
-  public function getRelatedPosts($postId, $categoryId)
-  {
-    $filter = $this->baseFilter('created_at')
-      ->where('categoryId', '=', $categoryId, 'AND')
-      ->where('posts.id', '!=', $postId)
-      ->limit(3);
-
-    return $this->post
-      ->setFields(self::POST_CARD_FIELDS)
-      ->setFilters($filter)
-      ->all();
-  }
-
-  public function getPostsByUser($pagination, $userId)
-  {
-    $filters = (new Filters)->where('userId', '=', $userId);
-
-    return $this->post
-      ->setFilters($filters)
-      ->setPagination($pagination)
-      ->all();
+    return $this->executePostQuery($filter, self::POST_CARD_FIELDS);
   }
 
   public function getPostsByCategory($pagination, $categorySlug)
   {
     $category = (new Category)->findBy('slug', $categorySlug);
-    $filters = $this->baseFilter('created_at')->where('categoryId', '=', $category->id);
+    $filter = $this->applyBaseFilter('created_at')->where('categoryId', '=', $category->id);
 
-    return $this->post
-      ->setFilters($filters)
-      ->setFields(self::POST_CARD_FIELDS)
-      ->setPagination($pagination)
-      ->all();
+    return $this->executePostQuery($filter, self::POST_CARD_FIELDS, $pagination);
+  }
+
+  public function getPostsByUser($pagination, $userId)
+  {
+    $filter = (new Filters)->where('userId', '=', $userId);
+
+    return $this->executePostQuery($filter, 'id, title', $pagination);
+  }
+
+  public function getRelatedPosts($postId, $categoryId)
+  {
+    $filter = $this->applyBaseFilter('created_at')
+      ->where('categoryId', '=', $categoryId, 'AND')
+      ->where('posts.id', '!=', $postId)
+      ->limit(3);
+
+    return $this->executePostQuery($filter, self::POST_CARD_FIELDS);
   }
 
   public function getSinglePost(string $slug)
@@ -143,10 +122,7 @@ class PostService
       ->where('posts.slug', '=', $slug)
       ->groupBy('posts.id');
 
-    return $this->post
-      ->setFields(self::POST_ALL_FIELDS)
-      ->setFilters($filter)
-      ->all();
+    return $this->executePostQuery($filter, self::POST_ALL_FIELDS);
   }
 
   public function getCommentsForPost(int $id)
