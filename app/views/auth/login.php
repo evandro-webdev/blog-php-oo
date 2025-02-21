@@ -17,7 +17,7 @@ unset($_SESSION['old_data']);
         </div>
         <div class="form__group">
           <input type="password" name="password" class="form__input" value="<?php echo $user->password ?? '' ?>" placeholder="Senha" />
-          <?php echo flash('password', 'msg msg-failed mt') ?>
+          <?php echo flash('password', 'msg msg_failed mt') ?>
           <?php echo flash('login-error', 'msg msg_failed mt') ?>
         </div>
       </div>

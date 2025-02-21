@@ -62,7 +62,7 @@ abstract class Model
     return $this->executeQuery($sql, $params)->fetchAll(PDO::FETCH_CLASS);
   }
 
-  public function findBy(string $field, string $value): ?object
+  public function findBy(string $field, string $value): object|false
   {
     $sql = "SELECT $this->fields FROM $this->table WHERE $field = :$field";
     return $this->executeQuery($sql, [$field => $value])->fetchObject();

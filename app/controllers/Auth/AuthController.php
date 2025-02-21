@@ -8,11 +8,16 @@ use app\library\Redirect;
 use app\support\Validation;
 use app\database\models\User;
 use app\controllers\Controller;
+use app\services\AuthService;
+use Exception;
 
 class AuthController extends Controller
 {
-
-  public function __construct(private Validation $validation, private User $user) {}
+  public function __construct(
+    private Validation $validation,
+    private User $user,
+    private AuthService $authService
+  ) {}
 
   public function loginForm()
   {
@@ -21,11 +26,6 @@ class AuthController extends Controller
 
   public function login()
   {
-    if (Auth::isBlocked()) {
-      Flash::set('too-many-attempts', 'Muitas tentativas de acesso, tente novamente mais tarde.');
-      Redirect::to('/auth/login');
-    }
-
     $validated = $this->validation->validate([
       'email' => 'required|email',
       'password' => 'required'
@@ -35,23 +35,20 @@ class AuthController extends Controller
       Redirect::backWithData();
     }
 
-    $user = $this->user->findBy('email', $validated['email']);
+    try {
+      $user = $this->authService->login($validated);
+      Auth::login($user);
+      Flash::set('login-success', "Bem vindo, $user->name!");
 
-    if (!$user || !password_verify($validated['password'], $user->password)) {
-      Auth::trackLoginAttempts();
-      Flash::set('login-error', 'Email ou senha incorretos.');
+      if ($user->is_admin) {
+        Redirect::to('/admin/posts');
+      }
+
+      Redirect::to('/blog');
+    } catch (Exception $e) {
+      Flash::set('login-error', $e->getMessage());
       Redirect::backWithData();
     }
-
-    unset($user->password, $user->email);
-    Auth::login($user);
-    Flash::set('login-success', "Bem vindo, $user->name!");
-
-    if ($user->is_admin) {
-      Redirect::to('/admin/posts');
-    }
-
-    Redirect::to('/blog');
   }
 
   public function registerForm()
@@ -72,20 +69,16 @@ class AuthController extends Controller
       Redirect::backWithData();
     }
 
-    unset($validated['confirmPassword']);
-    $validated['password'] = password_hash($validated['password'], PASSWORD_DEFAULT);
+    try {
+      $createdUser = $this->authService->register($validated);
 
-    $this->user->create($validated);
-    $createdUser = $this->user->findBy('email', $validated['email']);
-
-    if (!$createdUser) {
-      Flash::set('register-error', 'Ocorreu um erro ao criar sua conta. Tente novamente.');
+      Auth::login($createdUser);
+      Flash::set('user-created', 'Conta criada com sucesso');
+      Redirect::to('/blog');
+    } catch (Exception $e) {
+      Flash::set('register-error', $e->getMessage());
       Redirect::backWithData();
     }
-
-    Auth::login($createdUser);
-    Flash::set('user-created', 'Conta criada com sucesso');
-    Redirect::to('/blog');
   }
 
   public function logout()
