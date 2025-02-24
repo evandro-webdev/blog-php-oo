@@ -3,8 +3,6 @@
 namespace app\services;
 
 use app\auth\Auth;
-use app\support\Flash;
-use app\library\Redirect;
 use app\database\models\User;
 use Exception;
 

@@ -67,7 +67,7 @@ class Auth
     $_SESSION['login_attempts']++;
 
     if (self::loginAttempts() >= 5) {
-      $_SESSION['blocked_until'] = time() + 60;
+      $_SESSION['blocked_until'] = time() + 36000;
     }
   }
 

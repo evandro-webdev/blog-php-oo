@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\database\Pagination;
 use Exception;
 use League\Plates\Engine;
 
@@ -17,5 +18,12 @@ abstract class Controller
 
     $template = new Engine("../app/views");
     echo $template->render($view, $data);
+  }
+
+  protected function createPagination($itemsPerPage)
+  {
+    $pagination = new Pagination();
+    $pagination->setItemsPerPage($itemsPerPage);
+    return $pagination;
   }
 }

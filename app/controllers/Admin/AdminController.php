@@ -6,7 +6,6 @@ use app\support\Flash;
 use app\support\Validation;
 use app\library\Request;
 use app\library\Redirect;
-use app\database\Pagination;
 use app\database\models\Post;
 use app\database\models\Category;
 use app\services\UserService;
@@ -26,8 +25,7 @@ class AdminController extends Controller
 
   public function index($userId = '')
   {
-    $pagination = new Pagination;
-    $pagination->setItemsPerPage(8);
+    $pagination = $this->createPagination(8);
 
     $searchQuery = Request::query('search');
 

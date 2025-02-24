@@ -28,8 +28,8 @@ class PostService
     posts.content,
     imagePath,
     posts.created_at,
-    categories.slug as categorySlug,
     categories.title as categoryTitle,
+    categories.slug as categorySlug,
     CONCAT(name, ' ', last_name) as author,
     users.profile_pic";
 
@@ -185,6 +185,11 @@ class PostService
     if (!$this->post->delete($post->id)) {
       throw new Exception('Falha ao deletar post');
     }
+  }
+
+  public function incrementViews($id)
+  {
+    $this->post->incrementViews($id);
   }
 
   private function handleImageUpdate($id, $data)

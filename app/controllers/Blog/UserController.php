@@ -5,10 +5,10 @@ namespace app\controllers\Blog;
 use app\auth\Auth;
 use app\support\Flash;
 use app\support\Validation;
-use app\database\models\User;
 use app\library\Redirect;
 use app\library\ImageManager;
 use app\controllers\Controller;
+use app\database\models\User;
 
 class UserController extends Controller
 {

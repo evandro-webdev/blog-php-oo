@@ -4,8 +4,6 @@ namespace app\controllers\Blog;
 
 use app\auth\Auth;
 use app\library\Request;
-use app\database\Pagination;
-use app\database\models\Post;
 use app\controllers\Controller;
 use app\services\PostService;
 
@@ -15,26 +13,29 @@ class BlogController extends Controller
 
   public function index($slug = '')
   {
-    $featured = $this->postService->getFeaturedPosts();
-    $recent = $this->postService->getRecentPosts();
-    $mostViewed = $this->postService->getMostViewedPosts(3);
-
     $searchQuery = Request::query('search');
 
-    $pagination = new Pagination;
-    $pagination->setItemsPerPage(8);
+    if (empty($searchQuery) && empty($slug)) {
+      $featured = $this->postService->getFeaturedPosts();
+      $recent = $this->postService->getRecentPosts();
+      $mostViewed = $this->postService->getMostViewedPosts(3);
+    }
 
-    $filteredPosts = $slug
-      ? $this->postService->getPostsByCategory($pagination, $slug)
-      : $this->postService->getPosts($pagination, $searchQuery);
+    if ($slug || $searchQuery) {
+      $pagination = $this->createPagination(8);
+
+      $filteredPosts = $slug
+        ? $this->postService->getPostsByCategory($pagination, $slug)
+        : $this->postService->getPosts($pagination, $searchQuery);
+    }
 
     $this->view('blog/posts', [
       'title' => 'Página inicial',
-      'featured' => $featured,
       'posts' => $filteredPosts ?? $recent,
-      'mostViewed' => $mostViewed,
+      'featured' => $featured ?? '',
+      'mostViewed' => $mostViewed ?? '',
       'pagination' => $pagination ?? '',
-      'slug' => $slug
+      'isSearch' => !empty($slug) || !empty($searchQuery)
     ]);
   }
 
@@ -44,7 +45,7 @@ class BlogController extends Controller
     $relatedPosts = $this->postService->getRelatedPosts($post->id, $post->categoryId);
     $comments = $this->postService->getCommentsForPost($post->id);
 
-    (new Post)->incrementViews($post->id);
+    $this->postService->incrementViews($post->id);
 
     $this->view('blog/post', [
       'title' => $post->title,

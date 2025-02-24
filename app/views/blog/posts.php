@@ -5,7 +5,7 @@ $this->layout('master', ['title' => $title]); ?>
 <?php echo flash('user-created', 'flash-message') ?>
 <?php echo flash('login-success', 'flash-message') ?>
 
-<section class="highlighted-posts <?php echo (isset($_GET['search']) || !empty($slug)) ? 'disabled' : ''  ?>">
+<section class="highlighted-posts <?php echo $isSearch ? 'disabled' : ''  ?>">
   <div class="container">
     <div class="slider">
       <div class="slider__main">
@@ -71,7 +71,7 @@ $this->layout('master', ['title' => $title]); ?>
           <?php echo $pagination ? $pagination->links() : '' ?>
         </div>
 
-        <div class="most-acessed <?php echo (isset($_GET['search']) || !empty($slug)) ? 'disabled' : ''  ?>">
+        <div class="most-acessed <?php echo $isSearch ? 'disabled' : ''  ?>">
           <div class="heading">
             <h2>Mais acessados</h2>
           </div>
@@ -100,7 +100,7 @@ $this->layout('master', ['title' => $title]); ?>
         </div>
       </div>
 
-      <aside class="side-recommendations">
+      <aside class="side-recommendations <?php echo $isSearch ? 'disabled' : ''  ?>">
         <div class="recommended-posts">
           <h3>Posts recomendados</h3>
           <div class="post-list">
