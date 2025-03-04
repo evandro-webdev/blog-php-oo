@@ -11,6 +11,7 @@ use app\database\models\Category;
 use app\services\UserService;
 use app\services\PostService;
 use app\controllers\Controller;
+use app\database\Pagination;
 use Exception;
 
 class AdminController extends Controller
@@ -31,15 +32,17 @@ class AdminController extends Controller
 
     $posts = $userId
       ? $this->postService->getPostsByUser($pagination, $userId)
-      : $this->postService->getPosts($pagination, $searchQuery);
+      : $this->postService->getPostsWithStats($pagination, $searchQuery);
 
     $authors = $this->userService->getUsersWithPosts();
+    $allPostsStats = $this->postService->getStatsForAllPosts();
 
     $this->view('admin/blog/dashboard', [
       "title" => "Painel Administrativo",
       'posts' => $posts,
       "authors" => $authors,
-      "pagination" => $pagination
+      "pagination" => $pagination,
+      "postsStats" => $allPostsStats
     ]);
   }
 

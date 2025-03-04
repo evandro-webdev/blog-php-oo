@@ -28,6 +28,7 @@ class PostService
     posts.content,
     imagePath,
     posts.created_at,
+    categories.id as categoryId,
     categories.title as categoryTitle,
     categories.slug as categorySlug,
     CONCAT(name, ' ', last_name) as author,
@@ -42,7 +43,7 @@ class PostService
 
   private function executePostQuery(Filters $filter, string $fieldsType, $pagination = null)
   {
-    $posts = $this->post
+    $posts = (new Post)
       ->setFields($fieldsType)
       ->setFilters($filter);
 
@@ -64,6 +65,17 @@ class PostService
     return $this->executePostQuery($filter, self::POST_CARD_FIELDS, $pagination);
   }
 
+  public function getPostsWithStats($pagination, $searchTerm = null)
+  {
+    $filter = (new Filters)->join("comments", "posts.id", "=", "comments.postId", "LEFT JOIN")->groupBy('posts.id, posts.title, posts.views')->orderBy('posts.created_at', 'DESC');
+
+    if ($searchTerm) {
+      $filter->where('posts.title', 'LIKE', "%$searchTerm%");
+    }
+
+    return $this->executePostQuery($filter, "posts.id, posts.title, posts.views, COUNT(comments.id) as comments", $pagination);
+  }
+
   public function getFeaturedPosts()
   {
     $filter = $this->applyBaseFilter('created_at')
@@ -76,7 +88,7 @@ class PostService
   public function getRecentPosts()
   {
     $filter = $this->applyBaseFilter('created_at')
-      ->limit(3);
+      ->limit(4);
 
     return $this->executePostQuery($filter, self::POST_CARD_FIELDS);
   }
@@ -84,7 +96,7 @@ class PostService
   public function getMostViewedPosts()
   {
     $filter = $this->applyBaseFilter('views')
-      ->limit(3);
+      ->limit(4);
 
     return $this->executePostQuery($filter, self::POST_CARD_FIELDS);
   }
@@ -135,6 +147,19 @@ class PostService
       ->setFields("comments.id, content, comments.created_at, name, userId, profile_pic")
       ->setFilters($filter)
       ->all();
+  }
+
+  public function getStatsForAllPosts()
+  {
+    $totalPosts = (new Post)->count();
+    $totalViews = (new Post)->getTotalViews();
+    $totalComments = (new Comment)->count();
+
+    return compact(
+      'totalViews',
+      'totalPosts',
+      'totalComments'
+    );
   }
 
   public function createPost(array $data)

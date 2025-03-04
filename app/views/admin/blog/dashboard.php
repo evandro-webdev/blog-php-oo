@@ -39,17 +39,16 @@
             <?php } ?>
           </tbody>
         </table>
-        <?php echo $pagination->links() ?>
+        <?php echo $pagination ? $pagination->links() : '' ?>
       </div>
 
       <aside>
         <div class="card">
           <h3>Estatisticas gerais</h3>
           <ul class="card__list has-icon">
-            <li><img src="/img/icons/posts.svg" width="24" height="24" alt=""><span>20 publicações</span></li>
-            <li><img src="/img/icons/views.svg" width="24" height="24" alt=""><span>4300 cliques</span></li>
-            <li><img src="/img/icons/comments-blue.svg" width="24" height="24" alt=""><span>60 comentarios</span></li>
-            <li><img src="/img/icons/share.svg" width="24" height="24" alt=""><span>25 compartilhamentos</span></li>
+            <li><img src="/img/icons/posts.svg" width="24" height="24" alt=""><span><?php echo $postsStats['totalPosts'] ?> publicações</span></li>
+            <li><img src="/img/icons/views.svg" width="24" height="24" alt=""><span><?php echo $postsStats['totalViews'] ?> cliques</span></li>
+            <li><img src="/img/icons/comments-blue.svg" width="24" height="24" alt=""><span><?php echo $postsStats['totalComments'] ?> comentarios</span></li>
           </ul>
         </div>
         <div class="card authors">

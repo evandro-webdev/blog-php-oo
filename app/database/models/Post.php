@@ -2,8 +2,6 @@
 
 namespace app\database\models;
 
-use PDOException;
-
 class Post extends Model
 {
   public function __construct()
@@ -13,11 +11,13 @@ class Post extends Model
 
   public function incrementViews($postId)
   {
-    try {
-      $sql = "UPDATE $this->table SET views = views + 1 WHERE id = :id";
-      return $this->executeQuery($sql, ['id' => $postId]);
-    } catch (PDOException $e) {
-      dd($e->getMessage());
-    }
+    $sql = "UPDATE $this->table SET views = views + 1 WHERE id = :id";
+    return $this->executeQuery($sql, ['id' => $postId]);
+  }
+
+  public function getTotalViews()
+  {
+    $sql = "SELECT SUM(views) as total_views FROM $this->table";
+    return $this->executeQuery($sql)->fetchColumn();
   }
 }

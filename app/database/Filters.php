@@ -80,4 +80,12 @@ class Filters
 
     return $filter;
   }
+
+  public function dumpWithoutGroupBy()
+  {
+    $filter = !empty($this->filters['join']) ? implode('', $this->filters['join']) : '';
+    $filter .= !empty($this->filters['where']) ? ' WHERE ' . implode('', $this->filters['where']) : '';
+
+    return $filter;
+  }
 }

@@ -98,7 +98,7 @@ abstract class Model
 
   public function count(): int
   {
-    $sql = "SELECT COUNT(*) as total FROM $this->table {$this->filters?->dump()}";
+    $sql = "SELECT COUNT(*) as total FROM $this->table {$this->filters?->dumpWithoutGroupBy()}";
     $params = $this->filters ? $this->filters->getBind() : [];
     return (int) $this->executeQuery($sql, $params)->fetchObject()->total;
   }

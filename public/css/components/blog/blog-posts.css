@@ -108,6 +108,7 @@
 .side-recommendations{
   display: grid;
   gap: 30px;
+  grid-auto-rows: min-content;
 }
 
 .side-recommendations.disabled{
