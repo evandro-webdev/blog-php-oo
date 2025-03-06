@@ -7,15 +7,13 @@
   <link rel="stylesheet" href="<?= $_SERVER['REQUEST_URI'] === '/' ? '/css/style.min.css' : '/css/blog.min.css' ?>">
   <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon" />
   <script src="https://cdn.tiny.cloud/1/3qqrdxghokajgnwrpufmupg41lyo1e5llr6bymftc3btdx6v/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
-  <title><?php echo $title ?></title>
+  <title><?= $title ?></title>
 </head>
 
 <body>
-  <?php
-  echo $this->insert('./partials/header');
-  ?>
+  <?= $this->insert('./partials/header') ?>
   <main>
-    <?php echo $this->section('content') ?>
+    <?= $this->section('content') ?>
   </main>
   <?php
   echo $this->insert('./partials/footer');

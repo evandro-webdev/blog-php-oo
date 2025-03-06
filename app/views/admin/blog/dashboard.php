@@ -2,14 +2,14 @@
 
 <section class="dashboard-section">
   <div class="container">
-    <?php echo flash('login-success', 'flash-message') ?>
+    <?= flash('login-success', 'flash-message') ?>
 
-    <?php echo flash('post-created', 'msg msg_success mb') ?>
-    <?php echo flash('post-deleted', 'msg msg_success mb') ?>
+    <?= flash('post-created', 'msg msg_success mb') ?>
+    <?= flash('post-deleted', 'msg msg_success mb') ?>
     <div class="heading">
       <div>
         <h1>Dashboard</h1>
-        <h2>Bem vindo, John</h2>
+        <h2>Bem vindo, <?= $_SESSION['auth']->name ?></h2>
       </div>
       <form action="/admin/posts" method="GET" class="form form__search">
         <div class="form__group float-button">
@@ -29,33 +29,42 @@
           </thead>
           <tbody>
             <?php foreach ($posts as $post) { ?>
-              <tr>
-                <td><?php echo $post->title ?></td>
+              <tr onclick="toggleDropdown(<?= $post->id ?>)" class="post-row">
+                <td><?= $post->title ?></td>
                 <td class="dashboard__actions">
-                  <a href="/admin/posts/edit/<?php echo $post->id ?>" class="edit"><img src="/img/icons/edit-blue.svg" width="16" height="16" alt=""><span>Editar</span></a>
-                  <a href="#" class="delete open-modal" data-modal="confirmation-modal" data-post-id="<?php echo $post->id ?>"><img src="/img/icons/trash.svg" width="16" height="16" alt=""><span>Deletar</span></a>
+                  <a href="/admin/posts/edit/<?= $post->id ?>" class="edit"><img src="/img/icons/edit-blue.svg" width="16" height="16" alt=""><span>Editar</span></a>
+                  <a href="#" class="delete open-modal" data-modal="confirmation-modal" data-post-id="<?= $post->id ?>"><img src="/img/icons/trash.svg" width="16" height="16" alt=""><span>Deletar</span></a>
+                </td>
+              </tr>
+              <tr id="dropdown-<?= $post->id ?>" class="dropdown-row">
+                <td colspan="3">
+                  <div class="dropdown-content">
+                    <div><img src="/img/icons/calendar.svg" width="24" height="24" alt=""> <?= formatDate($post->created_at) ?></div>
+                    <div><img src="/img/icons/views.svg" width="24" height="24" alt=""> <?= $post->views ?></div>
+                    <div><img src="/img/icons/comments-blue.svg" width="24" height="24" alt=""> <?= $post->comments ?></div>
+                  </div>
                 </td>
               </tr>
             <?php } ?>
           </tbody>
         </table>
-        <?php echo $pagination ? $pagination->links() : '' ?>
+        <?= $pagination ? $pagination->links() : '' ?>
       </div>
 
       <aside>
         <div class="card">
           <h3>Estatisticas gerais</h3>
           <ul class="card__list has-icon">
-            <li><img src="/img/icons/posts.svg" width="24" height="24" alt=""><span><?php echo $postsStats['totalPosts'] ?> publicações</span></li>
-            <li><img src="/img/icons/views.svg" width="24" height="24" alt=""><span><?php echo $postsStats['totalViews'] ?> cliques</span></li>
-            <li><img src="/img/icons/comments-blue.svg" width="24" height="24" alt=""><span><?php echo $postsStats['totalComments'] ?> comentarios</span></li>
+            <li><img src="/img/icons/posts.svg" width="24" height="24" alt=""><span><?= $postsStats['totalPosts'] ?> publicações</span></li>
+            <li><img src="/img/icons/views.svg" width="24" height="24" alt=""><span><?= $postsStats['totalViews'] ?> cliques</span></li>
+            <li><img src="/img/icons/comments-blue.svg" width="24" height="24" alt=""><span><?= $postsStats['totalComments'] ?> comentarios</span></li>
           </ul>
         </div>
         <div class="card authors">
           <h3>Redatores</h3>
           <ul class="card__list has-icon">
             <?php foreach ($authors as $author) { ?>
-              <li><a href="/admin/posts/autor/<?php echo $author->id ?>"><img src="<?php echo $author->profile_pic ?? '/img/icons/posts.svg' ?>" width="40" height="40" alt=""><span><?php echo $author->name ?></span></a></li>
+              <li><a href="/admin/posts/autor/<?= $author->id ?>"><img src="<?= $author->profile_pic ?? '/img/icons/posts.svg' ?>" width="40" height="40" alt=""><span><?= $author->name ?></span></a></li>
             <?php } ?>
           </ul>
         </div>
@@ -82,3 +91,19 @@
 <?php $this->start('modal') ?>
 <script src="/js/modal.js"></script>
 <?php $this->stop() ?>
+
+<script>
+  function toggleDropdown(id) {
+    const dropdown = document.getElementById(`dropdown-${id}`);
+
+    if (dropdown.classList.contains('active')) {
+      dropdown.classList.remove('active');
+    } else {
+      document.querySelectorAll('.dropdown-row').forEach(dropdown => {
+        dropdown.classList.remove('active');
+      });
+
+      dropdown.classList.add('active');
+    }
+  }
+</script>

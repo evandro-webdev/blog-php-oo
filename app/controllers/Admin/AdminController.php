@@ -11,7 +11,6 @@ use app\database\models\Category;
 use app\services\UserService;
 use app\services\PostService;
 use app\controllers\Controller;
-use app\database\Pagination;
 use Exception;
 
 class AdminController extends Controller

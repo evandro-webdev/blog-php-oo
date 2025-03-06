@@ -2,23 +2,23 @@
 
 $this->layout('master', ['title' => $title]); ?>
 
-<?php echo flash('user-created', 'flash-message') ?>
-<?php echo flash('login-success', 'flash-message') ?>
+<?= flash('user-created', 'flash-message') ?>
+<?= flash('login-success', 'flash-message') ?>
 
-<section class="highlighted-posts <?php echo $isSearch ? 'disabled' : ''  ?>">
+<section class="highlighted-posts <?= $isSearch ? 'disabled' : ''  ?>">
   <div class="container">
     <div class="slider">
       <div class="slider__main">
         <?php foreach ($featured as $post) { ?>
           <div class="slider__display">
-            <img src="<?php echo $post->imagePath ?? '' ?>" alt="Imagem principal 1" class="slider__image active">
+            <img src="<?= $post->imagePath ?? '' ?>" alt="Imagem principal 1" class="slider__image active">
             <div class="slider__content">
               <div class="slider__post-meta">
-                <span class="slider__post-date"><?php echo formatDate($post->created_at) ?></span>
+                <span class="slider__post-date"><?= formatDate($post->created_at) ?></span>
                 <span>|</span>
-                <span class="slider__post-category"><?php echo $post->categoryTitle ?></span>
+                <span class="slider__post-category"><?= $post->categoryTitle ?></span>
               </div>
-              <h2><a href="/blog/post/<?php echo $post->slug ?>"><?php echo $post->title ?></a></h2>
+              <h2><a href="/blog/post/<?= $post->slug ?>"><?= $post->title ?></a></h2>
             </div>
           </div>
         <?php } ?>
@@ -26,7 +26,7 @@ $this->layout('master', ['title' => $title]); ?>
       <div class="slider__thumbnails">
         <?php foreach ($featured as $post) { ?>
           <div class="thumbnail-wrapper">
-            <img src="<?php echo $post->imagePath ?? '' ?>" width="70" height="70" alt="" class="slider__thumbnail active" data-index="0">
+            <img src="<?= $post->imagePath ?? '' ?>" width="70" height="70" alt="" class="slider__thumbnail active" data-index="0">
           </div>
         <?php } ?>
       </div>
@@ -51,16 +51,16 @@ $this->layout('master', ['title' => $title]); ?>
         <div class="post-list">
           <?php foreach ($posts as $post) { ?>
             <article class="post-card">
-              <img src="<?php echo $post->imagePath ?? '' ?>" class="post-card__image" width="270" height="160" alt="Descrição da imagem">
+              <img src="<?= $post->imagePath ?? '' ?>" class="post-card__image" width="270" height="160" alt="Descrição da imagem">
               <div class="post-card__content">
                 <div class="post-card__meta">
-                  <span class="post-card__date"><?php echo formatDate($post->created_at) ?></span>
+                  <span class="post-card__date"><?= formatDate($post->created_at) ?></span>
                   <span>|</span>
-                  <span class="post-card__category"><?php echo $post->categoryTitle ?></span>
+                  <span class="post-card__category"><?= $post->categoryTitle ?></span>
                 </div>
-                <h3 class="post-card__title"><?php echo $post->title ?></h3>
+                <h3 class="post-card__title"><?= $post->title ?></h3>
                 <div class="post-card__footer">
-                  <a href="/blog/post/<?php echo $post->slug ?>" class="post-card__link">Ler mais</a>
+                  <a href="/blog/post/<?= $post->slug ?>" class="post-card__link">Ler mais</a>
                   <div class="post-card__comments">
                     <img src="/img/icons/comment.svg" alt=""><span class="number-comments">5</span>
                   </div>
@@ -68,10 +68,10 @@ $this->layout('master', ['title' => $title]); ?>
               </div>
             </article>
           <?php } ?>
-          <?php echo $pagination ? $pagination->links() : '' ?>
+          <?= $pagination ? $pagination->links() : '' ?>
         </div>
 
-        <div class="most-acessed <?php echo $isSearch ? 'disabled' : ''  ?>">
+        <div class="most-acessed <?= $isSearch ? 'disabled' : ''  ?>">
           <div class="heading">
             <h2>Mais acessados</h2>
           </div>
@@ -79,16 +79,16 @@ $this->layout('master', ['title' => $title]); ?>
           <div class="post-list">
             <?php foreach ($mostViewed as $post) { ?>
               <article class="post-card">
-                <img src="<?php echo $post->imagePath ?? '' ?>" class="post-card__image" alt="Descrição da imagem">
+                <img src="<?= $post->imagePath ?? '' ?>" class="post-card__image" alt="Descrição da imagem">
                 <div class="post-card__content">
                   <div class="post-card__meta">
-                    <span class="post-card__date"><?php echo formatDate($post->created_at) ?></span>
+                    <span class="post-card__date"><?= formatDate($post->created_at) ?></span>
                     <span>|</span>
-                    <span class="post-card__category"><?php echo $post->categoryTitle ?></span>
+                    <span class="post-card__category"><?= $post->categoryTitle ?></span>
                   </div>
-                  <h3 class="post-card__title"><?php echo $post->title ?></h3>
+                  <h3 class="post-card__title"><?= $post->title ?></h3>
                   <div class="post-card__footer">
-                    <a href="/blog/post/<?php echo $post->slug ?>" class="post-card__link">Ler mais</a>
+                    <a href="/blog/post/<?= $post->slug ?>" class="post-card__link">Ler mais</a>
                     <div class="post-card__comments">
                       <img src="/img/icons/comment.svg" alt=""><span class="number-comments">5</span>
                     </div>
@@ -100,20 +100,20 @@ $this->layout('master', ['title' => $title]); ?>
         </div>
       </div>
 
-      <aside class="side-recommendations <?php echo $isSearch ? 'disabled' : ''  ?>">
+      <aside class="side-recommendations <?= $isSearch ? 'disabled' : ''  ?>">
         <div class="recommended-posts">
           <h3>Posts recomendados</h3>
           <div class="post-list">
             <?php foreach ($mostViewed as $post) { ?>
               <article class="post-card">
-                <img src="<?php echo $post->imagePath ?? '' ?>" class="post-card__image" alt="Descrição da imagem">
+                <img src="<?= $post->imagePath ?? '' ?>" class="post-card__image" alt="Descrição da imagem">
                 <div class="post-card__content">
                   <div class="post-card__meta">
-                    <span class="post-card__date"><?php echo formatDate($post->created_at) ?></span>
+                    <span class="post-card__date"><?= formatDate($post->created_at) ?></span>
                     <span>|</span>
-                    <span class="post-card__category"><?php echo $post->categoryTitle ?></span>
+                    <span class="post-card__category"><?= $post->categoryTitle ?></span>
                   </div>
-                  <h3 class="post-card__title"><a href="/blog/post/<?php echo $post->slug ?>"><?php echo $post->title ?></a></h3>
+                  <h3 class="post-card__title"><a href="/blog/post/<?= $post->slug ?>"><?= $post->title ?></a></h3>
                 </div>
               </article>
             <?php } ?>
@@ -123,7 +123,7 @@ $this->layout('master', ['title' => $title]); ?>
           <h3>Categorias mais acessadas</h3>
           <div class="categories-list">
             <?php foreach ($mostViewed as $post) { ?>
-              <a href="/blog/categoria/<?php echo $post->categorySlug ?>"><?php echo $post->categoryTitle ?></a>
+              <a href="/blog/categoria/<?= $post->categorySlug ?>"><?= $post->categoryTitle ?></a>
             <?php } ?>
           </div>
         </div>

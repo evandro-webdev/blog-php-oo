@@ -52,13 +52,13 @@
   font-size: var(--fs-5);
 }
 
-.dashboard__table tbody tr{
+.dashboard__table tbody .post-row{
   height: 50px;
   cursor: pointer;
   transition: background 200ms ease-in-out;
 }
 
-.dashboard__table tbody tr:hover{
+.dashboard__table tbody .post-row:hover{
   background: var(--clr-blue-200);
 }
 
@@ -77,6 +77,26 @@
   display: flex;
   align-items: center;
   gap: 10px;
+}
+
+.dashboard__table .dropdown-row {
+  display: none;
+  border-bottom: solid var(--clr-blue-500) 1px;
+}
+
+.dashboard__table .dropdown-row.active {
+  display: table-row;
+}
+
+.dashboard__table .dropdown-content{
+  display: flex;
+  gap: 12px;
+}
+
+.dropdown-content div{
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 
 .dashboard aside{

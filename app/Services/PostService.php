@@ -73,7 +73,7 @@ class PostService
       $filter->where('posts.title', 'LIKE', "%$searchTerm%");
     }
 
-    return $this->executePostQuery($filter, "posts.id, posts.title, posts.views, COUNT(comments.id) as comments", $pagination);
+    return $this->executePostQuery($filter, "posts.id, posts.title, posts.views, posts.created_at, COUNT(comments.id) as comments", $pagination);
   }
 
   public function getFeaturedPosts()

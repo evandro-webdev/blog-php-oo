@@ -3,48 +3,44 @@ $this->layout('master', ['title' => $title]);
 $userForm = (object) ($_SESSION['old_data'] ?? $user);
 ?>
 
-<?php $this->start('temporary-styles') ?>
-<link rel="stylesheet" href="/css/temporary-styles.css" />
-<?php $this->stop() ?>
-
 <section class="profile-section">
   <div class="container">
     <div class="profile-management">
       <div class="profile">
         <div class="heading">
           <h1>Perfil</h1>
-          <h2>Bem vindo, <?php echo $user->name ?></h2>
+          <h2>Bem vindo, <?= $user->name ?></h2>
         </div>
         <div class="profile__info">
           <div class="profile-pic-container">
             <form action="/blog/atualizar-foto" method="POST" id="profile-pic-form" enctype="multipart/form-data">
               <input type="file" id="profile-pic" name="profile_pic" class="profile__pic-input" onchange="submitForm()">
               <label for="profile-pic" class="profile-pic-label">
-                <img src="<?php echo $user->profile_pic ?? '../img/icons/profile-pic.svg' ?>" width="150" height="150" alt="foto de perfil" class="profile__picture">
+                <img src="<?= $user->profile_pic ?? '../img/icons/profile-pic.svg' ?>" width="150" height="150" alt="foto de perfil" class="profile__picture">
               </label>
             </form>
           </div>
           <div class="profile__details">
-            <span class="profile__name"><?php echo $user->name . " " . $user->last_name ?? '' ?></span>
-            <span class="profile__email"><?php echo $user->email ?></span>
+            <span class="profile__name"><?= $user->name . " " . $user->last_name ?? '' ?></span>
+            <span class="profile__email"><?= $user->email ?></span>
             <span class="profile__age">23 anos</span>
           </div>
         </div>
       </div>
       <form action="/blog/atualizar-perfil" method="POST" class="form profile__edit">
-        <?php echo flash('profile-updated', 'msg msg_success') ?>
+        <?= flash('profile-updated', 'msg msg_success') ?>
         <div class="form__fields">
           <div class="form__group">
-            <input type="text" class="form__input" name="name" placeholder="Digite seu nome" value="<?php echo $userForm->name ?? '' ?>">
+            <input type="text" class="form__input" name="name" placeholder="Digite seu nome" value="<?= $userForm->name ?? '' ?>">
           </div>
           <div class="form__group">
-            <input type="text" class="form__input" name="last_name" placeholder="Digite seu segundo nome" value="<?php echo $userForm->last_name ?? '' ?>">
+            <input type="text" class="form__input" name="last_name" placeholder="Digite seu segundo nome" value="<?= $userForm->last_name ?? '' ?>">
           </div>
           <div class="form__group">
-            <input type="text" class="form__input" name="email" placeholder="Digite seu email" value="<?php echo $userForm->email ?? '' ?>">
+            <input type="text" class="form__input" name="email" placeholder="Digite seu email" value="<?= $userForm->email ?? '' ?>">
           </div>
           <div class="form__group">
-            <input type="tel" class="form__input" name="phone" placeholder="(XX) 5462-4108" value="<?php echo $userForm->phone ?? '' ?>">
+            <input type="tel" class="form__input" name="phone" placeholder="(XX) 5462-4108" value="<?= $userForm->phone ?? '' ?>">
           </div>
         </div>
         <button class="button">Salvar alterações</button>
@@ -85,17 +81,6 @@ $userForm = (object) ($_SESSION['old_data'] ?? $user);
     </div>
   </div>
 </section>
-
-<!--
-  <div class="profile-pic-container">
-    <img src="<?php echo $user->profile_pic ?? '../img/icons/profile-pic.svg' ?>" alt="foto de perfil" class="profile-pic">
-
-    <form action="/blog/atualizar-foto" method="POST" id="profile-pic-form" enctype="multipart/form-data">
-      <input type="file" id="profile-pic" name="profile_pic" class="profile-pic-input" onchange="submitForm()">
-      <label for="profile-pic" class="profile-pic-label"><img src="../img/icons/camera.svg"> Trocar</label>
-    </form>
-  </div>
--->
 
 <script>
   function submitForm() {

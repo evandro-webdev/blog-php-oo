@@ -1,3 +1,8 @@
+<?php
+$isAuthenticated = isset($_SESSION['auth']);
+$auth = $_SESSION['auth'] ?? null;
+?>
+
 <header id="header" class="header">
   <div class="container">
     <div class="left-colum">
@@ -24,7 +29,7 @@
     </div>
 
     <div class="auth-buttons">
-      <?php if (!isset($_SESSION['auth'])) { ?>
+      <?php if (!$isAuthenticated) { ?>
         <a href="/auth/login" class="button rounded">Login</a>
         <a href="/auth/register" class="button outline rounded">Registro</a>
       <?php } else { ?>
@@ -32,12 +37,12 @@
 
         <div class="profile-menu">
           <div class="profile-menu__head">
-            <img src="<?php echo $_SESSION['auth']->profile_pic ?? '../img/icons/profile-pic.svg' ?>" width="40" height="40" alt="foto de perfil">
-            <h4><?php echo $_SESSION['auth']->name . " " . $_SESSION['auth']->last_name ?></h4>
+            <img src="<?= $auth->profile_pic ?? '../img/icons/profile-pic.svg' ?>" width="40" height="40" alt="foto de perfil">
+            <h4><?= $auth->name . " " . $auth->last_name ?></h4>
           </div>
           <ul class="profile-menu__links">
             <li><a href="/blog/perfil"><img src="/img/icons/profile-outline.svg" alt="icone de perfil"> Perfil</a></li>
-            <?php if (isset($_SESSION['auth']) && $_SESSION['auth']->is_admin) { ?>
+            <?php if ($isAuthenticated && $auth->is_admin) { ?>
               <li><a href="/admin/posts"><img src="/img/icons/dashboard-blue.svg" alt="icone de gerenciamento"> Dashboard</a></li>
             <?php } ?>
             <li>
