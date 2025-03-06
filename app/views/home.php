@@ -18,9 +18,9 @@
     </div>
 
     <picture>
-      <source media="(min-width: 75em)" srcset="./img/hero-desktop.webp" width="1015" height="706" />
-      <source media="(min-width: 50.625em)" srcset="./img/hero-tablet.webp" width="418" height="553" />
-      <img src="./img/hero-mobile.webp" width="360" height="335" alt="paciente feliz no consultório odontológico">
+      <source media="(min-width: 75em)" srcset="./img/institutional/hero-desktop.webp" width="1015" height="706" />
+      <source media="(min-width: 50.625em)" srcset="./img/institutional/hero-tablet.webp" width="418" height="553" />
+      <img src="./img/institutional/hero-mobile.webp" width="360" height="335" alt="paciente feliz no consultório odontológico">
     </picture>
   </div>
 </section>
@@ -42,7 +42,7 @@
       </p>
     </div>
 
-    <img src="./img/about.webp" width="470" height="313" alt="mulher dentista sorrindo com paciente criança" />
+    <img src="./img/institutional/about.webp" width="470" height="313" alt="mulher dentista sorrindo com paciente criança" />
   </div>
 </section>
 
@@ -80,7 +80,7 @@
         </div>
       </div>
     </div>
-    <img src="./img/benefits.webp" width="555" height="732" alt="paciente mulher conversando com a dentista" />
+    <img src="./img/institutional/benefits.webp" width="555" height="732" alt="paciente mulher conversando com a dentista" />
   </div>
 </section>
 
@@ -95,7 +95,7 @@
     <div class="feedbacks">
       <div class="feedback-card">
         <div class="feedback-head">
-          <img src="./img/patient01.png" width="50" height="50" alt="foto do paciente João Pedro" />
+          <img src="./img/institutional/patient01.png" width="50" height="50" alt="foto do paciente João Pedro" />
           <h4>João Pedro</h4>
         </div>
         <p>
@@ -107,7 +107,7 @@
 
       <div class="feedback-card">
         <div class="feedback-head">
-          <img src="./img/patient02.png" width="50" height="50" alt="foto do paciente Leonardo Henrique" />
+          <img src="./img/institutional/patient02.png" width="50" height="50" alt="foto do paciente Leonardo Henrique" />
           <h4>Leonardo Henrique</h4>
         </div>
         <p>
@@ -119,7 +119,7 @@
 
       <div class="feedback-card">
         <div class="feedback-head">
-          <img src="./img/patient03.png" width="50" height="50" alt="foto da paciente Márcia Assunção" />
+          <img src="./img/institutional/patient03.png" width="50" height="50" alt="foto da paciente Márcia Assunção" />
           <h4>Márcia Assunção</h4>
         </div>
         <p>
@@ -273,7 +273,7 @@
         </div>
         <button class="button">Enviar</button>
       </form>
-      <img src="./img/map.jpg" alt="mapa da localização da Odontosmile" />
+      <img src="./img/institutional/map.jpg" alt="mapa da localização da Odontosmile" />
     </div>
 
     <div class="other-contacts">

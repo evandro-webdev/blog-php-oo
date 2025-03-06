@@ -27,7 +27,18 @@ $blogFiles = [
   'public/css/global/fonts.css',
   'public/css/global/button.css',
   'public/css/global/form.css',
+  'public/css/global/modal.css',
   'public/css/components/home/header.css',
+  'public/css/components/blog/blog-posts.css',
+  'public/css/components/blog/slider.css',
+  'public/css/components/blog/single-post.css',
+  'public/css/components/blog/comment.css',
+  'public/css/components/blog/profile.css',
+  'public/css/components/blog/dashboard.css',
+  'public/css/components/blog/auth.css',
+  'public/css/components/blog/manage-post.css',
+  'public/css/components/blog/pagination.css',
+  'public/css/components/blog/flash-messages.css',
   'public/css/components/home/footer.css'
 ];
 
@@ -37,14 +48,14 @@ foreach ($homeFiles as $file) {
   $homeMinifier->add($file);
 }
 
-$homeMinifier->minify('public/css/style.min.css');
-echo "Home CSS files have been combined and minified into style.min.css!\n";
+$homeMinifier->minify('public/css/home.min.css');
+echo "Home CSS files have been combined and minified into home.min.css!\n";
 
-// $blogMinifier = new Minify\CSS();
+$blogMinifier = new Minify\CSS();
 
-// foreach ($blogFiles as $file) {
-//   $blogMinifier->add($file);
-// }
+foreach ($blogFiles as $file) {
+  $blogMinifier->add($file);
+}
 
-// $blogMinifier->minify('public/css/blog.min.css');
-// echo "Blog CSS files have been combined and minified into blog.min.css!\n";
+$blogMinifier->minify('public/css/blog.min.css');
+echo "Blog CSS files have been combined and minified into blog.min.css!\n";

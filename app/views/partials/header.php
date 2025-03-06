@@ -37,7 +37,7 @@ $auth = $_SESSION['auth'] ?? null;
 
         <div class="profile-menu">
           <div class="profile-menu__head">
-            <img src="<?= $auth->profile_pic ?? '../img/icons/profile-pic.svg' ?>" width="40" height="40" alt="foto de perfil">
+            <img src="<?= $auth->profile_pic ?? '/img/icons/profile-pic.svg' ?>" width="40" height="40" alt="foto de perfil">
             <h4><?= $auth->name . " " . $auth->last_name ?></h4>
           </div>
           <ul class="profile-menu__links">

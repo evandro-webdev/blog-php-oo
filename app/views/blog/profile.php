@@ -77,7 +77,7 @@ $userForm = (object) ($_SESSION['old_data'] ?? $user);
         <li><img src="/img/icons/comments-blue.svg" alt=""><span>60 comentarios</span></li>
         <li><img src="/img/icons/share.svg" alt=""><span>25 compartilhamentos</span></li>
       </ul>
-      <a href="/admin" class="button has-icon"><img src="/img/icons/dashboard.svg" width="24" height="24" alt=""><span>Dashboard</span></a>
+      <a href="/admin/posts" class="button has-icon"><img src="/img/icons/dashboard.svg" width="24" height="24" alt=""><span>Dashboard</span></a>
     </div>
   </div>
 </section>
