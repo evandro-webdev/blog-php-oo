@@ -38,7 +38,9 @@ class PostService
 
   private function applyBaseFilter($fieldOrder)
   {
-    return (new Filters)->join('categories', 'posts.categoryId', '=', 'categories.id')->orderBy($fieldOrder, 'DESC');
+    return (new Filters)->join('categories', 'posts.categoryId', '=', 'categories.id')
+      ->orderBy($fieldOrder, 'DESC')
+      ->where('published', '=', 1);
   }
 
   private function executePostQuery(Filters $filter, string $fieldsType, $pagination = null)

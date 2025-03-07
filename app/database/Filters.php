@@ -73,7 +73,7 @@ class Filters
   public function dump()
   {
     $filter = !empty($this->filters['join']) ? implode('', $this->filters['join']) : '';
-    $filter .= !empty($this->filters['where']) ? ' WHERE ' . implode('', $this->filters['where']) : '';
+    $filter .= !empty($this->filters['where']) ? ' WHERE ' . implode(' AND ', $this->filters['where']) : '';
     $filter .= $this->filters['groupBy'] ?? '';
     $filter .= $this->filters['order'] ?? '';
     $filter .= $this->filters['limit'] ?? '';
