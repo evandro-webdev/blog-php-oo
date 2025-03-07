@@ -6,6 +6,7 @@
 
     <?= flash('post-created', 'msg msg_success mb') ?>
     <?= flash('post-deleted', 'msg msg_success mb') ?>
+    <?= flash('error', 'msg msg_failed mb') ?>
     <div class="heading">
       <div>
         <h1>Dashboard</h1>

@@ -4,7 +4,7 @@
     <div class="form__group form-image">
       <input id="input-file" class="form__input-file" type="file" name="postImage">
       <div class="image-container">
-        <img src="<?= $post->imagePath ?? '/img/placeholder.webp' ?>" alt="Prévia da imagem" id="image-preview" class="form__image-preview">
+        <img src="<?= $post->imagePath ?? '/img/elements/placeholder.webp' ?>" alt="Prévia da imagem" id="image-preview" class="form__image-preview">
         <label for="input-file" class="form__label-file">Escolher imagem</label>
       </div>
       <span class="form__file-name" id="file-name">Nenhum arquivo selecionado | Formatos suportados: JPG, WEBP</span>

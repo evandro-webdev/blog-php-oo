@@ -2,13 +2,14 @@
 
 namespace app\library;
 
+use Exception;
 use RuntimeException;
 
 class ImageManager
 {
   protected string $uploadDir;
   protected string $folder;
-  protected const BASE_IMAGE_PATH = '/public/img/';
+  protected const BASE_IMAGE_PATH = '/public/uploads/';
 
   public function __construct(string $folder)
   {
@@ -21,8 +22,12 @@ class ImageManager
     $imageName = $this->generateImageName($image['name']);
     $imagePath = $this->uploadDir . '/' . $imageName;
 
+    if (!$this->checkAndCreateDirectory($this->uploadDir)) {
+      throw new Exception("Não foi possível criar ou acessar a pasta de upload");
+    }
+
     if (move_uploaded_file($image['tmp_name'], $imagePath)) {
-      return "/img/$this->folder/$imageName";
+      return "/uploads/$this->folder/$imageName";
     }
 
     throw new RuntimeException('Erro ao fazer o upload de imagem');
@@ -43,5 +48,18 @@ class ImageManager
   private function generateImageName(string $originalName)
   {
     return uniqid() . '-' . basename($originalName);
+  }
+
+  private function checkAndCreateDirectory($dir)
+  {
+    if (is_dir($dir)) {
+      return is_writable($dir);
+    }
+
+    if (mkdir($dir, 0755, true)) {
+      return true;
+    }
+
+    return false;
   }
 }

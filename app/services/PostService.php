@@ -203,7 +203,7 @@ class PostService
 
     if ($post->imagePath) {
       if (!$imageManager->deleteImage($post->imagePath)) {
-        throw new Exception('Falha ao deletar imagem');
+        throw new Exception('Imagem não deletada');
       }
     }
 

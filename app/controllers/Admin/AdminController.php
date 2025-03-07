@@ -124,7 +124,7 @@ class AdminController extends Controller
         $this->postService->deletePost($id);
         Flash::set('post-deleted', 'O post foi deletado com sucesso');
       } catch (Exception $e) {
-        Flash::set('error', 'Falha ao deletar o post' . $e->getMessage());
+        Flash::set('error', 'Falha ao deletar o post: ' . $e->getMessage());
       }
 
       Redirect::to('/admin/posts');
