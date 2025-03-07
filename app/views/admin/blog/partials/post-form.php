@@ -14,13 +14,16 @@
 
     <div class="form__checkboxes">
       <div class="form__group checkbox">
-        <input type="checkbox" name="publish" id="publish" value="1">
-        <label for="publish">Publicar imediatamente</label>
+        <input type="hidden" name="published" value="0">
+        <input type="checkbox" name="published" id="published" value="1" <?= isset($post->published) && $post->published ? 'checked' : ''; ?>>
+        <label for="published">Marcar como publicado</label>
+        <?= flash('featured', 'msg msg_failed mt') ?>
       </div>
       <div class="form__group checkbox">
         <input type="hidden" name="featured" value="0">
         <input type="checkbox" name="featured" id="highlight" value="1" <?= isset($post->featured) && $post->featured ? 'checked' : ''; ?>>
-        <label for="highlight">Publicar como destaque</label>
+        <label for="highlight" title="O post será automaticamente publicado">Publicar como destaque</label>
+        <small id="highlight-help" class="tool-tip">(O post será automaticamente publicado)</small>
         <?= flash('featured', 'msg msg_failed mt') ?>
       </div>
     </div>
@@ -48,17 +51,6 @@
         <textarea class="form__textarea" id="content" name="content"><?= $post->content ?? '' ?></textarea>
         <?= flash('content', 'msg msg_failed mt') ?>
       </div>
-      <!-- <div class="form__checkboxes">
-        <div class="form__group checkbox">
-          <input type="checkbox" name="publish" id="publish" value="1">
-          <label for="publish">Publicar imediatamente</label>
-        </div>
-        <div class="form__group checkbox">
-          <input type="hidden" name="featured" value="0">
-          <input type="checkbox" name="featured" id="highlight" value="1">
-          <label for="highlight">Publicar como destaque</label>
-        </div>
-      </div> -->
     </div>
     <button class="button">Enviar</button>
   </div>
@@ -95,7 +87,9 @@
       }
     `,
   });
+</script>
 
+<script>
   const selectElement = document.querySelector('.form__select');
 
   selectElement.addEventListener('change', function() {
@@ -108,10 +102,30 @@
     }
   });
 
-  // Inicialmente, adicione a classe `initial`
   if (selectElement.value === '') {
     selectElement.classList.add('initial');
   } else {
     selectElement.classList.add('selected');
   }
+</script>
+
+<script>
+  const highlightCheckbox = document.querySelector('#highlight');
+  const publishedCheckbox = document.querySelector('#published');
+  const highlightHelpText = document.querySelector('#highlight-help');
+
+  highlightCheckbox.addEventListener('change', function() {
+    if (this.checked) {
+      publishedCheckbox.checked = true;
+      highlightHelpText.style.display = 'inline';
+    } else {
+      highlightHelpText.style.display = 'none';
+    }
+  })
+
+  publishedCheckbox.addEventListener('change', function() {
+    if (highlightCheckbox.checked) {
+      this.checked = true;
+    }
+  });
 </script>

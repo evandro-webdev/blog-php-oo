@@ -100,7 +100,8 @@ class AdminController extends Controller
       "content" => "required",
       "categoryId" => "required",
       "postImage" => 'maxSize:2|allowedTypes:image/jpeg,image/jpg',
-      "featured" => "required"
+      "featured" => "required",
+      "published" => "required",
     ]);
 
     if (!$validated) {
