@@ -82,7 +82,9 @@ class Pagination
         $links .= "<li class='page-item'><a href='?$last' class='page-link'>$this->totalPages</a></li>";
       }
     }
+
     $links .= "</ul>";
+
 
     return $links;
   }

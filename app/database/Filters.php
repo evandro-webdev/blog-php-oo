@@ -10,12 +10,6 @@ class Filters
   private array $binds = [];
   private array $validOperators = ['=', '!=', '>', '<', '>=', '<=', 'IN', 'NOT IN', 'LIKE'];
 
-  public function distinct(): self
-  {
-
-    return $this;
-  }
-
   public function where(string $field, string $operator, mixed $value, string $logic = ''): self
   {
     if (!in_array(strtoupper($operator), $this->validOperators)) {
@@ -81,10 +75,9 @@ class Filters
     return $filter;
   }
 
-  public function dumpWithoutGroupBy()
+  public function dumpWithoutFilters()
   {
-    $filter = !empty($this->filters['join']) ? implode('', $this->filters['join']) : '';
-    $filter .= !empty($this->filters['where']) ? ' WHERE ' . implode('', $this->filters['where']) : '';
+    $filter = !empty($this->filters['where']) ? ' WHERE ' . implode('', $this->filters['where']) : '';
 
     return $filter;
   }

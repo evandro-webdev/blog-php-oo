@@ -30,6 +30,7 @@ abstract class Model
 
   public function setPagination(Pagination $pagination): self
   {
+    echo $this->count();
     $pagination->setTotalItems($this->count());
     $this->pagination = $pagination->dump();
     return $this;
@@ -98,7 +99,7 @@ abstract class Model
 
   public function count(): int
   {
-    $sql = "SELECT COUNT(*) as total FROM $this->table {$this->filters?->dumpWithoutGroupBy()}";
+    $sql = "SELECT COUNT(*) as total FROM $this->table {$this->filters?->dumpWithoutFilters()}";
     $params = $this->filters ? $this->filters->getBind() : [];
     return (int) $this->executeQuery($sql, $params)->fetchObject()->total;
   }

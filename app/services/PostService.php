@@ -9,6 +9,7 @@ use app\database\models\Post;
 use app\database\Filters;
 use app\database\models\Comment;
 use app\database\models\Category;
+use app\database\Pagination;
 use Exception;
 
 class PostService
@@ -36,16 +37,23 @@ class PostService
 
   public function __construct(private Post $post) {}
 
-  private function applyBaseFilter($fieldOrder)
+  private function applyBaseFilter(string $fieldOrder)
   {
     return (new Filters)->join('categories', 'posts.categoryId', '=', 'categories.id')
       ->orderBy($fieldOrder, 'DESC')
       ->where('published', '=', 1);
   }
 
+  private function applyFilterWithStats()
+  {
+    return (new Filters)->join("comments", "posts.id", "=", "comments.postId", "LEFT JOIN")
+      ->groupBy('posts.id, posts.title, posts.views')
+      ->orderBy('posts.created_at', 'DESC');
+  }
+
   private function executePostQuery(Filters $filter, string $fieldsType, $pagination = null)
   {
-    $posts = (new Post)
+    $posts = $this->post
       ->setFields($fieldsType)
       ->setFilters($filter);
 
@@ -56,7 +64,7 @@ class PostService
     return $posts->all();
   }
 
-  public function getPosts($pagination, $searchTerm = null, $fieldOrder = 'created_at')
+  public function getPosts(Pagination $pagination, $searchTerm = null, string $fieldOrder = 'created_at')
   {
     $filter = $this->applyBaseFilter($fieldOrder);
 
@@ -69,7 +77,7 @@ class PostService
 
   public function getPostsWithStats($pagination, $searchTerm = null)
   {
-    $filter = (new Filters)->join("comments", "posts.id", "=", "comments.postId", "LEFT JOIN")->groupBy('posts.id, posts.title, posts.views')->orderBy('posts.created_at', 'DESC');
+    $filter = $this->applyFilterWithStats();
 
     if ($searchTerm) {
       $filter->where('posts.title', 'LIKE', "%$searchTerm%");
@@ -103,7 +111,7 @@ class PostService
     return $this->executePostQuery($filter, self::POST_CARD_FIELDS);
   }
 
-  public function getPostsByCategory($pagination, $categorySlug)
+  public function getPostsByCategory(Pagination $pagination, string $categorySlug)
   {
     $category = (new Category)->findBy('slug', $categorySlug);
     $filter = $this->applyBaseFilter('created_at')->where('categoryId', '=', $category->id);
@@ -111,14 +119,14 @@ class PostService
     return $this->executePostQuery($filter, self::POST_CARD_FIELDS, $pagination);
   }
 
-  public function getPostsByUser($pagination, $userId)
+  public function getPostsByUser(Pagination $pagination, int $userId)
   {
-    $filter = (new Filters)->where('userId', '=', $userId);
+    $filter = $this->applyFilterWithStats()->where('posts.userId', '=', $userId);
 
-    return $this->executePostQuery($filter, 'id, title', $pagination);
+    return $this->executePostQuery($filter, 'posts.id, posts.title, posts.views, posts.created_at, COUNT(comments.id) as comments', $pagination);
   }
 
-  public function getRelatedPosts($postId, $categoryId)
+  public function getRelatedPosts(int $postId, int $categoryId)
   {
     $filter = $this->applyBaseFilter('created_at')
       ->where('categoryId', '=', $categoryId, 'AND')
@@ -193,7 +201,7 @@ class PostService
     $this->post->update($id, $data);
   }
 
-  public function deletePost($id)
+  public function deletePost(int $id)
   {
     $post = $this->post->findBy('id', $id);
 
@@ -214,12 +222,12 @@ class PostService
     }
   }
 
-  public function incrementViews($id)
+  public function incrementViews(int $id)
   {
     $this->post->incrementViews($id);
   }
 
-  private function handleImageUpdate($id, $data)
+  private function handleImageUpdate(int $id, array $data)
   {
     $imageManager = new ImageManager('posts');
     $foundPost = $this->post->setFields('id, imagePath')->findBy('id', $id);
